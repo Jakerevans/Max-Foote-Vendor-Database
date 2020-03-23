@@ -1,0 +1,289 @@
+/**
+ * SCSS - _maxfoote-admin-ui.scss - Holds general Admin CSS that applies plugin-wide, including CSS for the Admin containers, the advertisment areas, and the dashboard icon
+ *
+ * @author   Jake Evans
+ * @category SCSS
+ * @package  Includes/Assets/CSS
+ * @version  6.0.0
+ */
+
+
+/*
+ * BEGIN ADMIN CONTAINER BONES, ADVERTISMENT, LICENSE UI ELEMENTS, AND DASHBOARD ICON CSS
+ */
+.maxfoote-admin-top-container, .maxfoote-admin-advert-container{
+    @extend %maxfootedb-admin-containers;
+}
+
+.maxfoote-admin-top-title-icon{
+    @extend %maxfootedb-admin-top-title-icon;
+}
+
+.maxfoote-admin-top-title{
+    @extend %maxfootedb-admin-top-title;
+}
+
+.maxfoote-admin-advert-visit-me-title{
+    @extend %maxfootedb-admin-advert-visit-me-title;
+}
+
+.maxfoote-admin-advert-site-div{
+    @extend %maxfootedb-admin-advert-site-div;
+}
+
+.maxfoote-admin-advert-site-div img{
+    @extend %maxfootedb-margin-auto-centered;
+    width: 100%;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#maxfoote-admin-advert-email-me{
+    @extend %maxfootedb-margin-auto-centered;
+    text-align: center;
+    width: 70%;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#maxfoote-admin-advert-flex-container{
+    display:flex;
+}
+
+#maxfoote-facebook-link-div, #maxfoote-admin-advert-money-container{
+    text-align:center;
+}
+
+#maxfoote-admin-advert-money-container form{
+    display: inline-block;
+}
+
+#maxfoote-patreon-img{
+    width: 100px;
+}
+
+#maxfoote-patreon-link{
+    display: inline-block;
+    margin: 10px;
+}
+
+.maxfoote-admin-advert-visit-me-link{
+    text-decoration:none;
+    font-size: 20px;
+    margin-bottom: 30px;
+    display: block;
+}
+
+.maxfootedb_page_Maxfoote-Options .dashicons-before img {
+    width: 30px !important;
+    margin-right: 2px !important;
+    margin-left: 2px !important;
+}
+
+.maxfoote-my-notice-dismiss-forever{
+    @extend %maxfootedb-default-buttons-style;
+}
+
+.maxfoote-my-notice-dismiss-forever:hover {
+    @extend %maxfootedb-default-buttons-style-hover;
+}
+
+.maxfoote-extension-genreric-key-plugins-page-input{
+    margin-right:5px;
+}
+
+.maxfoote-extension-genreric-key-dashboard-input{
+    min-width:300px;
+}
+
+.maxfoote-extension-genreric-key-dashboard-form{
+    padding-bottom:10px;
+}
+
+/*
+ * BEGIN ADMIN CONTAINER BONES, ADVERTISMENT, LICENSE UI ELEMENTS, AND DASHBOARD ICON CSS
+ */
+
+
+/*
+ * BEGIN COMMON ELEMENTS INSIDE OF TOP ADMIN CONTAINERS
+ */
+
+ .maxfoote-color-orange-italic{
+    @extend  %maxfootedb-color-orange-italic;
+ }
+
+.maxfoote-tab-intro-para{
+    @extend %maxfootedb-tab-intro-para;
+}
+
+.maxfoote-tab-intro-para-left{
+    @extend %maxfootedb-tab-intro-para;
+    text-align: left;
+}
+
+.maxfoote-icon-image-question, .maxfoote-icon-image-question-with-link{
+   @extend %maxfootedb-icon-image-question;
+}
+
+.maxfoote-icon-image-question-with-link{
+    right: 3px;
+}
+
+.maxfoote-spinner{
+    @extend %maxfootedb-spinner;
+}
+
+.maxfoote-response-success-fail-container{
+    @extend %maxfootedb-response-success-fail-container;
+}
+
+.maxfoote-question-icon-label{
+    @extend %maxfootedb-question-icon-label;
+}
+
+.maxfoote-addition-div-img{
+    width:22px;
+}
+
+.maxfoote-addition-div-img{
+   @extend %maxfootedb-addition-div-img;
+}
+
+.maxfoote-addition-div-p{
+    @extend %maxfootedb-addition-div-p;
+}
+
+#maxfoote-smile-icon-1{
+    @extend %maxfootedb-margin-auto-centered;
+    @extend %maxfootedb-smile-icon;
+}
+
+#maxfoote-success-span{
+    font-style: italic;
+    color: $primary-color;
+    font-size: 16px;
+}
+
+.maxfoote-show-book-colorbox {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.maxfoote-bold-shortcode{
+    @extend %maxfootedb-bold-shortcode;
+}
+
+.maxfoote-bold-shortcode-orange{
+    @extend %maxfootedb-bold-shortcode-orange;
+}
+
+.maxfoote-bold-li-heading{
+   @extend %maxfootedb-bold-li-heading;
+}
+
+#maxfoote-dynamic-input-library{
+    min-width: 300px;
+    margin-bottom:50px;
+}
+
+#maxfoote-dynamic-shortcode-button{
+    margin-bottom:50px;
+}
+
+#maxfoote-dynamic-shortcode-button, .maxfootedb_delete_custom_lib{
+    width: 200px;
+}
+
+.maxfoote-response-success-fail-button{
+   @extend %maxfootedb-response-success-fail-button;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#maxfoote-cache-clear-wrapper{
+    width: 70%;
+    margin: 25px;
+    margin-top: 0px;
+    position: relative;
+    text-align: center;
+    top: 5px;
+}
+
+
+#maxfoote-cache-clear-wrapper img{
+    left: 0px;
+    top: 1px;
+}
+
+#maxfoote-spinner-cache{
+    height: 10px;
+    width: 10px;
+    display: inline-block;
+    top: 10px;
+    border-left: 1px solid #F1F1F1;
+    border-right: 1px solid #F1F1F1;
+    border-bottom: 1px solid #F1F1F1;
+}
+
+
+
+/*
+ * END COMMON ELEMENTS INSIDE OF TOP ADMIN CONTAINERS
+ */
+
+
+
+/*
+ * 
+ */
+
+#maxfoote-display-options-container{
+    text-align: center;
+}
+
+.maxfoote-form-section-fields-wrapper{
+    display: flex;
+    margin: 10px;
+}
+
+.maxfoote-form-section-fields-label{
+    display: block;
+}
+
+.maxfoote-form-section-fields-indiv-wrapper{
+    flex: 1;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.maxfoote-form-section-fields-indiv-wrapper input {
+    width:13vw;
+}
+
+.maxfoote_page_MaxFootedb-Options .dashicons-before img{
+    width: 30px !important;
+    margin-right: 2px !important;
+    padding: 2px 0 0 !important;
+    top: 6px;
+    position: relative;
+}
+
+@media screen and ( max-width: 960px ){
+
+    .maxfoote-form-section-fields-wrapper{
+        flex-direction: column;
+    }
+
+    .maxfoote-form-section-fields-indiv-wrapper input {
+        width:40vw;
+    }
+
+}
+
+
+ /*
+ * END CSS FOR COMMON FORM FILL
+ */
