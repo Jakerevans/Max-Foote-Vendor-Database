@@ -12,27 +12,27 @@
  * BEGIN ADMIN CONTAINER BONES, ADVERTISMENT, LICENSE UI ELEMENTS, AND DASHBOARD ICON CSS
  */
 .maxfoote-admin-top-container, .maxfoote-admin-advert-container{
-    @extend %maxfootedb-admin-containers;
+    @extend %maxfoote-admin-containers;
 }
 
 .maxfoote-admin-top-title-icon{
-    @extend %maxfootedb-admin-top-title-icon;
+    @extend %maxfoote-admin-top-title-icon;
 }
 
 .maxfoote-admin-top-title{
-    @extend %maxfootedb-admin-top-title;
+    @extend %maxfoote-admin-top-title;
 }
 
 .maxfoote-admin-advert-visit-me-title{
-    @extend %maxfootedb-admin-advert-visit-me-title;
+    @extend %maxfoote-admin-advert-visit-me-title;
 }
 
 .maxfoote-admin-advert-site-div{
-    @extend %maxfootedb-admin-advert-site-div;
+    @extend %maxfoote-admin-advert-site-div;
 }
 
 .maxfoote-admin-advert-site-div img{
-    @extend %maxfootedb-margin-auto-centered;
+    @extend %maxfoote-margin-auto-centered;
     width: 100%;
     display: block;
     margin-top: 10px;
@@ -40,7 +40,7 @@
 }
 
 #maxfoote-admin-advert-email-me{
-    @extend %maxfootedb-margin-auto-centered;
+    @extend %maxfoote-margin-auto-centered;
     text-align: center;
     width: 70%;
     font-size: 16px;
@@ -75,18 +75,18 @@
     display: block;
 }
 
-.maxfootedb_page_Maxfoote-Options .dashicons-before img {
+.maxfoote_page_BellWebsites-Options .dashicons-before img {
     width: 30px !important;
     margin-right: 2px !important;
     margin-left: 2px !important;
 }
 
 .maxfoote-my-notice-dismiss-forever{
-    @extend %maxfootedb-default-buttons-style;
+    @extend %maxfoote-default-buttons-style;
 }
 
 .maxfoote-my-notice-dismiss-forever:hover {
-    @extend %maxfootedb-default-buttons-style-hover;
+    @extend %maxfoote-default-buttons-style-hover;
 }
 
 .maxfoote-extension-genreric-key-plugins-page-input{
@@ -111,20 +111,20 @@
  */
 
  .maxfoote-color-orange-italic{
-    @extend  %maxfootedb-color-orange-italic;
+    @extend  %maxfoote-color-orange-italic;
  }
 
 .maxfoote-tab-intro-para{
-    @extend %maxfootedb-tab-intro-para;
+    @extend %maxfoote-tab-intro-para;
 }
 
 .maxfoote-tab-intro-para-left{
-    @extend %maxfootedb-tab-intro-para;
+    @extend %maxfoote-tab-intro-para;
     text-align: left;
 }
 
 .maxfoote-icon-image-question, .maxfoote-icon-image-question-with-link{
-   @extend %maxfootedb-icon-image-question;
+   @extend %maxfoote-icon-image-question;
 }
 
 .maxfoote-icon-image-question-with-link{
@@ -132,15 +132,15 @@
 }
 
 .maxfoote-spinner{
-    @extend %maxfootedb-spinner;
+    @extend %maxfoote-spinner;
 }
 
 .maxfoote-response-success-fail-container{
-    @extend %maxfootedb-response-success-fail-container;
+    @extend %maxfoote-response-success-fail-container;
 }
 
 .maxfoote-question-icon-label{
-    @extend %maxfootedb-question-icon-label;
+    @extend %maxfoote-question-icon-label;
 }
 
 .maxfoote-addition-div-img{
@@ -148,16 +148,16 @@
 }
 
 .maxfoote-addition-div-img{
-   @extend %maxfootedb-addition-div-img;
+   @extend %maxfoote-addition-div-img;
 }
 
 .maxfoote-addition-div-p{
-    @extend %maxfootedb-addition-div-p;
+    @extend %maxfoote-addition-div-p;
 }
 
 #maxfoote-smile-icon-1{
-    @extend %maxfootedb-margin-auto-centered;
-    @extend %maxfootedb-smile-icon;
+    @extend %maxfoote-margin-auto-centered;
+    @extend %maxfoote-smile-icon;
 }
 
 #maxfoote-success-span{
@@ -172,15 +172,15 @@
 }
 
 .maxfoote-bold-shortcode{
-    @extend %maxfootedb-bold-shortcode;
+    @extend %maxfoote-bold-shortcode;
 }
 
 .maxfoote-bold-shortcode-orange{
-    @extend %maxfootedb-bold-shortcode-orange;
+    @extend %maxfoote-bold-shortcode-orange;
 }
 
 .maxfoote-bold-li-heading{
-   @extend %maxfootedb-bold-li-heading;
+   @extend %maxfoote-bold-li-heading;
 }
 
 #maxfoote-dynamic-input-library{
@@ -192,12 +192,12 @@
     margin-bottom:50px;
 }
 
-#maxfoote-dynamic-shortcode-button, .maxfootedb_delete_custom_lib{
+#maxfoote-dynamic-shortcode-button, .maxfoote_delete_custom_lib{
     width: 200px;
 }
 
 .maxfoote-response-success-fail-button{
-   @extend %maxfootedb-response-success-fail-button;
+   @extend %maxfoote-response-success-fail-button;
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -251,6 +251,9 @@
 
 .maxfoote-form-section-fields-label{
     display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .maxfoote-form-section-fields-indiv-wrapper{
@@ -259,16 +262,58 @@
     margin-bottom: 10px;
 }
 
-.maxfoote-form-section-fields-indiv-wrapper input {
+.maxfoote-form-section-fields-indiv-wrapper input:not([type='checkbox']) {
     width:13vw;
+    margin-bottom: 10px;
 }
 
-.maxfoote_page_MaxFootedb-Options .dashicons-before img{
+.maxfoote_page_BellWebsiteDatabase-Options .dashicons-before img{
     width: 30px !important;
     margin-right: 2px !important;
     padding: 2px 0 0 !important;
     top: 6px;
     position: relative;
+}
+
+.maxfoote-form-section-fields-checkboxes-upsells-wrapper label{
+    display:block;
+}
+
+.maxfoote-form-section-fields-input-text-additional-features-hidden, .maxfoote-form-section-fields-input-text-additional-upsells-hidden{
+    height: 0px;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.maxfoote-form-section-addnewstuff-icon{
+    width: 20px;
+}
+
+.maxfoote-form-section-fields-new-thing-control p{
+    margin-bottom: 0px;
+}
+
+.maxfoote-form-section-wrapper{
+    border: solid 1px #cecece;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.maxfoote-form-subtitle{
+    font-weight:bold;
+    text-transform: uppercase;
+}
+
+.maxfoote-form-subtitle-subtitle{
+    font-weight:bold;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+.maxfoote-upload-file-button{
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @media screen and ( max-width: 960px ){

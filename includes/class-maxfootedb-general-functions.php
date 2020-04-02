@@ -153,7 +153,7 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 		public function maxfootedb_register_table_name() {
 			global $wpdb;
 			$wpdb->maxfootedb_settings = "{$wpdb->prefix}maxfootedb_settings";
-			$wpdb->maxfootedb_addarow = "{$wpdb->prefix}maxfootedb_addarow";
+			$wpdb->maxfootedb_vendors = "{$wpdb->prefix}maxfootedb_vendors";
 		}
 
 		/**
@@ -192,35 +192,33 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 				$wpdb->insert( $table_name, array( 'ID' => 1, ) );
 			}
 
-			$sql_create_table2 = "CREATE TABLE {$wpdb->maxfootedb_addarow}
+			$sql_create_table2 = "CREATE TABLE {$wpdb->maxfootedb_vendors}
 			(
 				ID bigint(190) auto_increment,
-				eventname varchar(255),
-				toplevelubtitle varchar(255),
-				eventtype varchar(255),
-				parentevent varchar(255),
-				topleveltartdate varchar(255),
-				eventenddate varchar(255),
-				eventbegintime varchar(255),
-				eventendtime varchar(255),
-				eventfee varchar(255),
-				eventaddress varchar(255),
-				eventcontactnumber varchar(255),
-				eventemail varchar(255),
-				eventgooglemap varchar(255),
+				vendorname varchar(255),
+				vendortype varchar(255),
+				vendorcerts varchar(255),
+				vendorlicense varchar(255),
+				vendortrade varchar(255),
+				vendoraddress varchar(255),
+				vendoraddress2 varchar(255),
+				vendorcity varchar(255),
+				vendorstate varchar(255),
+				vendorzip varchar(255),
+				vendorphone varchar(255),
+				vendorcontact varchar(255),
+				vendoremail varchar(255),
+				vendorenterprise varchar(255),
+				vendorlastupdated varchar(255),
 				eventlocation MEDIUMTEXT,
-				eventparkingdetails MEDIUMTEXT,
-				eventpolicies MEDIUMTEXT,
 				PRIMARY KEY  (ID),
-				KEY eventname (eventname)
+				KEY vendorname (vendorname)
 			) $charset_collate; ";
 
 			// If table doesn't exist, create table and add initial data to it.
-			$test_name = $wpdb->prefix . 'maxfootedb_addarow';
+			$test_name = $wpdb->prefix . 'maxfootedb_vendors';
 			if ( $test_name !== $wpdb->get_var( "SHOW TABLES LIKE '$test_name'" ) ) {
 				dbDelta( $sql_create_table2 );
-				$table_name = $wpdb->prefix . 'maxfootedb_addarow';
-				$wpdb->insert( $table_name, array( 'ID' => 1, ) );
 			}
 		}
 
