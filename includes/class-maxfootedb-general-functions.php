@@ -18,6 +18,33 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 	 */
 	class MaxFootedb_General_Functions {
 
+
+		/**
+		 *  Code for adding ajax
+		 */
+		public function maxfootedb_jre_prem_add_ajax_library() {
+
+			$html = '<script type="text/javascript">';
+
+			// Checking $protocol in HTTP or HTTPS.
+			if ( isset( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) {
+				// This is HTTPS.
+				$protocol = 'https';
+			} else {
+				// This is HTTP.
+				$protocol = 'http';
+			}
+			$temp_ajax_path = admin_url( 'admin-ajax.php' );
+			$good_ajax_url  = $protocol . strchr( $temp_ajax_path, ':' );
+
+			$html .= 'var ajaxurl = "' . $good_ajax_url . '"';
+			$html .= '</script>';
+			echo $html;
+		}
+
+
+		
+
 		/**
 		 *  Functions that loads up all menu pages/contents, etc.
 		 */

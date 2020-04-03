@@ -40,6 +40,7 @@ if (!class_exists('Maxfoote_Settings1_Form', false)) :
 				Below is a default contact form using default class names, ids, and custom data attributes, with associated default styling found in the "BEGIN CSS FOR COMMON FORM FILL" section of the maxfootedb-admin-ui.scss file. The custom data attribute "data-dbname" is supposed to hold the exact name of the corresponding database column in the database, prefixed with a description of the kind of "object" we're working with. For example, if I were creating an App that needed to save Student data, I would probably call that database table 'studentdata' and each column in that database would begin with 'student'. So, I would replace all instances below of data-dbname="contact with data-dbname="student. I would also replace each instance of id="maxfoote-form-contact with id="maxfoote-form-student. If I were creating an app that needed to track customer info, and not students, I would replace all instances below of data-dbname="contact with data-dbname="customer. I would also replace each instance of id="maxfoote-form-contact with id="maxfoote-form-customer.
 			*/
 			$contact_form_html = '
+				<!--
 				<div class="maxfoote-form-section-wrapper">
 					<div class="maxfoote-form-section-title-wrapper">
 							<p class="maxfoote-form-subtitle">General Site Information</p>
@@ -242,6 +243,9 @@ if (!class_exists('Maxfoote_Settings1_Form', false)) :
 						</div>
 					</div>
 				</div>
+				-->
+
+
 				<div class="maxfoote-form-section-wrapper">
 					<div class="maxfoote-form-section-title-wrapper">
 						<p class="maxfoote-form-subtitle">Vendor Information</p>
@@ -336,7 +340,8 @@ if (!class_exists('Maxfoote_Settings1_Form', false)) :
 								id="maxfoote-form-newsite-eventlocation" data-dbname="eventlocation" type="text" />
 						</div>
 					</div>
-				</div>	
+				</div>
+				<!--
 				<div class="maxfoote-form-section-wrapper">
 					<div class="maxfoote-form-section-title-wrapper">
 							<p class="maxfoote-form-subtitle">Technical Information</p>
@@ -717,8 +722,9 @@ if (!class_exists('Maxfoote_Settings1_Form', false)) :
 						</div>
 					</div>
 				</div>
+				-->
 				<div class="maxfoote-displayentries-response-div-wrapper">
-					<button class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-button maxfoote-form-section-fields-input-button-addwebsite">Add Website</button>
+					<button id="maxfoote-admin-save-vendor" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-button maxfoote-form-section-fields-input-button-addwebsite">Add Vendor</button>
 					<div class="maxfoote-spinner"></div>
 					<div class="maxfoote-displayentries-response-div-actual-container"></div>
 				</div>';

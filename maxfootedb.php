@@ -201,6 +201,24 @@ global $wpdb;
 	// Function that adds in any possible admin pointers
 	add_action( 'admin_footer', array( $maxfoote_general_functions, 'maxfootedb_admin_pointers_javascript' ) );
 
+
+
+
+	// Function that adds in any possible admin pointers
+	add_action( 'wp_head', array( $maxfoote_general_functions, 'maxfootedb_jre_prem_add_ajax_library' ) );
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// Creates tables upon activation.
 	register_activation_hook( __FILE__, array( $maxfoote_general_functions, 'maxfootedb_create_tables' ) );
 
