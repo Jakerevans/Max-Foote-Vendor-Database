@@ -144,8 +144,11 @@ global $wpdb;
 	define( 'MAXFOOTEDB_NONCES_ARRAY',
 		wp_json_encode(array(
 			'adminnonce1' => 'maxfootedb_save_license_key_action_callback',
+			'adminnonce2' => 'maxfootedb_admin_save_todb_action_callback',
 		))
 	);
+
+
 
 /* END OF CONSTANT DEFINITIONS */
 
@@ -202,21 +205,12 @@ global $wpdb;
 	add_action( 'admin_footer', array( $maxfoote_general_functions, 'maxfootedb_admin_pointers_javascript' ) );
 
 
-
-
 	// Function that adds in any possible admin pointers
 	add_action( 'wp_head', array( $maxfoote_general_functions, 'maxfootedb_jre_prem_add_ajax_library' ) );
 
 
-
-
-
-
-
-
-
-
-
+	// Adding the function that will take our WPHEALTHTRACKER_NONCES_ARRAY Constant from below and create actual nonces to be passed to Javascript functions.
+	add_action( 'init', array( $maxfoote_general_functions, 'maxfootedb_jre_create_nonces' ) );
 
 
 	// Creates tables upon activation.
@@ -230,6 +224,11 @@ global $wpdb;
 /* END OF FUNCTIONS FOUND IN CLASS-WPPLUGIN-GENERAL-FUNCTIONS.PHP THAT APPLY PLUGIN-WIDE */
 
 /* FUNCTIONS FOUND IN CLASS-WPPLUGIN-AJAX-FUNCTIONS.PHP THAT APPLY PLUGIN-WIDE */
+
+	// For adding a book from the admin dashboard.
+	add_action( 'wp_ajax_maxfootedb_admin_save_todb_action', array( $maxfoote_ajax_functions, 'maxfootedb_admin_save_todb_action_callback' ) );
+
+
 
 
 /* END OF FUNCTIONS FOUND IN CLASS-WPPLUGIN-AJAX-FUNCTIONS.PHP THAT APPLY PLUGIN-WIDE */

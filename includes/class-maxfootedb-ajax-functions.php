@@ -26,6 +26,78 @@ if ( ! class_exists( 'MaxFootedb_Ajax_Functions', false ) ) :
 
 		}
 
+
+
+
+		/**
+		 * Callback function for adding a Vendor from the Admin.
+		 */
+		public function maxfootedb_admin_save_todb_action_callback(){
+
+
+			global $wpdb;
+
+			$vendorname = '';
+		
+
+			// First set the variables we'll be passing to class-wpbooklist-book.php to ''.
+			if ( isset( $_POST['vendorname'] ) ) {
+				$vendorname = filter_var( wp_unslash( $_POST['vendorname'] ), FILTER_SANITIZE_STRING );
+			}
+
+
+			$vendor_array = array(
+				'vendorname'   => $vendorname,
+			);
+
+			$vendor_mask_array = array(
+				'%s',
+			);
+
+
+
+
+			/*
+			stretch goal: figure out if a vendor of the same name is already saved in the databse.
+
+
+			$results = $wpdb->get_results( "SELECT * FROM $tablename" );
+			foreach ( $results as $result ) {
+				
+				echo $result->vendorname;
+
+			}
+
+
+			*/
+
+
+
+
+
+			$result = $wpdb->insert( $wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array );
+
+
+
+			wp_die( $result );
+
+
+
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
 	}
 endif;
 

@@ -118,13 +118,27 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 		}
 
 		/**
+		 *  Here we take the Constant defined in wpbooklist.php that holds the values that all our nonces will be created from, we create the actual nonces using wp_create_nonce, and the we define our new, final nonces Constant, called WPBOOKLIST_FINAL_NONCES_ARRAY.
+		 */
+		public function maxfootedb_jre_create_nonces() {
+
+			$temp_array = array();
+			foreach ( json_decode( MAXFOOTEDB_NONCES_ARRAY ) as $key => $noncetext ) {
+				$nonce              = wp_create_nonce( $noncetext );
+				$temp_array[ $key ] = $nonce;
+			}
+
+			// Defining our final nonce array.
+			define( 'MAXFOOTEDB_FINAL_NONCES_ARRAY', wp_json_encode( $temp_array ) );
+
+		}
+
+		/**
 		 * Adding the admin js file
 		 */
 		public function maxfootedb_admin_js() {
 
 			wp_register_script( 'maxfootedb_adminjs', MAXFOOTEDB_JS_URL . 'maxfootedb_admin.min.js', array( 'jquery' ), MAXFOOTEDB_VERSION_NUM, true );
-
-			global $wpdb;
 
 			$final_array_of_php_values = array();
 
@@ -135,6 +149,9 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 			$final_array_of_php_values['SAVED_ATTACHEMENT_ID'] = get_option( 'media_selector_attachment_id', 0 );
 			$final_array_of_php_values['SETTINGS_PAGE_URL'] = menu_page_url( 'WPBookList-Options-settings', false );
 			$final_array_of_php_values['DB_PREFIX'] = $wpdb->prefix;
+
+			// Now grab all of our Nonces to pass to the JavaScript for the Ajax functions and merge with the Translations array.
+			$final_array_of_php_values = array_merge( $final_array_of_php_values, json_decode( MAXFOOTEDB_FINAL_NONCES_ARRAY, true ) );
 
 
 			// Now registering/localizing our JavaScript file, passing all the PHP variables we'll need in our $final_array_of_php_values array, to be accessed from 'wpbooklist_php_variables' object (like wpbooklist_php_variables.nameofkey, like any other JavaScript object).
