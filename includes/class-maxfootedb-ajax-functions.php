@@ -129,31 +129,49 @@ if ( ! class_exists( 'MaxFootedb_Ajax_Functions', false ) ) :
 			);
 
 
+/* This one needs to be used when you are pretty sure there are multiple items that will be returned from the Database.
+$wpdb->get_results()
+// This one needs to be used when you are positive there is only one possbille result that could be grabbed from the Database.
+$wpdb->get_row();
+*/
 
 
-			/*
-			stretch goal: figure out if a vendor of the same name is already saved in the databse.
 
 
-			$results = $wpdb->get_results( "SELECT * FROM $tablename" );
-			foreach ( $results as $result ) {
+/*
+$results = $wpdb->get_results("SELECT * FROM $vendor_table");
+			foreach ($results as $result) {
+				if ($result === $vendorname) {
+					// Alert the user of existing vendor
+					$message = "Vendor Exists";
+					echo "<script type='text/javascript'>alert('$message');</script>";
+				} else {
+					// echo $result->vendorname;
+					$result = $wpdb->insert($wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array);
+
+
+
+*/
+
+			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
+			$results = $wpdb->get_row( "SELECT * FROM $vendor_table WHERE vendorname = '$vendorname'" );
+
+			if ( null === $results ) {
 				
-				echo $result->vendorname;
+				$result = $wpdb->insert( $wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array );
+
+				// The techincal correct way to stop this entire function from executing, and correctly return data back to our requesting Javascript function, to then use that data to display a message back to the user of some kind.
+				wp_die( $result );
+
+
+			} else {
+		
+				wp_die( 'Entry already exists' );
+
 
 			}
 
-
-			*/
-
-			$result = $wpdb->insert( $wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array );
-
-
-
-			wp_die( $result );
-
-
-
-
+		
 		}
 
 
