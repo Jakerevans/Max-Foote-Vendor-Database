@@ -38,20 +38,94 @@ if ( ! class_exists( 'MaxFootedb_Ajax_Functions', false ) ) :
 			global $wpdb;
 
 			$vendorname = '';
-		
+			$vendortype = '';
+			$vendorcerts = '';
+			$vendorlicense = '';
+			$vendortrade = '';
+			$vendoraddress = '';
+			$vendoraddress2 = '';
+			$vendorcity = '';
+			$vendorstate = '';
+			$vendorzip = '';
+			$vendorphone = '';
+			$vendorcontact = '';
+			$vendoremail = '';
+			$vendorenterprise = '';
+			$vendorlastupdated = '';
+			$eventlocation = '';
 
 			// First set the variables we'll be passing to class-wpbooklist-book.php to ''.
 			if ( isset( $_POST['vendorname'] ) ) {
 				$vendorname = filter_var( wp_unslash( $_POST['vendorname'] ), FILTER_SANITIZE_STRING );
 			}
-
+			if ( isset( $_POST['vendortype'] ) ) {
+				$vendortype = filter_var( wp_unslash( $_POST['vendortype'] ), FILTER_SANITIZE_STRING );
+			}
+			if ( isset( $_POST['vendorcerts'] ) ) {
+				$vendorcerts = filter_var( wp_unslash( $_POST['vendorcerts'] ), FILTER_SANITIZE_STRING );
+			}
+			if ( isset( $_POST['vendorlicense'] ) ) {
+				$vendorlicense = filter_var( wp_unslash( $_POST['vendorlicense'] ), FILTER_SANITIZE_STRING );
+			}
+			if ( isset( $_POST['vendortrade'] ) ) {
+				$vendortrade = filter_var( wp_unslash( $_POST['vendortrade'] ), FILTER_SANITIZE_STRING );
+			}
+			if ( isset( $_POST['vendoraddress'] ) ) {
+				$vendoraddress = filter_var( wp_unslash( $_POST['vendoraddress'] ), FILTER_SANITIZE_STRING );
+			}
+			if ( isset( $_POST['vendoraddress2'] ) ) {
+				$vendoraddress2 = filter_var( wp_unslash( $_POST['vendoraddress2'] ), FILTER_SANITIZE_STRING );
+			}
+			if ( isset( $_POST['vendorcity'] ) ) {
+				$vendorcity = filter_var( wp_unslash( $_POST['vendorcity'] ), FILTER_SANITIZE_STRING );
+			}
+			if ( isset( $_POST['vendorstate'] ) ) {
+				$vendorstate = filter_var( wp_unslash( $_POST['vendorstate'] ), FILTER_SANITIZE_STRING );
+			}
+			if ( isset( $_POST['vendorzip'] ) ) {
+				$vendorzip = filter_var( wp_unslash( $_POST['vendorzip'] ), FILTER_SANITIZE_STRING );
+			}
+			if ( isset( $_POST['vendorphone'] ) ) {
+				$vendorphone = filter_var( wp_unslash( $_POST['vendorphone'] ), FILTER_SANITIZE_STRING );
+			}
+			if ( isset( $_POST['vendorcontact'] ) ) {
+				$vendorcontact = filter_var( wp_unslash( $_POST['vendorcontact'] ), FILTER_SANITIZE_STRING );
+			}
+			if ( isset( $_POST['vendoremail'] ) ) {
+				$vendoremail = filter_var( wp_unslash( $_POST['vendoremail'] ), FILTER_SANITIZE_STRING );
+			}
+			if ( isset( $_POST['vendorenterprise'] ) ) {
+				$vendorenterprise = filter_var( wp_unslash( $_POST['vendorenterprise'] ), FILTER_SANITIZE_STRING );
+			}
+			if ( isset( $_POST['vendorlastupdated'] ) ) {
+				$vendorlastupdated = filter_var( wp_unslash( $_POST['vendorlastupdated'] ), FILTER_SANITIZE_STRING );
+			}
+			if ( isset( $_POST['eventlocation'] ) ) {
+				$eventlocation = filter_var( wp_unslash( $_POST['eventlocation'] ), FILTER_SANITIZE_STRING );
+			}
 
 			$vendor_array = array(
-				'vendorname'   => $vendorname,
+				'vendorname'        => $vendorname,
+				'vendortype'        => $vendortype,
+				'vendorcerts'       => $vendorcerts,
+				'vendorlicense'     => $vendorlicense,
+				'vendortrade'       => $vendortrade,
+				'vendoraddress'     => $vendoraddress,
+				'vendoraddress2'    => $vendoraddress2,
+				'vendorcity'        => $vendorcity,
+				'vendorstate'       => $vendorstate,
+				'vendorzip'         => $vendorzip,
+				'vendorphone'       => $vendorphone,
+				'vendorcontact'     => $vendorcontact,
+				'vendoremail'       => $vendoremail,
+				'vendorenterprise'  => $vendorenterprise,
+				'vendorlastupdated' => $vendorlastupdated,
+				'eventlocation'     => $eventlocation
 			);
 
+			// Shantanu - Do we need to set the data type of vendorlastupdated to date?
 			$vendor_mask_array = array(
-				'%s',
+				'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s'
 			);
 
 
@@ -70,10 +144,6 @@ if ( ! class_exists( 'MaxFootedb_Ajax_Functions', false ) ) :
 
 
 			*/
-
-
-
-
 
 			$result = $wpdb->insert( $wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array );
 
