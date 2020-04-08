@@ -111,7 +111,7 @@ if ( ! class_exists( 'Maxfoote_settings2_Form', false ) ) :
 
 			$string1 = '';
 			foreach ( $this->vendordbresults as $key => $value ) {
-				echo 'ghfdgdeajikfhdsafhjds';
+
 				
 				$string1 = $string1 . '
 					<div class="maxfoote-vendor-top-level-container">
