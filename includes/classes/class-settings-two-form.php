@@ -59,7 +59,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 
 
-			//var_dump( print_r($this->vendordbresults, true) );
+			var_dump( print_r($this->vendordbresults, true) );
 
 
 
@@ -211,8 +211,8 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 									<div class="maxfoote-vendor-inner-top-container-buttons-actual">
 										<!-- build a save edits button and a delete button -->
 										<!-- create the ability for changes made to be actually saved in the database. This will require the whole Ajax functionality workflow, with javascript function, associated ajax fucntion in out ajax file, and the none and function defininitons in our main root maxfootedb.php file -->
-										<button class="update-vendor">UPDATE VENDOR</button>
-										<button class="delete-vendor">DELETE VENDOR</button>
+										<button class="maxfoote-update-vendor" id="maxfoote-vendor-update-button-'. $value->ID .'">UPDATE VENDOR</button>
+										<button class="maxfoote-delete-vendor" id="maxfoote-vendor-delete-button-'. $value->ID .'">DELETE VENDOR</button>
 									</div>
 
 									<div class="maxfoote-vendor-inner-top-container-buttons-response">
