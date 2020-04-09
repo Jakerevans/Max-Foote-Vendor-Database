@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Maxfoote Book Display Options Form Tab Class - class-maxfoote-book-display-options-form.php
  *
@@ -8,11 +9,11 @@
  * @version  6.1.5.
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
-if ( ! class_exists( 'Maxfoote_settings2_Form', false ) ) :
+if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 
 
@@ -22,7 +23,8 @@ if ( ! class_exists( 'Maxfoote_settings2_Form', false ) ) :
 	/**
 	 * Maxfoote_Admin_Menu Class.
 	 */
-	class Maxfoote_settings2_Form {
+	class Maxfoote_settings2_Form
+	{
 
 
 		public $vendor_table    = '';
@@ -36,11 +38,12 @@ if ( ! class_exists( 'Maxfoote_settings2_Form', false ) ) :
 		/**
 		 * Class Constructor - Simply calls the Translations
 		 */
-		public function __construct() {
+		public function __construct()
+		{
 
 			global $wpdb;
 			$this->vendor_table    = $wpdb->prefix . 'maxfootedb_vendors';
-			$this->vendordbresults = $wpdb->get_results( "SELECT * FROM $this->vendor_table" );
+			$this->vendordbresults = $wpdb->get_results("SELECT * FROM $this->vendor_table");
 
 			$this->create_opening_html();
 
@@ -52,7 +55,7 @@ if ( ! class_exists( 'Maxfoote_settings2_Form', false ) ) :
 
 
 
-			
+
 
 
 
@@ -62,14 +65,15 @@ if ( ! class_exists( 'Maxfoote_settings2_Form', false ) ) :
 
 
 
-			
+
 
 		}
 
 		/**
 		 * Outputs all HTML elements on the page.
 		 */
-		public function output_settings2_form() {
+		public function output_settings2_form()
+		{
 			global $wpdb;
 
 			// Set the current WordPress user.
@@ -91,7 +95,8 @@ if ( ! class_exists( 'Maxfoote_settings2_Form', false ) ) :
 		/**
 		 * Outputs all HTML elements on the page.
 		 */
-		public function create_opening_html() {
+		public function create_opening_html()
+		{
 			global $wpdb;
 
 			$string1 = '<div id="maxfoote-display-options-container">
@@ -106,72 +111,124 @@ if ( ! class_exists( 'Maxfoote_settings2_Form', false ) ) :
 		/**
 		 * Outputs all HTML elements on the page.
 		 */
-		public function create_individual_vendors_html() {
+		public function create_individual_vendors_html()
+		{
 			global $wpdb;
 
 			$string1 = '';
-			foreach ( $this->vendordbresults as $key => $value ) {
+			foreach ($this->vendordbresults as $key => $value) {
 
-				
+
 				$string1 = $string1 . '
-					<div class="maxfoote-vendor-top-level-container">
-						<div class="maxfoote-vendor-top-level-container-title-clicker">
+					<div class="maxfoote-vendor-udpate-container">
+						
+						<div class="accordion maxfoote-vendor-update-container-accordion-heading">
 							' . $value->vendorname . '
 						</div>
-						<div class="maxfoote-vendor-inner-top-container">
+						<div class="maxfoote-vendor-update-info-container" style="display: none;">
 
-							<div class="maxfoote-vendor-inner-top-container-actualdbfields">
+							<div class="maxfoote-vendor-update-info-container-data">
 
-								<!-- Build out the rest of the form, complete with saved values from the database -->
-
-
-								<div class="maxfoote-form-section-fields-wrapper">
-									<div class="maxfoote-form-section-fields-indiv-wrapper">
-										<label class="maxfoote-form-section-fields-label">Vendor Name</label>
-										<input value="' . $value->vendorname . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" id="maxfoote-form-newsite-vendorname" data-dbname="vendorname" type="text">
-									</div>
-									<div class="maxfoote-form-section-fields-indiv-wrapper">
-										<label class="maxfoote-form-section-fields-label">Vendor Type</label>
-										<input class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" id="maxfoote-form-newsite-vendortype" data-dbname="vendortype" type="text">
-									</div>
-									<div class="maxfoote-form-section-fields-indiv-wrapper">
-										<label class="maxfoote-form-section-fields-label">Vendor Certfications</label>
-										<input class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" id="maxfoote-form-newsite-vendorcerts" data-dbname="vendorcerts" type="text">
-									</div>
-									<div class="maxfoote-form-section-fields-indiv-wrapper">
-										<label class="maxfoote-form-section-fields-label">Vendor License</label>
-										<input class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" id="maxfoote-form-newsite-vendorlicense" data-dbname="vendorlicense" type="text">
+									<div class="maxfoote-form-section-fields-wrapper">
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Name</label>
+											<input value="' . $value->vendorname . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendorname" data-dbname="vendorname" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Type</label>
+											<input value="' . $value->vendortype . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendortype" data-dbname="vendortype" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Certfications</label>
+											<input value="' . $value->vendorcerts . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendorcerts" data-dbname="vendorcerts" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor License</label>
+											<input value="' . $value->vendorlicense . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendorlicense" data-dbname="vendorlicense" type="text">
+										</div>
+										</div>
+										<div class="maxfoote-form-section-fields-wrapper">
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Trade</label>
+											<input value="' . $value->vendortrade . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendortrade" data-dbname="vendortrade" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Address</label>
+											<input value="' . $value->vendoraddress . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendoraddress" data-dbname="vendoraddress" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Address2</label>
+											<input value="' . $value->vendoraddress2 . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendoraddress2" data-dbname="vendoraddress2" type="text">
+										</div>
+										</div>
+										<div class="maxfoote-form-section-fields-wrapper">
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor City</label>
+											<input value="' . $value->vendorcity . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendorcity" data-dbname="vendorcity" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor State</label>
+											<input value="' . $value->vendorstate . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendorstate" data-dbname="vendorstate" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Zip</label>
+											<input value="' . $value->vendorzip . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendorzip" data-dbname="vendorzip" type="text">
+										</div>
+										</div>
+										<div class="maxfoote-form-section-fields-wrapper">
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Phone</label>
+											<input value="' . $value->vendorphone . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendorphone" data-dbname="vendorphone" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Contact</label>
+											<input value="' . $value->vendorcontact . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendorcontact" data-dbname="vendorcontact" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Email</label>
+											<input value="' . $value->vendoremail . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendoremail" data-dbname="vendoremail" type="text">
+										</div>
+										</div>
+										<div class="maxfoote-form-section-fields-wrapper">
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Enterprise</label>
+											<input value="' . $value->vendorenterprise . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendorenterprise" data-dbname="vendorenterprise" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Last Updated</label>
+											<input value="' . $value->vendorlastupdated . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendorlastupdated" data-dbname="vendorlastupdated" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Event Location</label>
+											<input value="' . $value->eventlocation . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendorlicense" data-dbname="vendorlicense" type="text">
+										</div>
 									</div>
 								</div>
-							</div>
 
 
-							<div class="maxfoote-vendor-inner-top-container-buttons">
+								<div class="maxfoote-vendor-update-info-buttons-container">
 
-								<div class="maxfoote-vendor-inner-top-container-buttons-actual">
-									<!-- build a save edits button and a delete button -->
-									<!-- create the ability for changes made to be actually saved in the database. This will require the whole Ajax functionality workflow, with javascript function, associated ajax fucntion in out ajax file, and the none and function defininitons in our main root maxfootedb.php file -->
+									<div class="maxfoote-vendor-inner-top-container-buttons-actual">
+										<!-- build a save edits button and a delete button -->
+										<!-- create the ability for changes made to be actually saved in the database. This will require the whole Ajax functionality workflow, with javascript function, associated ajax fucntion in out ajax file, and the none and function defininitons in our main root maxfootedb.php file -->
+										<button class="update-vendor">UPDATE VENDOR</button>
+										<button class="delete-vendor">DELETE VENDOR</button>
+									</div>
+
+									<div class="maxfoote-vendor-inner-top-container-buttons-response">
+										<!-- for a response to the user about whatever button they clicked above -->
+									</div>
 								</div>
 
-								<div class="maxfoote-vendor-inner-top-container-buttons-response">
-									<!-- for a response to the user about whatever button they clicked above -->
-								</div>
-							</div>
+							
 
-
-
-						</div>
-
+						</div>						
 
 					</div>';
-
-
-
-
 			}
 
 
-			
+
 
 
 			$this->create_individual_vendors_html = $string1;
@@ -189,7 +246,8 @@ if ( ! class_exists( 'Maxfoote_settings2_Form', false ) ) :
 		/**
 		 * Outputs all HTML elements on the page.
 		 */
-		public function create_closing_html() {
+		public function create_closing_html()
+		{
 			global $wpdb;
 
 			$string1 = '<div id="maxfoote-display-options-closing-container">
@@ -205,14 +263,10 @@ if ( ! class_exists( 'Maxfoote_settings2_Form', false ) ) :
 		/**
 		 * Outputs all HTML elements on the page.
 		 */
-		public function stitch_ui_html() {
-			
+		public function stitch_ui_html()
+		{
+
 			$this->final_echoed_html = $this->create_opening_html . $this->create_individual_vendors_html . $this->create_closing_html;
-			
-
 		}
-
-
-
 	}
 endif;
