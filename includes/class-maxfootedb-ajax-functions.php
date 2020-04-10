@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class MaxFootedb_Ajax_Functions - class-maxfoote-ajax-functions.php
  *
@@ -8,31 +9,59 @@
  * @version  6.0.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
-if ( ! class_exists( 'MaxFootedb_Ajax_Functions', false ) ) :
+if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 	/**
 	 * MaxFootedb_Ajax_Functions class. Here we'll do things like enqueue scripts/css, set up menus, etc.
 	 */
-	class MaxFootedb_Ajax_Functions {
+	class MaxFootedb_Ajax_Functions
+	{
 
 		/**
 		 * Class Constructor - Simply calls the Translations
 		 */
-		public function __construct() {
-
-
+		public function __construct()
+		{
 		}
 
 
+
+		public function maxfootedb_admin_delete_entry_fromdb_action_callback()
+		{
+			global $wpdb;
+			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
+
+			$ID = '';
+
+			if (isset($_POST['ID'])) {
+				$ID = filter_var(wp_unslash($_POST['ID']), FILTER_SANITIZE_STRING);
+			}
+
+
+			$vendor_array = array(
+				'ID'        => $ID
+			);
+
+			$vendor_mask_array = array(
+				'%s'
+			);
+
+
+			//returns the id of the entry that was deleted or 0/False if it fails
+			$result = $wpdb->delete($vendor_table, $vendor_array, $vendor_mask_array);
+
+			wp_die($result);
+		}
 
 
 		/**
 		 * Callback function for adding a Vendor from the Admin.
 		 */
-		public function maxfootedb_admin_save_todb_action_callback(){
+		public function maxfootedb_admin_save_todb_action_callback()
+		{
 
 
 			global $wpdb;
@@ -55,53 +84,53 @@ if ( ! class_exists( 'MaxFootedb_Ajax_Functions', false ) ) :
 			$eventlocation = '';
 
 			// First set the variables we'll be passing to class-wpbooklist-book.php to ''.
-			if ( isset( $_POST['vendorname'] ) ) {
-				$vendorname = filter_var( wp_unslash( $_POST['vendorname'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['vendorname'])) {
+				$vendorname = filter_var(wp_unslash($_POST['vendorname']), FILTER_SANITIZE_STRING);
 			}
-			if ( isset( $_POST['vendortype'] ) ) {
-				$vendortype = filter_var( wp_unslash( $_POST['vendortype'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['vendortype'])) {
+				$vendortype = filter_var(wp_unslash($_POST['vendortype']), FILTER_SANITIZE_STRING);
 			}
-			if ( isset( $_POST['vendorcerts'] ) ) {
-				$vendorcerts = filter_var( wp_unslash( $_POST['vendorcerts'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['vendorcerts'])) {
+				$vendorcerts = filter_var(wp_unslash($_POST['vendorcerts']), FILTER_SANITIZE_STRING);
 			}
-			if ( isset( $_POST['vendorlicense'] ) ) {
-				$vendorlicense = filter_var( wp_unslash( $_POST['vendorlicense'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['vendorlicense'])) {
+				$vendorlicense = filter_var(wp_unslash($_POST['vendorlicense']), FILTER_SANITIZE_STRING);
 			}
-			if ( isset( $_POST['vendortrade'] ) ) {
-				$vendortrade = filter_var( wp_unslash( $_POST['vendortrade'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['vendortrade'])) {
+				$vendortrade = filter_var(wp_unslash($_POST['vendortrade']), FILTER_SANITIZE_STRING);
 			}
-			if ( isset( $_POST['vendoraddress'] ) ) {
-				$vendoraddress = filter_var( wp_unslash( $_POST['vendoraddress'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['vendoraddress'])) {
+				$vendoraddress = filter_var(wp_unslash($_POST['vendoraddress']), FILTER_SANITIZE_STRING);
 			}
-			if ( isset( $_POST['vendoraddress2'] ) ) {
-				$vendoraddress2 = filter_var( wp_unslash( $_POST['vendoraddress2'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['vendoraddress2'])) {
+				$vendoraddress2 = filter_var(wp_unslash($_POST['vendoraddress2']), FILTER_SANITIZE_STRING);
 			}
-			if ( isset( $_POST['vendorcity'] ) ) {
-				$vendorcity = filter_var( wp_unslash( $_POST['vendorcity'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['vendorcity'])) {
+				$vendorcity = filter_var(wp_unslash($_POST['vendorcity']), FILTER_SANITIZE_STRING);
 			}
-			if ( isset( $_POST['vendorstate'] ) ) {
-				$vendorstate = filter_var( wp_unslash( $_POST['vendorstate'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['vendorstate'])) {
+				$vendorstate = filter_var(wp_unslash($_POST['vendorstate']), FILTER_SANITIZE_STRING);
 			}
-			if ( isset( $_POST['vendorzip'] ) ) {
-				$vendorzip = filter_var( wp_unslash( $_POST['vendorzip'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['vendorzip'])) {
+				$vendorzip = filter_var(wp_unslash($_POST['vendorzip']), FILTER_SANITIZE_STRING);
 			}
-			if ( isset( $_POST['vendorphone'] ) ) {
-				$vendorphone = filter_var( wp_unslash( $_POST['vendorphone'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['vendorphone'])) {
+				$vendorphone = filter_var(wp_unslash($_POST['vendorphone']), FILTER_SANITIZE_STRING);
 			}
-			if ( isset( $_POST['vendorcontact'] ) ) {
-				$vendorcontact = filter_var( wp_unslash( $_POST['vendorcontact'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['vendorcontact'])) {
+				$vendorcontact = filter_var(wp_unslash($_POST['vendorcontact']), FILTER_SANITIZE_STRING);
 			}
-			if ( isset( $_POST['vendoremail'] ) ) {
-				$vendoremail = filter_var( wp_unslash( $_POST['vendoremail'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['vendoremail'])) {
+				$vendoremail = filter_var(wp_unslash($_POST['vendoremail']), FILTER_SANITIZE_STRING);
 			}
-			if ( isset( $_POST['vendorenterprise'] ) ) {
-				$vendorenterprise = filter_var( wp_unslash( $_POST['vendorenterprise'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['vendorenterprise'])) {
+				$vendorenterprise = filter_var(wp_unslash($_POST['vendorenterprise']), FILTER_SANITIZE_STRING);
 			}
-			if ( isset( $_POST['vendorlastupdated'] ) ) {
-				$vendorlastupdated = filter_var( wp_unslash( $_POST['vendorlastupdated'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['vendorlastupdated'])) {
+				$vendorlastupdated = filter_var(wp_unslash($_POST['vendorlastupdated']), FILTER_SANITIZE_STRING);
 			}
-			if ( isset( $_POST['eventlocation'] ) ) {
-				$eventlocation = filter_var( wp_unslash( $_POST['eventlocation'] ), FILTER_SANITIZE_STRING );
+			if (isset($_POST['eventlocation'])) {
+				$eventlocation = filter_var(wp_unslash($_POST['eventlocation']), FILTER_SANITIZE_STRING);
 			}
 
 			$vendor_array = array(
@@ -123,69 +152,135 @@ if ( ! class_exists( 'MaxFootedb_Ajax_Functions', false ) ) :
 				'eventlocation'     => $eventlocation
 			);
 
-			// Shantanu - Do we need to set the data type of vendorlastupdated to date?
 			$vendor_mask_array = array(
-				'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s'
+				'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'
 			);
 
 
-/* This one needs to be used when you are pretty sure there are multiple items that will be returned from the Database.
-$wpdb->get_results()
-// This one needs to be used when you are positive there is only one possbille result that could be grabbed from the Database.
-$wpdb->get_row();
-*/
-
-
-
-
-/*
-$results = $wpdb->get_results("SELECT * FROM $vendor_table");
-			foreach ($results as $result) {
-				if ($result === $vendorname) {
-					// Alert the user of existing vendor
-					$message = "Vendor Exists";
-					echo "<script type='text/javascript'>alert('$message');</script>";
-				} else {
-					// echo $result->vendorname;
-					$result = $wpdb->insert($wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array);
-
-
-
-*/
+			/* This one needs to be used when you are pretty sure there are multiple items that will be returned from the Database.
+			$wpdb->get_results()
+			// This one needs to be used when you are positive there is only one possbille result that could be grabbed from the Database.
+			$wpdb->get_row();
+			*/
 
 			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
-			$results = $wpdb->get_row( "SELECT * FROM $vendor_table WHERE vendorname = '$vendorname'" );
+			$results = $wpdb->get_row("SELECT * FROM $vendor_table WHERE vendorname = '$vendorname'");
 
-			if ( null === $results ) {
-				
-				$result = $wpdb->insert( $wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array );
+			if (null === $results) {
+
+				$result = $wpdb->insert($wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array);
 
 				// The techincal correct way to stop this entire function from executing, and correctly return data back to our requesting Javascript function, to then use that data to display a message back to the user of some kind.
-				wp_die( $result );
-
-
+				wp_die($result);
 			} else {
-		
-				wp_die( 'Entry already exists' );
 
-
+				wp_die('Entry already exists');
 			}
-
-		
 		}
 
 
+		/**
+		 * Callback function for updating a Vendor from the Admin.
+		 */
+		public function maxfootedb_admin_update_entry_indb_action_callback()
+		{
+			global $wpdb;
 
+			$vendorname = '';
+			$vendortype = '';
+			$vendorcerts = '';
+			$vendorlicense = '';
+			$vendortrade = '';
+			$vendoraddress = '';
+			$vendoraddress2 = '';
+			$vendorcity = '';
+			$vendorstate = '';
+			$vendorzip = '';
+			$vendorphone = '';
+			$vendorcontact = '';
+			$vendoremail = '';
+			$vendorenterprise = '';
+			$vendorlastupdated = '';
+			$eventlocation = '';
 
+			// First set the variables we'll be passing to class-wpbooklist-book.php to ''.
+			if (isset($_POST['vendorname'])) {
+				$vendorname = filter_var(wp_unslash($_POST['vendorname']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['vendortype'])) {
+				$vendortype = filter_var(wp_unslash($_POST['vendortype']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['vendorcerts'])) {
+				$vendorcerts = filter_var(wp_unslash($_POST['vendorcerts']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['vendorlicense'])) {
+				$vendorlicense = filter_var(wp_unslash($_POST['vendorlicense']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['vendortrade'])) {
+				$vendortrade = filter_var(wp_unslash($_POST['vendortrade']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['vendoraddress'])) {
+				$vendoraddress = filter_var(wp_unslash($_POST['vendoraddress']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['vendoraddress2'])) {
+				$vendoraddress2 = filter_var(wp_unslash($_POST['vendoraddress2']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['vendorcity'])) {
+				$vendorcity = filter_var(wp_unslash($_POST['vendorcity']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['vendorstate'])) {
+				$vendorstate = filter_var(wp_unslash($_POST['vendorstate']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['vendorzip'])) {
+				$vendorzip = filter_var(wp_unslash($_POST['vendorzip']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['vendorphone'])) {
+				$vendorphone = filter_var(wp_unslash($_POST['vendorphone']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['vendorcontact'])) {
+				$vendorcontact = filter_var(wp_unslash($_POST['vendorcontact']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['vendoremail'])) {
+				$vendoremail = filter_var(wp_unslash($_POST['vendoremail']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['vendorenterprise'])) {
+				$vendorenterprise = filter_var(wp_unslash($_POST['vendorenterprise']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['vendorlastupdated'])) {
+				$vendorlastupdated = filter_var(wp_unslash($_POST['vendorlastupdated']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['eventlocation'])) {
+				$eventlocation = filter_var(wp_unslash($_POST['eventlocation']), FILTER_SANITIZE_STRING);
+			}
 
+			$vendor_array = array(
+				'vendorname'        => $vendorname,
+				'vendortype'        => $vendortype,
+				'vendorcerts'       => $vendorcerts,
+				'vendorlicense'     => $vendorlicense,
+				'vendortrade'       => $vendortrade,
+				'vendoraddress'     => $vendoraddress,
+				'vendoraddress2'    => $vendoraddress2,
+				'vendorcity'        => $vendorcity,
+				'vendorstate'       => $vendorstate,
+				'vendorzip'         => $vendorzip,
+				'vendorphone'       => $vendorphone,
+				'vendorcontact'     => $vendorcontact,
+				'vendoremail'       => $vendoremail,
+				'vendorenterprise'  => $vendorenterprise,
+				'vendorlastupdated' => $vendorlastupdated,
+				'eventlocation'     => $eventlocation
+			);
 
+			$vendor_mask_array = array(
+				'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'
+			);
 
+			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
+			$result = $wpdb->update($vendor_table, $vendor_array, $vendor_mask_array);
 
-
-
-
-
-
+			wp_die($result);
+		}
 	}
 endif;
 
@@ -586,6 +681,3 @@ function maxfootedb_action_callback(){
 	echo 'hi';
 	wp_die();
 }*/
-
-
-

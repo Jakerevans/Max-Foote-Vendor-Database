@@ -145,6 +145,8 @@ global $wpdb;
 		wp_json_encode(array(
 			'adminnonce1' => 'maxfootedb_save_license_key_action_callback',
 			'adminnonce2' => 'maxfootedb_admin_save_todb_action_callback',
+			'adminnonce3' => 'maxfootedb_admin_delete_entry_fromdb_action_callback',
+			'adminnonce4' => 'maxfootedb_admin_update_entry_indb_action_callback',
 		))
 	);
 
@@ -225,10 +227,14 @@ global $wpdb;
 
 /* FUNCTIONS FOUND IN CLASS-WPPLUGIN-AJAX-FUNCTIONS.PHP THAT APPLY PLUGIN-WIDE */
 
-	// For adding a book from the admin dashboard.
+	// For adding a vendor from the admin dashboard.
 	add_action( 'wp_ajax_maxfootedb_admin_save_todb_action', array( $maxfoote_ajax_functions, 'maxfootedb_admin_save_todb_action_callback' ) );
 
+	// For deleting a vendor from the admin dashboard.
+	add_action( 'wp_ajax_maxfootedb_admin_delete_entry_fromdb_action', array( $maxfoote_ajax_functions, 'maxfootedb_admin_delete_entry_fromdb_action_callback' ) );
 
+	// For updating a vendor from the admin dashboard.
+	add_action( 'wmaxfootedb_admin_update_entry_indb_action', array( $maxfoote_ajax_functions, 'maxfootedb_admin_update_entry_indb_action_callback' ) );
 
 
 /* END OF FUNCTIONS FOUND IN CLASS-WPPLUGIN-AJAX-FUNCTIONS.PHP THAT APPLY PLUGIN-WIDE */
