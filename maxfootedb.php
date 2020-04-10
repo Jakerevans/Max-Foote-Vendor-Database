@@ -234,7 +234,7 @@ global $wpdb;
 	add_action( 'wp_ajax_maxfootedb_admin_delete_entry_fromdb_action', array( $maxfoote_ajax_functions, 'maxfootedb_admin_delete_entry_fromdb_action_callback' ) );
 
 	// For updating a vendor from the admin dashboard.
-	add_action( 'wmaxfootedb_admin_update_entry_indb_action', array( $maxfoote_ajax_functions, 'maxfootedb_admin_update_entry_indb_action_callback' ) );
+	add_action( 'wp_ajax_maxfootedb_admin_update_entry_indb_action', array( $maxfoote_ajax_functions, 'maxfootedb_admin_update_entry_indb_action_callback' ) );
 
 
 /* END OF FUNCTIONS FOUND IN CLASS-WPPLUGIN-AJAX-FUNCTIONS.PHP THAT APPLY PLUGIN-WIDE */

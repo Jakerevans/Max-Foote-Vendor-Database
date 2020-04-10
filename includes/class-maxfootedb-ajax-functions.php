@@ -186,6 +186,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 		{
 			global $wpdb;
 
+			$ID = '';
 			$vendorname = '';
 			$vendortype = '';
 			$vendorcerts = '';
@@ -204,6 +205,9 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			$eventlocation = '';
 
 			// First set the variables we'll be passing to class-wpbooklist-book.php to ''.
+			if (isset($_POST['ID'])) {
+				$ID = filter_var(wp_unslash($_POST['ID']), FILTER_SANITIZE_STRING);
+			}
 			if (isset($_POST['vendorname'])) {
 				$vendorname = filter_var(wp_unslash($_POST['vendorname']), FILTER_SANITIZE_STRING);
 			}
@@ -272,12 +276,19 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				'eventlocation'     => $eventlocation
 			);
 
-			$vendor_mask_array = array(
-				'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'
-			);
-
 			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
-			$result = $wpdb->update($vendor_table, $vendor_array, $vendor_mask_array);
+
+			$format       = array('%s');
+			$where        = array('ID' => $ID);
+			$where_format = array('%d');
+			$result = $wpdb->update($vendor_table, $vendor_array, $where, $format, $where_format);
+
+			// $vendor_mask_array = array(
+			// 	'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'
+			// );
+
+			// $vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
+			// $result = $wpdb->update($vendor_table, $vendor_array, $vendor_mask_array);
 
 			wp_die($result);
 		}
