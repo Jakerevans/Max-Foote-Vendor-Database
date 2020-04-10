@@ -166,7 +166,20 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 		 */
 		public function maxfootedb_frontend_js() {
 
-			wp_register_script( 'maxfootedb_frontendjs', MAXFOOTEDB_JS_URL . 'maxfootedb_frontend.min.js', array( 'jquery' ), MAXFOOTEDB_VERSION_NUM, true );
+			wp_register_script( 'maxfootedb_frontendjs', MAXFOOTEDB_JS_URL . 'maxfootedb_frontend.min.js', array( 'jquery' ), MAXFOOTEDB_VERSION_NUM, true );			
+
+			$final_array_of_php_values = array();
+
+			// Adding some other individual values we may need.
+			$final_array_of_php_values['MAXFOOTEDB_ROOT_IMG_ICONS_URL']   = MAXFOOTEDB_ROOT_IMG_ICONS_URL;
+			$final_array_of_php_values['MAXFOOTEDB_ROOT_IMG_URL']   = MAXFOOTEDB_ROOT_IMG_URL;			
+			$final_array_of_php_values['DB_PREFIX'] = $wpdb->prefix;
+
+			// Now grab all of our Nonces to pass to the JavaScript for the Ajax functions and merge with the Translations array.
+			$final_array_of_php_values = array_merge( $final_array_of_php_values, json_decode( MAXFOOTEDB_FINAL_NONCES_ARRAY, true ) );
+
+			wp_localize_script( 'maxfootedb_frontendjs', 'maxfooteDbPhpVariables', $final_array_of_php_values );
+
 			wp_enqueue_script( 'maxfootedb_frontendjs' );
 
 		}
