@@ -269,8 +269,8 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 		/**
 		 *  The shortcode for displaying the login form / register forms / dashboard.
 		 */
-		public function maxfootedb_login_shortcode_function() {
-
+		public function maxfootedb_vendor_frontend_submission_shortcode_function() {
+			echo 'test';
 			ob_start();
 			include_once MAXFOOTEDB_CLASS_DIR . 'class-maxfootedb-dashboard-ui.php';
 			$front_end_ui = new MaxFootedb_Dashboard_UI();

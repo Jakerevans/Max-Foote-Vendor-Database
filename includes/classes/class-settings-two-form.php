@@ -59,7 +59,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 
 
-			var_dump( print_r($this->vendordbresults, true) );
+			
 
 
 

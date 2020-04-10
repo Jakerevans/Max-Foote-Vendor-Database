@@ -146,7 +146,7 @@ global $wpdb;
 			'adminnonce1' => 'maxfootedb_save_license_key_action_callback',
 			'adminnonce2' => 'maxfootedb_admin_save_todb_action_callback',
 			'adminnonce3' => 'maxfootedb_admin_delete_entry_fromdb_action_callback',
-			'adminnonce4' => 'maxfootedb_admin_update_entry_indb_action_callback',
+			'adminnonce4' => 'maxfootedb_admin_update_entry_indb_action_callback',			
 		))
 	);
 
@@ -218,8 +218,8 @@ global $wpdb;
 	// Creates tables upon activation.
 	register_activation_hook( __FILE__, array( $maxfoote_general_functions, 'maxfootedb_create_tables' ) );
 
-	// Adding the front-end login / dashboard shortcode.
-	add_shortcode( 'maxfootedb_login_shortcode', array( $maxfoote_general_functions, 'maxfootedb_login_shortcode_function' ) );
+	// Adding the front-end vendor submission shortcode.
+	add_shortcode( 'maxfootedb_vendor_frontend_submission_shortcode', array( $maxfoote_general_functions, 'maxfootedb_vendor_frontend_submission_shortcode_function' ) );
 
 
 
@@ -235,7 +235,6 @@ global $wpdb;
 
 	// For updating a vendor from the admin dashboard.
 	add_action( 'wp_ajax_maxfootedb_admin_update_entry_indb_action', array( $maxfoote_ajax_functions, 'maxfootedb_admin_update_entry_indb_action_callback' ) );
-
 
 /* END OF FUNCTIONS FOUND IN CLASS-WPPLUGIN-AJAX-FUNCTIONS.PHP THAT APPLY PLUGIN-WIDE */
 
