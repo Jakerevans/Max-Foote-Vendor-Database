@@ -147,7 +147,9 @@ if (!class_exists('MaxFootedb_Dashboard_UI', false)) :
 					</div>
 				</div>
 				<button id="maxfoote-user-add-vendor">SAVE VENDOR</button>
-			';
+				<div class="maxfoote-spinner"></div>
+				<div class="maxfoote-displayentries-response-div-actual-container"></div>				
+				';
 
 			echo $this->random_html;
 		}
