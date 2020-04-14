@@ -23,12 +23,14 @@ if ( ! class_exists( 'Maxfoote_Settings_Settings2_Tab', false ) ) :
 		 * Class Constructor
 		 */
 		public function __construct() {
+
 			require_once MAXFOOTEDB_CLASS_DIR . 'class-admin-ui-template.php';
 			require_once MAXFOOTEDB_CLASS_DIR . 'class-settings-two-form.php';
 
 			// Instantiate the class.
 			$this->template = new Maxfoote_Admin_UI_Template();
 			$this->form     = new Maxfoote_Settings2_Form();
+
 			$this->output_open_admin_container();
 			$this->output_tab_content();
 			$this->output_close_admin_container();
@@ -39,7 +41,7 @@ if ( ! class_exists( 'Maxfoote_Settings_Settings2_Tab', false ) ) :
 		 * Opens the admin container for the tab
 		 */
 		private function output_open_admin_container() {
-			$title    = 'Settings 2';
+			$title    = 'Edit & Delete Vendors';
 			$icon_url = MAXFOOTEDB_ROOT_IMG_URL . 'settings.svg';
 
 			echo $this->template->output_open_admin_container( $title, $icon_url );

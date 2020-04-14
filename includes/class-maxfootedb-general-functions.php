@@ -18,6 +18,33 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 	 */
 	class MaxFootedb_General_Functions {
 
+
+		/**
+		 *  Code for adding ajax
+		 */
+		public function maxfootedb_jre_prem_add_ajax_library() {
+
+			$html = '<script type="text/javascript">';
+
+			// Checking $protocol in HTTP or HTTPS.
+			if ( isset( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) {
+				// This is HTTPS.
+				$protocol = 'https';
+			} else {
+				// This is HTTP.
+				$protocol = 'http';
+			}
+			$temp_ajax_path = admin_url( 'admin-ajax.php' );
+			$good_ajax_url  = $protocol . strchr( $temp_ajax_path, ':' );
+
+			$html .= 'var ajaxurl = "' . $good_ajax_url . '"';
+			$html .= '</script>';
+			echo $html;
+		}
+
+
+		
+
 		/**
 		 *  Functions that loads up all menu pages/contents, etc.
 		 */
@@ -91,13 +118,27 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 		}
 
 		/**
+		 *  Here we take the Constant defined in wpbooklist.php that holds the values that all our nonces will be created from, we create the actual nonces using wp_create_nonce, and the we define our new, final nonces Constant, called WPBOOKLIST_FINAL_NONCES_ARRAY.
+		 */
+		public function maxfootedb_jre_create_nonces() {
+
+			$temp_array = array();
+			foreach ( json_decode( MAXFOOTEDB_NONCES_ARRAY ) as $key => $noncetext ) {
+				$nonce              = wp_create_nonce( $noncetext );
+				$temp_array[ $key ] = $nonce;
+			}
+
+			// Defining our final nonce array.
+			define( 'MAXFOOTEDB_FINAL_NONCES_ARRAY', wp_json_encode( $temp_array ) );
+
+		}
+
+		/**
 		 * Adding the admin js file
 		 */
 		public function maxfootedb_admin_js() {
 
 			wp_register_script( 'maxfootedb_adminjs', MAXFOOTEDB_JS_URL . 'maxfootedb_admin.min.js', array( 'jquery' ), MAXFOOTEDB_VERSION_NUM, true );
-
-			global $wpdb;
 
 			$final_array_of_php_values = array();
 
@@ -108,6 +149,9 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 			$final_array_of_php_values['SAVED_ATTACHEMENT_ID'] = get_option( 'media_selector_attachment_id', 0 );
 			$final_array_of_php_values['SETTINGS_PAGE_URL'] = menu_page_url( 'WPBookList-Options-settings', false );
 			$final_array_of_php_values['DB_PREFIX'] = $wpdb->prefix;
+
+			// Now grab all of our Nonces to pass to the JavaScript for the Ajax functions and merge with the Translations array.
+			$final_array_of_php_values = array_merge( $final_array_of_php_values, json_decode( MAXFOOTEDB_FINAL_NONCES_ARRAY, true ) );
 
 
 			// Now registering/localizing our JavaScript file, passing all the PHP variables we'll need in our $final_array_of_php_values array, to be accessed from 'wpbooklist_php_variables' object (like wpbooklist_php_variables.nameofkey, like any other JavaScript object).
@@ -122,7 +166,20 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 		 */
 		public function maxfootedb_frontend_js() {
 
-			wp_register_script( 'maxfootedb_frontendjs', MAXFOOTEDB_JS_URL . 'maxfootedb_frontend.min.js', array( 'jquery' ), MAXFOOTEDB_VERSION_NUM, true );
+			wp_register_script( 'maxfootedb_frontendjs', MAXFOOTEDB_JS_URL . 'maxfootedb_frontend.min.js', array( 'jquery' ), MAXFOOTEDB_VERSION_NUM, true );			
+
+			$final_array_of_php_values = array();
+
+			// Adding some other individual values we may need.
+			$final_array_of_php_values['MAXFOOTEDB_ROOT_IMG_ICONS_URL']   = MAXFOOTEDB_ROOT_IMG_ICONS_URL;
+			$final_array_of_php_values['MAXFOOTEDB_ROOT_IMG_URL']   = MAXFOOTEDB_ROOT_IMG_URL;			
+			$final_array_of_php_values['DB_PREFIX'] = $wpdb->prefix;
+
+			// Now grab all of our Nonces to pass to the JavaScript for the Ajax functions and merge with the Translations array.
+			$final_array_of_php_values = array_merge( $final_array_of_php_values, json_decode( MAXFOOTEDB_FINAL_NONCES_ARRAY, true ) );
+
+			wp_localize_script( 'maxfootedb_frontendjs', 'maxfooteDbPhpVariables', $final_array_of_php_values );
+
 			wp_enqueue_script( 'maxfootedb_frontendjs' );
 
 		}
@@ -225,8 +282,8 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 		/**
 		 *  The shortcode for displaying the login form / register forms / dashboard.
 		 */
-		public function maxfootedb_login_shortcode_function() {
-
+		public function maxfootedb_vendor_frontend_submission_shortcode_function() {
+			echo 'test';
 			ob_start();
 			include_once MAXFOOTEDB_CLASS_DIR . 'class-maxfootedb-dashboard-ui.php';
 			$front_end_ui = new MaxFootedb_Dashboard_UI();

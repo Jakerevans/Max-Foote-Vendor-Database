@@ -144,8 +144,13 @@ global $wpdb;
 	define( 'MAXFOOTEDB_NONCES_ARRAY',
 		wp_json_encode(array(
 			'adminnonce1' => 'maxfootedb_save_license_key_action_callback',
+			'adminnonce2' => 'maxfootedb_admin_save_todb_action_callback',
+			'adminnonce3' => 'maxfootedb_admin_delete_entry_fromdb_action_callback',
+			'adminnonce4' => 'maxfootedb_admin_update_entry_indb_action_callback',			
 		))
 	);
+
+
 
 /* END OF CONSTANT DEFINITIONS */
 
@@ -201,11 +206,20 @@ global $wpdb;
 	// Function that adds in any possible admin pointers
 	add_action( 'admin_footer', array( $maxfoote_general_functions, 'maxfootedb_admin_pointers_javascript' ) );
 
+
+	// Function that adds in any possible admin pointers
+	add_action( 'wp_head', array( $maxfoote_general_functions, 'maxfootedb_jre_prem_add_ajax_library' ) );
+
+
+	// Adding the function that will take our WPHEALTHTRACKER_NONCES_ARRAY Constant from below and create actual nonces to be passed to Javascript functions.
+	add_action( 'init', array( $maxfoote_general_functions, 'maxfootedb_jre_create_nonces' ) );
+
+
 	// Creates tables upon activation.
 	register_activation_hook( __FILE__, array( $maxfoote_general_functions, 'maxfootedb_create_tables' ) );
 
-	// Adding the front-end login / dashboard shortcode.
-	add_shortcode( 'maxfootedb_login_shortcode', array( $maxfoote_general_functions, 'maxfootedb_login_shortcode_function' ) );
+	// Adding the front-end vendor submission shortcode.
+	add_shortcode( 'maxfootedb_vendor_frontend_submission_shortcode', array( $maxfoote_general_functions, 'maxfootedb_vendor_frontend_submission_shortcode_function' ) );
 
 
 
@@ -213,6 +227,14 @@ global $wpdb;
 
 /* FUNCTIONS FOUND IN CLASS-WPPLUGIN-AJAX-FUNCTIONS.PHP THAT APPLY PLUGIN-WIDE */
 
+	// For adding a vendor from the admin dashboard.
+	add_action( 'wp_ajax_maxfootedb_admin_save_todb_action', array( $maxfoote_ajax_functions, 'maxfootedb_admin_save_todb_action_callback' ) );
+
+	// For deleting a vendor from the admin dashboard.
+	add_action( 'wp_ajax_maxfootedb_admin_delete_entry_fromdb_action', array( $maxfoote_ajax_functions, 'maxfootedb_admin_delete_entry_fromdb_action_callback' ) );
+
+	// For updating a vendor from the admin dashboard.
+	add_action( 'wp_ajax_maxfootedb_admin_update_entry_indb_action', array( $maxfoote_ajax_functions, 'maxfootedb_admin_update_entry_indb_action_callback' ) );
 
 /* END OF FUNCTIONS FOUND IN CLASS-WPPLUGIN-AJAX-FUNCTIONS.PHP THAT APPLY PLUGIN-WIDE */
 
