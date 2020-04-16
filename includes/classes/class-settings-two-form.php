@@ -30,6 +30,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 		public $vendor_table    = '';
 		public $vendordbresults = array();
 		public $create_opening_html = '';
+		public $create_search_ui_html = '';
 		public $create_individual_vendors_html = '';
 		public $create_closing_html = '';
 		public $final_echoed_html = '';
@@ -47,10 +48,13 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 			$this->create_opening_html();
 
+			$this->create_search_ui();
+
 			$this->create_individual_vendors_html();
 
 			$this->create_closing_html();
 		}
+
 
 		/**
 		 * Outputs all HTML elements on the page.
@@ -88,6 +92,60 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 
 			$this->create_opening_html = $string1;
+		}
+
+		/**
+		 * Creates the Search UI.
+		 */
+		public function create_search_ui()
+		{
+			
+			$string1 = '<div class="maxfoote-display-search-ui-top-container">
+							<p class="maxfoote-tab-intro-para">Select your search options below</p>
+							<div class="maxfoote-display-search-ui-inner-container">
+								<div class="maxfoote-display-search-ui-search-fields-container">
+
+
+									<div class="maxfoote-form-section-fields-wrapper">
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">City</label>
+											<select>
+												<option>Birmingham</option>
+												<option>Birmingham</option>
+												<option>Birmingham</option>
+												<option>Birmingham</option>
+											</select>
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">State</label>
+											<select>
+												<option>Birmingham</option>
+												<option>Birmingham</option>
+												<option>Birmingham</option>
+												<option>Birmingham</option>
+											</select>
+										</div>
+									</div>
+
+
+
+
+
+
+
+
+
+									
+
+
+								</div>
+								<div class="maxfoote-display-search-ui-search-buttons-container">
+									<button>Search</button>
+								</div>
+							</div>
+						</div>';
+
+			$this->create_search_ui_html = $string1;
 		}
 
 
@@ -251,7 +309,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 		public function stitch_ui_html()
 		{
 
-			$this->final_echoed_html = $this->create_opening_html . $this->create_individual_vendors_html . $this->create_closing_html;
+			$this->final_echoed_html = $this->create_opening_html . $this->create_search_ui_html . $this->create_individual_vendors_html . $this->create_closing_html;
 		}
 	}
 endif;
