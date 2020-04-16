@@ -241,7 +241,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Vendor Event Location</label>
-											<input value="' . $value->eventlocation . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendorlicense" data-dbname="vendorlicense" id="vendovendorlicensername' . $value->ID . '" type="text">
+											<input value="' . $value->eventlocation . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-eventlocation" data-dbname="eventlocation" id="eventlocation' . $value->ID . '" type="text">
 										</div>
 									</div>
 								</div>
