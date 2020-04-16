@@ -204,7 +204,6 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			$vendorlastupdated = '';
 			$eventlocation = '';
 
-			// First set the variables we'll be passing to class-wpbooklist-book.php to ''.
 			if (isset($_POST['ID'])) {
 				$ID = filter_var(wp_unslash($_POST['ID']), FILTER_SANITIZE_STRING);
 			}
@@ -276,12 +275,23 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				'eventlocation'     => $eventlocation
 			);
 
-			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
+			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';			
+			$results = $wpdb->get_row("SELECT * FROM $vendor_table WHERE vendorname = '$vendorname'");
 
-			$format       = array('%s');
-			$where        = array('ID' => $ID);
-			$where_format = array('%d');
-			$result = $wpdb->update($vendor_table, $vendor_array, $where, $format, $where_format);
+			if (null === $results) {
+
+				$format       = array('%s');
+				$where        = array('ID' => $ID);
+				$where_format = array('%d');
+				$result = $wpdb->update($vendor_table, $vendor_array, $where, $format, $where_format);
+
+				// The techincal correct way to stop this entire function from executing, and correctly return data back to our requesting Javascript function, to then use that data to display a message back to the user of some kind.
+				wp_die($result);
+			} else {
+
+				wp_die('Entry already exists');
+			}
+
 
 			// $vendor_mask_array = array(
 			// 	'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'

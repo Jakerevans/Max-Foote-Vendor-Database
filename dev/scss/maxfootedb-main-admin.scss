@@ -266,10 +266,11 @@ $menu-text-shadow: 1px 1px black;
     color:#1974AB;
     border:2px solid greenyellow;
     background-color:lightgreen;
-    width:100%;
+    width:80%;
     text-align:center;
     margin:auto;
     padding:10px;
+    border-radius: 5px;
 }
 
 .maxfoote-displayentries-response-formatted-message-vendor-exists{
@@ -278,9 +279,10 @@ $menu-text-shadow: 1px 1px black;
     color:white;
     border:2px solid pink;
     background-color:red;
-    width:100%;
+    width:80%;
     margin:auto;
     padding:10px;
+    border-radius: 5px;
 }
 
 .entry-content {
@@ -325,4 +327,9 @@ $menu-text-shadow: 1px 1px black;
     color: white;
     font-size: 20px !important;
     margin-left: 30px;
+}
+
+.maxfoote-displayentries-response-div-actual-container{
+    margin-bottom: 20px !important;
+    border: 1px solid lightskyblue;
 }
