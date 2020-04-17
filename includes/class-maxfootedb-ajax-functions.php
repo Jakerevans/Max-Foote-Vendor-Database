@@ -56,7 +56,6 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			wp_die($result);
 		}
 
-
 		/**
 		 * Callback function for adding a Vendor from the Admin.
 		 */
@@ -82,6 +81,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			$vendorenterprise = '';
 			$vendorlastupdated = '';
 			$eventlocation = '';
+			$vendor_cities_table_entry = '';
 
 			// First set the variables we'll be passing to class-wpbooklist-book.php to ''.
 			if (isset($_POST['vendorname'])) {
@@ -107,6 +107,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			}
 			if (isset($_POST['vendorcity'])) {
 				$vendorcity = filter_var(wp_unslash($_POST['vendorcity']), FILTER_SANITIZE_STRING);
+				$vendor_cities_table_entry = filter_var(wp_unslash($_POST['vendorcity']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorstate'])) {
 				$vendorstate = filter_var(wp_unslash($_POST['vendorstate']), FILTER_SANITIZE_STRING);
@@ -132,6 +133,9 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			if (isset($_POST['eventlocation'])) {
 				$eventlocation = filter_var(wp_unslash($_POST['eventlocation']), FILTER_SANITIZE_STRING);
 			}
+
+			// Make sure each city starts with a capitalized letter
+			$vendor_cities_table_entry = ucwords( $vendor_cities_table_entry);
 
 			$vendor_array = array(
 				'vendorname'        => $vendorname,
@@ -164,11 +168,39 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			*/
 
 			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
+			$vendor_cities_table = $wpdb->prefix . 'maxfootedb_vendor_cities';
 			$results = $wpdb->get_row("SELECT * FROM $vendor_table WHERE vendorname = '$vendorname'");
+			$vendor_cities_in_db = $wpdb->get_results("SELECT * FROM $vendor_cities_table");						
+
+			function console_log($output)
+			{
+				$js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+					');';
+				echo $js_code;
+			}
+
+			$vendor_cities_table_array = array('vendorcity' => $vendor_cities_table_entry);
+			$vendor_cities_table_mask_array = array('%s');
+
+			$result = $wpdb->insert($wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array);
+
 
 			if (null === $results) {
 
-				$result = $wpdb->insert($wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array);
+				if (empty($vendor_cities_in_db)) {
+					$add_vendor_cities_table_entry = $wpdb->insert($vendor_cities_table, $vendor_cities_table_array, $vendor_cities_table_mask_array);
+				} else {
+					foreach ($vendor_cities_in_db as $vendor_city) {						
+						if ($vendor_city->vendorcity === $vendor_cities_table_entry) {
+						break;
+						} else {
+							$add_vendor_cities_table_entry = $wpdb->insert($vendor_cities_table, $vendor_cities_table_array, $vendor_cities_table_mask_array);
+							break;
+						}
+					}
+				}
+
+				
 
 				// The techincal correct way to stop this entire function from executing, and correctly return data back to our requesting Javascript function, to then use that data to display a message back to the user of some kind.
 				wp_die($result);
@@ -275,7 +307,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				'eventlocation'     => $eventlocation
 			);
 
-			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';			
+			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
 			$results = $wpdb->get_row("SELECT * FROM $vendor_table WHERE vendorname = '$vendorname'");
 
 			if (null === $results) {
