@@ -82,6 +82,8 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			$vendorlastupdated = '';
 			$eventlocation = '';
 			$vendor_cities_table_entry = '';
+			$vendor_zips_table_entry = '';
+			$vendor_trades_table_entry = '';
 
 			// First set the variables we'll be passing to class-wpbooklist-book.php to ''.
 			if (isset($_POST['vendorname'])) {
@@ -98,6 +100,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			}
 			if (isset($_POST['vendortrade'])) {
 				$vendortrade = filter_var(wp_unslash($_POST['vendortrade']), FILTER_SANITIZE_STRING);
+				$vendor_trades_table_entry = filter_var(wp_unslash($_POST['vendortrade']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendoraddress'])) {
 				$vendoraddress = filter_var(wp_unslash($_POST['vendoraddress']), FILTER_SANITIZE_STRING);
@@ -114,6 +117,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			}
 			if (isset($_POST['vendorzip'])) {
 				$vendorzip = filter_var(wp_unslash($_POST['vendorzip']), FILTER_SANITIZE_STRING);
+				$vendor_zips_table_entry = filter_var(wp_unslash($_POST['vendorzip']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorphone'])) {
 				$vendorphone = filter_var(wp_unslash($_POST['vendorphone']), FILTER_SANITIZE_STRING);
@@ -169,8 +173,16 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 
 			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
 			$vendor_cities_table = $wpdb->prefix . 'maxfootedb_vendor_cities';
+			$vendor_zips_table = $wpdb->prefix . 'maxfootedb_vendor_zips';
+			$vendor_trades_table = $wpdb->prefix . 'maxfootedb_vendor_trades';
+
 			$results = $wpdb->get_row("SELECT * FROM $vendor_table WHERE vendorname = '$vendorname'");
-			$vendor_cities_in_db = $wpdb->get_results("SELECT * FROM $vendor_cities_table");						
+
+			$vendor_cities_in_db = $wpdb->get_results("SELECT * FROM $vendor_cities_table");
+			
+			$vendor_zips_in_db = $wpdb->get_results("SELECT * FROM $vendor_zips_table");
+
+			$vendor_trades_in_db = $wpdb->get_results("SELECT * FROM $vendor_trades_table");
 
 			function console_log($output)
 			{
@@ -182,24 +194,65 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			$vendor_cities_table_array = array('vendorcity' => $vendor_cities_table_entry);
 			$vendor_cities_table_mask_array = array('%s');
 
+			$vendor_zips_table_array = array('vendorzip' => $vendor_zips_table_entry);
+			$vendor_zips_table_mask_array = array('%s');
+
+			$vendor_trades_table_array = array('vendortrade' => $vendor_trades_table_entry);
+			$vendor_trades_table_mask_array = array('%s');
+
 			$result = $wpdb->insert($wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array);
 
 
 			if (null === $results) {
-				$proceed = true;
+				$add_city = true;
+				$add_zip = true;
+				$add_trade = true;
+
 				if (empty($vendor_cities_in_db)) {
 					$add_vendor_cities_table_entry = $wpdb->insert($vendor_cities_table, $vendor_cities_table_array, $vendor_cities_table_mask_array);
 				} else {
 					foreach ($vendor_cities_in_db as $vendor_city) {						
 						if ($vendor_city->vendorcity === $vendor_cities_table_entry) {
-							$proceed = false;
+							$add_city = false;
 							break;
 						}
 					}
 				}
 
-				if($proceed){
+				if($add_city){
 					$add_vendor_cities_table_entry = $wpdb->insert($vendor_cities_table, $vendor_cities_table_array, $vendor_cities_table_mask_array);
+				}
+
+				if (empty($vendor_zips_in_db)) {
+					$add_vendor_zips_table_entry = $wpdb->insert($vendor_zips_table, $vendor_zips_table_array, $vendor_zips_table_mask_array);
+				} else {
+					foreach ($vendor_zips_in_db as $vendor_zip) {					
+						if ($vendor_zip->vendorzip === $vendor_zips_table_entry) {
+							$add_zip = false;
+							console_log("The zip already exists!");
+							break;
+						}
+					}
+				}
+
+				if($add_zip){
+					$add_vendor_zips_table_entry = $wpdb->insert($vendor_zips_table, $vendor_zips_table_array, $vendor_zips_table_mask_array);
+				}
+
+				if (empty($vendor_trades_in_db)) {
+					$add_vendor_trades_table_entry = $wpdb->insert($vendor_trades_table, $vendor_trades_table_array, $vendor_trades_table_mask_array);					
+				} else {
+					foreach ($vendor_trades_in_db as $vendor_trade) {						console_log($vendor_trade);
+						if ($vendor_trade->vendortrade === $vendor_trades_table_entry) {
+							$add_trade = false;
+							console_log("The trade already exists!");
+							break;
+						}
+					}
+				}
+
+				if($add_trade){
+					$add_vendor_trades_table_entry = $wpdb->insert($vendor_trades_table, $vendor_trades_table_array, $vendor_trades_table_mask_array);
 				}
 
 				

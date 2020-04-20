@@ -212,6 +212,8 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 			$wpdb->maxfootedb_settings = "{$wpdb->prefix}maxfootedb_settings";
 			$wpdb->maxfootedb_vendors = "{$wpdb->prefix}maxfootedb_vendors";
 			$wpdb->maxfootedb_vendor_cities = "{$wpdb->prefix}maxfootedb_vendor_cities";
+			$wpdb->maxfootedb_vendor_zips = "{$wpdb->prefix}maxfootedb_vendor_zips";
+			$wpdb->maxfootedb_vendor_trades = "{$wpdb->prefix}maxfootedb_vendor_trades";
 		}
 
 		/**
@@ -291,6 +293,34 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 			$test_name = $wpdb->prefix . 'maxfootedb_vendor_cities';
 			if ( $test_name !== $wpdb->get_var( "SHOW TABLES LIKE '$test_name'" ) ) {
 				dbDelta( $sql_create_table3 );
+			}
+
+			$sql_create_table4 = "CREATE TABLE {$wpdb->maxfootedb_vendor_zips}
+			(
+				ID bigint(190) auto_increment,
+				vendorzip varchar(255),
+				PRIMARY KEY  (ID),
+				KEY vendorzip (vendorzip)
+			) $charset_collate; ";
+
+			// If table doesn't exist, create table and add initial data to it.
+			$test_name = $wpdb->prefix . 'maxfootedb_vendor_zips';
+			if ( $test_name !== $wpdb->get_var( "SHOW TABLES LIKE '$test_name'" ) ) {
+				dbDelta( $sql_create_table4 );
+			}
+
+			$sql_create_table5 = "CREATE TABLE {$wpdb->maxfootedb_vendor_trades}
+			(
+				ID bigint(190) auto_increment,
+				vendortrade varchar(255),
+				PRIMARY KEY  (ID),
+				KEY vendortrade (vendortrade)
+			) $charset_collate; ";
+
+			// If table doesn't exist, create table and add initial data to it.
+			$test_name = $wpdb->prefix . 'maxfootedb_vendor_trades';
+			if ( $test_name !== $wpdb->get_var( "SHOW TABLES LIKE '$test_name'" ) ) {
+				dbDelta( $sql_create_table5 );
 			}
 
 		}

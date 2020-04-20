@@ -110,11 +110,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 			$vendor_cities_table = $wpdb->prefix . 'maxfootedb_vendor_cities';
 
-
 			$vendor_cities_in_db = $wpdb->get_results("SELECT * FROM $vendor_cities_table");
-
-			$this->console_log($vendor_cities_in_db);
-
 
 			sort($vendor_cities_in_db);
 
@@ -124,15 +120,34 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 				$cities_html = $cities_html . "<option>" . $city->vendorcity . "</option>";
 			}
 
-			
+			$vendor_zips_table = $wpdb->prefix . 'maxfootedb_vendor_zips';
 
+			$vendor_zips_in_db = $wpdb->get_results("SELECT * FROM $vendor_zips_table");
 
+			sort($vendor_zips_in_db);
+
+			$zips_html = '';
+
+			foreach($vendor_zips_in_db as $zip){
+				$zips_html = $zips_html . "<option>" . $zip->vendorzip . "</option>";
+			}
+
+			$vendor_trades_table = $wpdb->prefix . 'maxfootedb_vendor_trades';
+
+			$vendor_trades_in_db = $wpdb->get_results("SELECT * FROM $vendor_trades_table");
+
+			sort($vendor_trades_in_db);
+
+			$trades_html = '';
+
+			foreach($vendor_trades_in_db as $trade){
+				$trades_html = $trades_html . "<option>" . $trade->vendortrade . "</option>";
+			}
 
 			$string1 = '<div class="maxfoote-display-search-ui-top-container">
 							<p class="maxfoote-tab-intro-para">Select your search options below</p>
 							<div class="maxfoote-display-search-ui-inner-container">
 								<div class="maxfoote-display-search-ui-search-fields-container">
-
 
 									<div class="maxfoote-form-section-fields-wrapper">
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
@@ -140,26 +155,14 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 											<select>'.	$cities_html	.'</select>
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
-											<label class="maxfoote-form-section-fields-label">State</label>
-											<select>
-												<option>Birmingham</option>
-												<option>Birmingham</option>
-												<option>Birmingham</option>
-												<option>Birmingham</option>
-											</select>
+											<label class="maxfoote-form-section-fields-label">Zip</label>
+											<select>'.	$zips_html	.'</select>
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Trade</label>
+											<select>'.	$trades_html	.'</select>
 										</div>
 									</div>
-
-
-
-
-
-
-
-
-
-									
-
 
 								</div>
 								<div class="maxfoote-display-search-ui-search-buttons-container">
