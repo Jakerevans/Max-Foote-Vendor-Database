@@ -84,6 +84,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			$vendor_cities_table_entry = '';
 			$vendor_zips_table_entry = '';
 			$vendor_trades_table_entry = '';
+			$vendor_certs_table_entry = '';
 
 			// First set the variables we'll be passing to class-wpbooklist-book.php to ''.
 			if (isset($_POST['vendorname'])) {
@@ -94,6 +95,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			}
 			if (isset($_POST['vendorcerts'])) {
 				$vendorcerts = filter_var(wp_unslash($_POST['vendorcerts']), FILTER_SANITIZE_STRING);
+				$vendor_certs_table_entry = filter_var(wp_unslash($_POST['vendorcerts']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorlicense'])) {
 				$vendorlicense = filter_var(wp_unslash($_POST['vendorlicense']), FILTER_SANITIZE_STRING);
@@ -141,6 +143,8 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			// Make sure each city starts with a capitalized letter
 			$vendor_cities_table_entry = ucwords( $vendor_cities_table_entry);
 
+			$vendor_certs_table_entry = ucwords( $vendor_certs_table_entry);
+
 			$vendor_array = array(
 				'vendorname'        => $vendorname,
 				'vendortype'        => $vendortype,
@@ -175,6 +179,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			$vendor_cities_table = $wpdb->prefix . 'maxfootedb_vendor_cities';
 			$vendor_zips_table = $wpdb->prefix . 'maxfootedb_vendor_zips';
 			$vendor_trades_table = $wpdb->prefix . 'maxfootedb_vendor_trades';
+			$vendor_certs_table = $wpdb->prefix . 'maxfootedb_vendor_certs';
 
 			$results = $wpdb->get_row("SELECT * FROM $vendor_table WHERE vendorname = '$vendorname'");
 
@@ -183,6 +188,8 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			$vendor_zips_in_db = $wpdb->get_results("SELECT * FROM $vendor_zips_table");
 
 			$vendor_trades_in_db = $wpdb->get_results("SELECT * FROM $vendor_trades_table");
+
+			$vendor_certs_in_db = $wpdb->get_results("SELECT * FROM $vendor_certs_table");
 
 			function console_log($output)
 			{
@@ -200,6 +207,9 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			$vendor_trades_table_array = array('vendortrade' => $vendor_trades_table_entry);
 			$vendor_trades_table_mask_array = array('%s');
 
+			$vendor_certs_table_array = array('vendorcert' => $vendor_certs_table_entry);
+			$vendor_certs_table_mask_array = array('%s');
+
 			$result = $wpdb->insert($wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array);
 
 
@@ -207,6 +217,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				$add_city = true;
 				$add_zip = true;
 				$add_trade = true;
+				$add_cert = true;
 
 				if (empty($vendor_cities_in_db)) {
 					$add_vendor_cities_table_entry = $wpdb->insert($vendor_cities_table, $vendor_cities_table_array, $vendor_cities_table_mask_array);
@@ -253,6 +264,22 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 
 				if($add_trade){
 					$add_vendor_trades_table_entry = $wpdb->insert($vendor_trades_table, $vendor_trades_table_array, $vendor_trades_table_mask_array);
+				}
+
+				if (empty($vendor_certs_in_db)) {
+					$add_vendor_certs_table_entry = $wpdb->insert($vendor_certs_table, $vendor_certs_table_array, $vendor_certs_table_mask_array);					
+				} else {
+					foreach ($vendor_certs_in_db as $vendor_cert) {						console_log($vendor_cert);
+						if ($vendor_cert->vendorcert === $vendor_certs_table_entry) {
+							$add_cert = false;
+							console_log("The cert already exists!");
+							break;
+						}
+					}
+				}
+
+				if($add_cert){
+					$add_vendor_certs_table_entry = $wpdb->insert($vendor_certs_table, $vendor_certs_table_array, $vendor_certs_table_mask_array);
 				}
 
 				

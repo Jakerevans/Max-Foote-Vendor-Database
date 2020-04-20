@@ -144,6 +144,18 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 				$trades_html = $trades_html . "<option>" . $trade->vendortrade . "</option>";
 			}
 
+			$vendor_certs_table = $wpdb->prefix . 'maxfootedb_vendor_certs';
+
+			$vendor_certs_in_db = $wpdb->get_results("SELECT * FROM $vendor_certs_table");
+
+			sort($vendor_certs_in_db);
+
+			$certs_html = '';
+
+			foreach($vendor_certs_in_db as $cert){
+				$certs_html = $certs_html . "<option>" . $cert->vendorcert . "</option>";
+			}
+
 			$string1 = '<div class="maxfoote-display-search-ui-top-container">
 							<p class="maxfoote-tab-intro-para">Select your search options below</p>
 							<div class="maxfoote-display-search-ui-inner-container">
@@ -161,6 +173,10 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Trade</label>
 											<select>'.	$trades_html	.'</select>
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Certifications</label>
+											<select>'.	$certs_html	.'</select>
 										</div>
 									</div>
 
