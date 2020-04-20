@@ -186,18 +186,20 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 
 
 			if (null === $results) {
-
+				$proceed = true;
 				if (empty($vendor_cities_in_db)) {
 					$add_vendor_cities_table_entry = $wpdb->insert($vendor_cities_table, $vendor_cities_table_array, $vendor_cities_table_mask_array);
 				} else {
 					foreach ($vendor_cities_in_db as $vendor_city) {						
 						if ($vendor_city->vendorcity === $vendor_cities_table_entry) {
-						break;
-						} else {
-							$add_vendor_cities_table_entry = $wpdb->insert($vendor_cities_table, $vendor_cities_table_array, $vendor_cities_table_mask_array);
+							$proceed = false;
 							break;
 						}
 					}
+				}
+
+				if($proceed){
+					$add_vendor_cities_table_entry = $wpdb->insert($vendor_cities_table, $vendor_cities_table_array, $vendor_cities_table_mask_array);
 				}
 
 				

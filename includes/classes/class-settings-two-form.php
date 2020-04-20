@@ -94,12 +94,40 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 			$this->create_opening_html = $string1;
 		}
 
+		public function console_log($output)
+		{
+			$js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+				');';
+			echo $js_code;
+		}
+
 		/**
 		 * Creates the Search UI.
 		 */
 		public function create_search_ui()
 		{
+			global $wpdb;
+
+			$vendor_cities_table = $wpdb->prefix . 'maxfootedb_vendor_cities';
+
+
+			$vendor_cities_in_db = $wpdb->get_results("SELECT * FROM $vendor_cities_table");
+
+			$this->console_log($vendor_cities_in_db);
+
+
+			sort($vendor_cities_in_db);
+
+			$cities_html = '';
+
+			foreach($vendor_cities_in_db as $city){
+				$cities_html = $cities_html . "<option>" . $city->vendorcity . "</option>";
+			}
+
 			
+
+
+
 			$string1 = '<div class="maxfoote-display-search-ui-top-container">
 							<p class="maxfoote-tab-intro-para">Select your search options below</p>
 							<div class="maxfoote-display-search-ui-inner-container">
@@ -109,12 +137,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 									<div class="maxfoote-form-section-fields-wrapper">
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">City</label>
-											<select>
-												<option>Birmingham</option>
-												<option>Birmingham</option>
-												<option>Birmingham</option>
-												<option>Birmingham</option>
-											</select>
+											<select>'.	$cities_html	.'</select>
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">State</label>
