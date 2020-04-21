@@ -198,6 +198,12 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 		{
 			global $wpdb;
 
+			function select_state($state_in_db, $state_option){
+				if ($state_in_db === $state_option){
+					return('selected="selected"');
+				};
+			};
+
 			$string1 = '';
 			foreach ($this->vendordbresults as $key => $value) {
 
@@ -251,7 +257,61 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Vendor State</label>
-											<input value="' . $value->vendorstate . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" class="maxfoote-form-newsite-vendorstate" data-dbname="vendorstate" id="vendorstate' . $value->ID . '" type="text">
+
+											<select>
+												<option value="AL" '.select_state($value->vendorstate, "AL").'>Alabama</option>
+												<option value="AK" '.select_state($value->vendorstate, "AK").'>Alaska</option>
+												<option value="AZ" '.select_state($value->vendorstate, "AZ").'>Arizona</option>
+												<option value="AR" '.select_state($value->vendorstate, "AR").'>Arkansas</option>
+												<option value="CA" '.select_state($value->vendorstate, "CA").'>California</option>
+												<option value="CO" '.select_state($value->vendorstate, "CO").'>Colorado</option>
+												<option value="CT" '.select_state($value->vendorstate, "CT").'>Connecticut</option>
+												<option value="DE" '.select_state($value->vendorstate, "DE").'>Delaware</option>
+												<option value="DC" '.select_state($value->vendorstate, "DC").'>District of Columbia</option>
+												<option value="FL" '.select_state($value->vendorstate, "FL").'>Florida</option>
+												<option value="GA" '.select_state($value->vendorstate, "GA").'>Georgia</option>
+												<option value="HI" '.select_state($value->vendorstate, "HI").'>Hawaii</option>
+												<option value="ID" '.select_state($value->vendorstate, "ID").'>Idaho</option>
+												<option value="IL" '.select_state($value->vendorstate, "IL").'>Illinois</option>
+												<option value="IN" '.select_state($value->vendorstate, "IN").'>Indiana</option>
+												<option value="IA" '.select_state($value->vendorstate, "IA").'>Iowa</option>
+												<option value="KS" '.select_state($value->vendorstate, "KS").'>Kansas</option>
+												<option value="KY" '.select_state($value->vendorstate, "KY").'>Kentucky</option>
+												<option value="LA" '.select_state($value->vendorstate, "LA").'>Louisiana</option>
+												<option value="ME" '.select_state($value->vendorstate, "ME").'>Maine</option>
+												<option value="MD" '.select_state($value->vendorstate, "MD").'>Maryland</option>
+												<option value="MA" '.select_state($value->vendorstate, "MA").'>Massachusetts</option>
+												<option value="MI" '.select_state($value->vendorstate, "MI").'>Michigan</option>
+												<option value="MN" '.select_state($value->vendorstate, "MN").'>Minnesota</option>
+												<option value="MS" '.select_state($value->vendorstate, "MS").'>Mississippi</option>
+												<option value="MO" '.select_state($value->vendorstate, "MO").'>Missouri</option>
+												<option value="MT" '.select_state($value->vendorstate, "MT").'>Montana</option>
+												<option value="NE" '.select_state($value->vendorstate, "NE").'>Nebraska</option>
+												<option value="NV" '.select_state($value->vendorstate, "NV").'>Nevada</option>
+												<option value="NH" '.select_state($value->vendorstate, "NH").'>New Hampshire</option>
+												<option value="NJ" '.select_state($value->vendorstate, "NJ").'>New Jersey</option>
+												<option value="NM" '.select_state($value->vendorstate, "NM").'>New Mexico</option>
+												<option value="NY" '.select_state($value->vendorstate, "NY").'>New York</option>
+												<option value="NC" '.select_state($value->vendorstate, "NC").'>North Carolina</option>
+												<option value="ND" '.select_state($value->vendorstate, "ND").'>North Dakota</option>
+												<option value="OH" '.select_state($value->vendorstate, "OH").'>Ohio</option>
+												<option value="OK" '.select_state($value->vendorstate, "OK").'>Oklahoma</option>
+												<option value="OR" '.select_state($value->vendorstate, "OR").'>Oregon</option>
+												<option value="PA" '.select_state($value->vendorstate, "PA").'>Pennsylvania</option>
+												<option value="RI" '.select_state($value->vendorstate, "RI").'>Rhode Island</option>
+												<option value="SC" '.select_state($value->vendorstate, "SC").'>South Carolina</option>
+												<option value="SD" '.select_state($value->vendorstate, "SD").'>South Dakota</option>
+												<option value="TN" '.select_state($value->vendorstate, "TN").'>Tennessee</option>
+												<option value="TX" '.select_state($value->vendorstate, "TX").'>Texas</option>
+												<option value="UT" '.select_state($value->vendorstate, "UT").'>Utah</option>
+												<option value="VT" '.select_state($value->vendorstate, "VT").'>Vermont</option>
+												<option value="VA" '.select_state($value->vendorstate, "VA").'>Virginia</option>
+												<option value="WA" '.select_state($value->vendorstate, "WA").'>Washington</option>
+												<option value="WV" '.select_state($value->vendorstate, "WV").'>West Virginia</option>
+												<option value="WI" '.select_state($value->vendorstate, "WI").'>Wisconsin</option>
+												<option value="WY" '.select_state($value->vendorstate, "WY").'>Wyoming</option>
+											</select>
+
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Vendor Zip</label>

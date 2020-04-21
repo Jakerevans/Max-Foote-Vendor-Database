@@ -65,6 +65,13 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 
 			global $wpdb;
 
+			function console_log($output)
+			{
+				$js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+					');';
+				echo $js_code;
+			}
+
 			$vendorname = '';
 			$vendortype = '';
 			$vendorcerts = '';
@@ -191,13 +198,6 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 
 			$vendor_certs_in_db = $wpdb->get_results("SELECT * FROM $vendor_certs_table");
 
-			function console_log($output)
-			{
-				$js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
-					');';
-				echo $js_code;
-			}
-
 			$vendor_cities_table_array = array('vendorcity' => $vendor_cities_table_entry);
 			$vendor_cities_table_mask_array = array('%s');
 
@@ -211,7 +211,6 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			$vendor_certs_table_mask_array = array('%s');
 
 			$result = $wpdb->insert($wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array);
-
 
 			if (null === $results) {
 				$add_city = true;
