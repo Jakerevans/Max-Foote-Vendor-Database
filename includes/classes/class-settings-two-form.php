@@ -316,7 +316,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Vendor State</label>
 
-											<select>
+											<select data-dbname="vendorstate" id="vendorstate' . $value->ID . '">
 												<option value="AL" '.select_state($value->vendorstate, "AL").'>Alabama</option>
 												<option value="AK" '.select_state($value->vendorstate, "AK").'>Alaska</option>
 												<option value="AZ" '.select_state($value->vendorstate, "AZ").'>Arizona</option>

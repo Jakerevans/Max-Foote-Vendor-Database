@@ -62,15 +62,14 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 		public function maxfootedb_admin_save_todb_action_callback()
 		{
 
-
-			global $wpdb;
-
 			function console_log($output)
 			{
 				$js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
 					');';
 				echo $js_code;
 			}
+
+			global $wpdb;
 
 			$vendorname = '';
 			$vendortype = '';
@@ -297,6 +296,13 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 		 */
 		public function maxfootedb_admin_update_entry_indb_action_callback()
 		{
+			function console_log($output)
+			{
+				$js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+					');';
+				echo $js_code;
+			}
+
 			global $wpdb;
 
 			$ID = '';
@@ -388,21 +394,22 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				'eventlocation'     => $eventlocation
 			);
 
+			// console_log($vendor_array);
+			// console_log($_POST['vendorstate']);
+
 			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
 			$results = $wpdb->get_row("SELECT * FROM $vendor_table WHERE vendorname = '$vendorname'");
 
 			if (null === $results) {
-
+				// The techincal correct way to stop this entire function from executing, and correctly return data back to our requesting Javascript function, to then use that data to display a message back to the user of some kind.
+				wp_die('Something is not right');
+			} else {
 				$format       = array('%s');
 				$where        = array('ID' => $ID);
 				$where_format = array('%d');
 				$result = $wpdb->update($vendor_table, $vendor_array, $where, $format, $where_format);
 
-				// The techincal correct way to stop this entire function from executing, and correctly return data back to our requesting Javascript function, to then use that data to display a message back to the user of some kind.
 				wp_die($result);
-			} else {
-
-				wp_die('Entry already exists');
 			}
 
 
@@ -413,7 +420,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			// $vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
 			// $result = $wpdb->update($vendor_table, $vendor_array, $vendor_mask_array);
 
-			wp_die($result);
+			// wp_die($result);
 		}
 	}
 endif;
