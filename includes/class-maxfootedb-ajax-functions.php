@@ -217,24 +217,26 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				$add_trade = true;
 				$add_cert = true;
 
-				if (empty($vendor_cities_in_db)) {
-					$add_vendor_cities_table_entry = $wpdb->insert($vendor_cities_table, $vendor_cities_table_array, $vendor_cities_table_mask_array);
-				} else {
-					foreach ($vendor_cities_in_db as $vendor_city) {						
+				// if (empty($vendor_cities_in_db)) {
+				// 	console_log("tracker 1");
+				// 	// $add_vendor_cities_table_entry = $wpdb->insert($vendor_cities_table, $vendor_cities_table_array, $vendor_cities_table_mask_array);
+				// } else {
+				// 	console_log("tracker 2");
+					foreach ($vendor_cities_in_db as $vendor_city) {
 						if ($vendor_city->vendorcity === $vendor_cities_table_entry) {
 							$add_city = false;
 							break;
 						}
 					}
-				}
+				// }
 
 				if($add_city){
 					$add_vendor_cities_table_entry = $wpdb->insert($vendor_cities_table, $vendor_cities_table_array, $vendor_cities_table_mask_array);
 				}
 
-				if (empty($vendor_zips_in_db)) {
-					$add_vendor_zips_table_entry = $wpdb->insert($vendor_zips_table, $vendor_zips_table_array, $vendor_zips_table_mask_array);
-				} else {
+				// if (empty($vendor_zips_in_db)) {
+				// 	$add_vendor_zips_table_entry = $wpdb->insert($vendor_zips_table, $vendor_zips_table_array, $vendor_zips_table_mask_array);
+				// } else {
 					foreach ($vendor_zips_in_db as $vendor_zip) {					
 						if ($vendor_zip->vendorzip === $vendor_zips_table_entry) {
 							$add_zip = false;
@@ -242,15 +244,15 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 							break;
 						}
 					}
-				}
+				// }
 
 				if($add_zip){
 					$add_vendor_zips_table_entry = $wpdb->insert($vendor_zips_table, $vendor_zips_table_array, $vendor_zips_table_mask_array);
 				}
 
-				if (empty($vendor_trades_in_db)) {
-					$add_vendor_trades_table_entry = $wpdb->insert($vendor_trades_table, $vendor_trades_table_array, $vendor_trades_table_mask_array);					
-				} else {
+				// if (empty($vendor_trades_in_db)) {
+				// 	$add_vendor_trades_table_entry = $wpdb->insert($vendor_trades_table, $vendor_trades_table_array, $vendor_trades_table_mask_array);					
+				// } else {
 					foreach ($vendor_trades_in_db as $vendor_trade) {						console_log($vendor_trade);
 						if ($vendor_trade->vendortrade === $vendor_trades_table_entry) {
 							$add_trade = false;
@@ -258,15 +260,15 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 							break;
 						}
 					}
-				}
+				// }
 
 				if($add_trade){
 					$add_vendor_trades_table_entry = $wpdb->insert($vendor_trades_table, $vendor_trades_table_array, $vendor_trades_table_mask_array);
 				}
 
-				if (empty($vendor_certs_in_db)) {
-					$add_vendor_certs_table_entry = $wpdb->insert($vendor_certs_table, $vendor_certs_table_array, $vendor_certs_table_mask_array);					
-				} else {
+				// if (empty($vendor_certs_in_db)) {
+				// 	$add_vendor_certs_table_entry = $wpdb->insert($vendor_certs_table, $vendor_certs_table_array, $vendor_certs_table_mask_array);					
+				// } else {
 					foreach ($vendor_certs_in_db as $vendor_cert) {						console_log($vendor_cert);
 						if ($vendor_cert->vendorcert === $vendor_certs_table_entry) {
 							$add_cert = false;
@@ -274,7 +276,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 							break;
 						}
 					}
-				}
+				// }
 
 				if($add_cert){
 					$add_vendor_certs_table_entry = $wpdb->insert($vendor_certs_table, $vendor_certs_table_array, $vendor_certs_table_mask_array);
