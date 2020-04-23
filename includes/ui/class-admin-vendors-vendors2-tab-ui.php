@@ -1,6 +1,6 @@
 <?php
 /**
- * Maxfoote_Settings_Settings1_Tab Tab - class-admin-settings-libraries-tab-ui.php.
+ * Maxfoote_Settings_Settings2_Tab Tab - class-admin-settings-libraries-tab-ui.php.
  *
  * @author   Jake Evans
  * @category Admin
@@ -12,23 +12,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Maxfoote_Settings_Settings1_Tab', false ) ) :
+if ( ! class_exists( 'Maxfoote_Settings_Settings2_Tab', false ) ) :
 
 	/**
-	 * Maxfoote_Settings_Settings1_Tab Class.
+	 * Maxfoote_Settings_Settings2_Tab Class.
 	 */
-	class Maxfoote_Settings_Settings1_Tab {
+	class Maxfoote_Settings_Settings2_Tab {
 
 		/**
 		 * Class Constructor
 		 */
 		public function __construct() {
+
 			require_once MAXFOOTEDB_CLASS_DIR . 'class-admin-ui-template.php';
-			require_once MAXFOOTEDB_CLASS_DIR . 'class-settings-one-form.php';
+			require_once MAXFOOTEDB_CLASS_DIR . 'class-vendors-two-form.php';
 
 			// Instantiate the class.
 			$this->template = new Maxfoote_Admin_UI_Template();
-			$this->form     = new Maxfoote_Settings1_Form();
+			$this->form     = new Maxfoote_Settings2_Form();
+
 			$this->output_open_admin_container();
 			$this->output_tab_content();
 			$this->output_close_admin_container();
@@ -39,8 +41,8 @@ if ( ! class_exists( 'Maxfoote_Settings_Settings1_Tab', false ) ) :
 		 * Opens the admin container for the tab
 		 */
 		private function output_open_admin_container() {
-			$title    = 'Settings 1';
-			$icon_url = MAXFOOTEDB_ROOT_IMG_URL . 'settings.svg';
+			$title    = 'Edit & Delete Vendors';
+			$icon_url = MAXFOOTEDB_ROOT_IMG_URL . 'repair.png';
 
 			echo $this->template->output_open_admin_container( $title, $icon_url );
 
@@ -50,7 +52,7 @@ if ( ! class_exists( 'Maxfoote_Settings_Settings1_Tab', false ) ) :
 		 * Outputs actual tab contents
 		 */
 		private function output_tab_content() {
-			echo $this->form->output_settings1_form();
+			echo $this->form->output_settings2_form();
 		}
 
 		/**
@@ -72,4 +74,4 @@ if ( ! class_exists( 'Maxfoote_Settings_Settings1_Tab', false ) ) :
 endif;
 
 // Instantiate the class.
-$cm = new Maxfoote_Settings_Settings1_Tab();
+$cm = new Maxfoote_Settings_Settings2_Tab();

@@ -140,7 +140,7 @@ if (!class_exists('MaxFootedb_Dashboard_UI', false)) :
 								id="maxfoote-form-newsite-vendorlastupdated" data-dbname="vendorlastupdated" type="date" />
 						</div>
 						<div class="maxfoote-form-section-fields-indiv-wrapper">
-							<label class="maxfoote-form-section-fields-label">Event Location</label>
+							<label class="maxfoote-form-section-fields-label">Vendor Notes</label>
 							<input class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text"
 								id="maxfoote-form-newsite-eventlocation" data-dbname="eventlocation" type="text" />
 						</div>

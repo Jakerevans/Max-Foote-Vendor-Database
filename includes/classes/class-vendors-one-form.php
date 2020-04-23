@@ -388,7 +388,7 @@ if (!class_exists('Maxfoote_Settings1_Form', false)) :
 								id="maxfoote-form-newsite-vendorlastupdated" data-dbname="vendorlastupdated" type="date" />
 						</div>
 						<div class="maxfoote-form-section-fields-indiv-wrapper">
-							<label class="maxfoote-form-section-fields-label">Event Location</label>
+							<label class="maxfoote-form-section-fields-label">Vendor Notes</label>
 							<input class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text"
 								id="maxfoote-form-newsite-eventlocation" data-dbname="eventlocation" type="text" />
 						</div>
@@ -784,8 +784,7 @@ if (!class_exists('Maxfoote_Settings1_Form', false)) :
 
 			$string1 = '
 				<div id="maxfoote-display-options-container">
-					<p class="maxfoote-tab-intro-para">Add a New Website to our Database by filling out the information below. The most important items to fill out are the 3 Dates directly below, the Industry, the Upsells Section, the 3rd-Party Integrations Section, and the Website Features Section.</p>
-					<p class="maxfoote-tab-intro-para">The info you provide below will allow us to Upsell items in the near future, as well as provide us a comprehensive, searchable Database of types of websites we\'ve created, features on those websites, 3rd-party integrations, etc., which will help us easily find solutions for any Potential Client\'s needs and also quickly find example sites by Industry to provide Potential Clients. It all starts with entering the best-quality information you can below!</p>
+					<p class="maxfoote-tab-intro-para">Add a New Vendor to the Database by filling out the form below.</p>
 					<div class="maxfoote-form-wrapper">
 						' . $contact_form_html . '
 					</div>

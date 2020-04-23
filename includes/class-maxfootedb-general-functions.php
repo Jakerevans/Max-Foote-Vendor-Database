@@ -61,7 +61,7 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 			add_menu_page( 'Bell  MaxFootedb', 'MaxFootedb', 'manage_options', 'MaxFootedb-Options', array( $this, 'maxfootedb_jre_admin_page_function' ), MAXFOOTEDB_ROOT_IMG_URL . 'belllogonocanvas.png', 6 );
 
 			$submenu_array = array(
-				'Settings',
+				'Vendors',
 				'Submenu Page1',
 				'Submenu Page2',
 			);

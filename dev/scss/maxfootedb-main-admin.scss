@@ -331,5 +331,35 @@ $menu-text-shadow: 1px 1px black;
 
 .maxfoote-displayentries-response-div-actual-container{
     margin-bottom: 20px !important;
-    border: 1px solid lightskyblue;
+    /*border: 1px solid lightskyblue;*/
+}
+
+.maxfoote-display-search-ui-top-container{
+    border: solid 1px #efefef;
+    background-color: #eee;
+    margin: 20px 0px 20px 0px;
+    text-align: center;
+}
+
+.maxfoote-display-search-ui-top-container select{
+    width: 170px;
+}
+
+.maxfoote-display-search-ui-top-container button{
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.maxfoote-display-search-ui-top-container .maxfoote-form-section-fields-indiv-wrapper{
+    margin: 0;
+    padding-top: 0!important;
+}
+
+.maxfoote-display-search-ui-top-container .maxfoote-tab-intro-para{
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.maxfoote-display-search-ui-top-container .maxfoote-tab-intro-para{
+    
 }
