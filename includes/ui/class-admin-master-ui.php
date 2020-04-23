@@ -48,7 +48,7 @@ class Maxfoote_Admin_Menu {
 
         // Controls UI for each Menu/Submenu page
         switch ( $this->page ) {
-            case 'MaxFootedb-Options-settings':
+            case 'MaxFootedb-Options-vendors':
                 $this->setup_settings_ui();
                 break; 
             case 'MaxFootedb-Options-submenu-page1':
@@ -67,8 +67,8 @@ class Maxfoote_Admin_Menu {
     // Sets up tabs for the 'Books' page
     private function setup_settings_ui() {
         $this->tabs = array(
-            'settings1'   => __("Settings 1", 'maxfoote'),
-            'settings2'  => __("Settings 2", 'maxfoote'),
+            'vendors1'   => __("Add A Vendor", 'maxfoote'),
+            'vendors2'  => __("Edit & Delete Vendors", 'maxfoote'),
         );
 
         if(has_filter('maxfootedb_add_tab_settings')) {

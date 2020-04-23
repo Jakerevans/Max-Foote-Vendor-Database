@@ -69,7 +69,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 
 			$string1 = '<div id="maxfoote-display-options-container">
-							<p class="maxfoote-tab-intro-para">This is some intro text for Settings 2</p>
+							<p class="maxfoote-tab-intro-para">Here you can Edit, Delete, and Search through the current Vendors in the Database.</p>
 						</div>';
 
 			$this->stitch_ui_html();
@@ -86,9 +86,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 		{
 			global $wpdb;
 
-			$string1 = '<div id="maxfoote-display-options-container">
-							<p class="maxfoote-tab-intro-para">This is some intro text for Settings 2</p>
-						</div>';
+			$string1 = '';
 
 
 			$this->create_opening_html = $string1;
@@ -114,7 +112,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 			sort($vendor_cities_in_db);
 
-			$cities_html = '';
+			$cities_html = '<option value="" default disabled selected>Select A City...</option>';
 
 			foreach($vendor_cities_in_db as $city){
 				$cities_html = $cities_html . "<option>" . $city->vendorcity . "</option>";
@@ -160,16 +158,15 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 							<p class="maxfoote-tab-intro-para">Select your search options below</p>
 							<div class="maxfoote-display-search-ui-inner-container">
 								<div class="maxfoote-display-search-ui-search-fields-container">
-
 									<div class="maxfoote-form-section-fields-wrapper">
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">City</label>
 											<select>'.	$cities_html	.'</select>
 										</div>
-
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">State</label>
 											<select name="search_state" id="maxfoote-form-search-vendorstate">
+												<option value="" default disabled selected>Select A State...</option>
 												<option value="AL">Alabama</option>
 												<option value="AK">Alaska</option>
 												<option value="AZ">Arizona</option>
@@ -223,11 +220,12 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 												<option value="WY">Wyoming</option>
 											</select>
 										</div>
-
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Zip</label>
 											<select>'.	$zips_html	.'</select>
 										</div>
+									</div>
+									<div class="maxfoote-form-section-fields-wrapper">
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Trade</label>
 											<select>'.	$trades_html	.'</select>
@@ -400,7 +398,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 											<input value="' . $value->vendorlastupdated . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendorlastupdated" data-dbname="vendorlastupdated" id="vendorlastupdated' . $value->ID . '" type="text">
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
-											<label class="maxfoote-form-section-fields-label">Vendor Event Location</label>
+											<label class="maxfoote-form-section-fields-label">Vendor Notes</label>
 											<input value="' . $value->eventlocation . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-eventlocation" data-dbname="eventlocation" id="eventlocation' . $value->ID . '" type="text">
 										</div>
 									</div>
@@ -453,9 +451,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 		{
 			global $wpdb;
 
-			$string1 = '<div id="maxfoote-display-options-closing-container">
-							<p class="maxfoote-tab-intro-para">This is closing text message</p>
-						</div>';
+			$string1 = '';
 
 
 			$this->create_closing_html = $string1;
