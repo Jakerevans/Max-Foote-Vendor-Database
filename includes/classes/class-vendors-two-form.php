@@ -31,6 +31,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 		public $vendordbresults = array();
 		public $create_opening_html = '';
 		public $create_search_ui_html = '';
+		public $create_search_ui_results_html = '';
 		public $create_individual_vendors_html = '';
 		public $create_closing_html = '';
 		public $final_echoed_html = '';
@@ -49,7 +50,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 			$this->create_opening_html();
 
 			$this->create_search_ui();
-
+			
 			$this->create_individual_vendors_html();
 
 			$this->create_closing_html();
@@ -97,6 +98,199 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 			$js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
 				');';
 			echo $js_code;
+		}
+
+		public function create_search_ui_results($vendorcity, $vendorstate, $vendorzip, $vendortrade, $vendorcerts){
+			global $wpdb;
+
+			$vendor_city = ucwords($vendorcity);
+			$vendor_state = ucwords($vendorstate);
+			$vendor_zip = $vendorzip;
+			$vendor_trade = ucwords($vendortrade);
+			$vendor_certs = ucwords($vendorcerts);
+
+			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
+
+			$vendor_table_search_results = $wpdb->get_results("SELECT * FROM $vendor_table");
+
+			$vendor_table_city_search_results = $wpdb->get_results("SELECT * FROM $vendor_table WHERE vendorcity = '$vendorcity'");
+
+			$vendor_table_state_search_results = $wpdb->get_results("SELECT * FROM $vendor_table WHERE vendorstate = '$vendorstate'");
+
+			$vendor_table_zip_search_results = $wpdb->get_results("SELECT * FROM $vendor_table WHERE vendorzip = '$vendorzip'");
+
+			$vendor_table_trade_search_results = $wpdb->get_results("SELECT * FROM $vendor_table WHERE vendortrade = '$vendortrade'");
+
+			$vendor_search_result = array_intersect($vendor_table_search_results, $vendor_table_city_search_results, $vendor_table_state_search_results, $vendor_table_zip_search_results, $vendor_table_trade_search_results);
+
+
+			$string1 = '';
+			foreach($vendor_search_result as $vendor){
+				$string1 = $string1 . '
+					<div class="maxfoote-vendor-udpate-container">
+						
+						<button class="accordion maxfoote-vendor-update-container-accordion-heading">
+							' . $vendor->vendorname . '
+						</button>
+						<div class="maxfoote-vendor-update-info-container" style="display: none;">
+
+							<div class="maxfoote-vendor-update-info-container-data" id="maxfoote-vendor-info-' . $vendor->ID . '">
+
+									<div class="maxfoote-form-section-fields-wrapper">
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Name</label>
+											<input value="' . $vendor->vendorname . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendorname" data-dbname="vendorname" id="vendorname' . $vendor->ID . '" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Type</label>
+											<input value="' . $vendor->vendortype . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendortype" data-dbname="vendortype" id="vendortype' . $vendor->ID . '" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Certfications</label>
+											<input value="' . $vendor->vendorcerts . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendorcerts" data-dbname="vendorcerts" id="vendorcerts' . $vendor->ID . '" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor License</label>
+											<input value="' . $vendor->vendorlicense . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendorlicense" data-dbname="vendorlicense" id="vendorlicense' . $vendor->ID . '" type="text">
+										</div>
+										</div>
+										<div class="maxfoote-form-section-fields-wrapper">
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Trade</label>
+											<input value="' . $vendor->vendortrade . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendortrade" data-dbname="vendortrade" id="vendortrade' . $vendor->ID . '" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Address</label>
+											<input value="' . $vendor->vendoraddress . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendoraddress" data-dbname="vendoraddress" id="vendoraddress' . $vendor->ID . '" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Address2</label>
+											<input value="' . $vendor->vendoraddress2 . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendoraddress2" data-dbname="vendoraddress2" id="vendoraddress2' . $vendor->ID . '" type="text">
+										</div>
+										</div>
+										<div class="maxfoote-form-section-fields-wrapper">
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor City</label>
+											<input value="' . $vendor->vendorcity . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendorcity" data-dbname="vendorcity" id="vendorcity' . $vendor->ID . '" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor State</label>
+
+											<select data-dbname="vendorstate" id="vendorstate' . $vendor->ID . '">
+												<option value="AL" '.select_state($vendor->vendorstate, "AL").'>Alabama</option>
+												<option value="AK" '.select_state($vendor->vendorstate, "AK").'>Alaska</option>
+												<option value="AZ" '.select_state($vendor->vendorstate, "AZ").'>Arizona</option>
+												<option value="AR" '.select_state($vendor->vendorstate, "AR").'>Arkansas</option>
+												<option value="CA" '.select_state($vendor->vendorstate, "CA").'>California</option>
+												<option value="CO" '.select_state($vendor->vendorstate, "CO").'>Colorado</option>
+												<option value="CT" '.select_state($vendor->vendorstate, "CT").'>Connecticut</option>
+												<option value="DE" '.select_state($vendor->vendorstate, "DE").'>Delaware</option>
+												<option value="DC" '.select_state($vendor->vendorstate, "DC").'>District of Columbia</option>
+												<option value="FL" '.select_state($vendor->vendorstate, "FL").'>Florida</option>
+												<option value="GA" '.select_state($vendor->vendorstate, "GA").'>Georgia</option>
+												<option value="HI" '.select_state($vendor->vendorstate, "HI").'>Hawaii</option>
+												<option value="ID" '.select_state($vendor->vendorstate, "ID").'>Idaho</option>
+												<option value="IL" '.select_state($vendor->vendorstate, "IL").'>Illinois</option>
+												<option value="IN" '.select_state($vendor->vendorstate, "IN").'>Indiana</option>
+												<option value="IA" '.select_state($vendor->vendorstate, "IA").'>Iowa</option>
+												<option value="KS" '.select_state($vendor->vendorstate, "KS").'>Kansas</option>
+												<option value="KY" '.select_state($vendor->vendorstate, "KY").'>Kentucky</option>
+												<option value="LA" '.select_state($vendor->vendorstate, "LA").'>Louisiana</option>
+												<option value="ME" '.select_state($vendor->vendorstate, "ME").'>Maine</option>
+												<option value="MD" '.select_state($vendor->vendorstate, "MD").'>Maryland</option>
+												<option value="MA" '.select_state($vendor->vendorstate, "MA").'>Massachusetts</option>
+												<option value="MI" '.select_state($vendor->vendorstate, "MI").'>Michigan</option>
+												<option value="MN" '.select_state($vendor->vendorstate, "MN").'>Minnesota</option>
+												<option value="MS" '.select_state($vendor->vendorstate, "MS").'>Mississippi</option>
+												<option value="MO" '.select_state($vendor->vendorstate, "MO").'>Missouri</option>
+												<option value="MT" '.select_state($vendor->vendorstate, "MT").'>Montana</option>
+												<option value="NE" '.select_state($vendor->vendorstate, "NE").'>Nebraska</option>
+												<option value="NV" '.select_state($vendor->vendorstate, "NV").'>Nevada</option>
+												<option value="NH" '.select_state($vendor->vendorstate, "NH").'>New Hampshire</option>
+												<option value="NJ" '.select_state($vendor->vendorstate, "NJ").'>New Jersey</option>
+												<option value="NM" '.select_state($vendor->vendorstate, "NM").'>New Mexico</option>
+												<option value="NY" '.select_state($vendor->vendorstate, "NY").'>New York</option>
+												<option value="NC" '.select_state($vendor->vendorstate, "NC").'>North Carolina</option>
+												<option value="ND" '.select_state($vendor->vendorstate, "ND").'>North Dakota</option>
+												<option value="OH" '.select_state($vendor->vendorstate, "OH").'>Ohio</option>
+												<option value="OK" '.select_state($vendor->vendorstate, "OK").'>Oklahoma</option>
+												<option value="OR" '.select_state($vendor->vendorstate, "OR").'>Oregon</option>
+												<option value="PA" '.select_state($vendor->vendorstate, "PA").'>Pennsylvania</option>
+												<option value="RI" '.select_state($vendor->vendorstate, "RI").'>Rhode Island</option>
+												<option value="SC" '.select_state($vendor->vendorstate, "SC").'>South Carolina</option>
+												<option value="SD" '.select_state($vendor->vendorstate, "SD").'>South Dakota</option>
+												<option value="TN" '.select_state($vendor->vendorstate, "TN").'>Tennessee</option>
+												<option value="TX" '.select_state($vendor->vendorstate, "TX").'>Texas</option>
+												<option value="UT" '.select_state($vendor->vendorstate, "UT").'>Utah</option>
+												<option value="VT" '.select_state($vendor->vendorstate, "VT").'>Vermont</option>
+												<option value="VA" '.select_state($vendor->vendorstate, "VA").'>Virginia</option>
+												<option value="WA" '.select_state($vendor->vendorstate, "WA").'>Washington</option>
+												<option value="WV" '.select_state($vendor->vendorstate, "WV").'>West Virginia</option>
+												<option value="WI" '.select_state($vendor->vendorstate, "WI").'>Wisconsin</option>
+												<option value="WY" '.select_state($vendor->vendorstate, "WY").'>Wyoming</option>
+											</select>
+
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Zip</label>
+											<input value="' . $vendor->vendorzip . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendorzip" data-dbname="vendorzip" id="vendorzip' . $vendor->ID . '" type="text">
+										</div>
+										</div>
+										<div class="maxfoote-form-section-fields-wrapper">
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Phone</label>
+											<input value="' . $vendor->vendorphone . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendorphone" data-dbname="vendorphone" id="vendorphone' . $vendor->ID . '" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Contact</label>
+											<input value="' . $vendor->vendorcontact . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendorcontact" data-dbname="vendorcontact" id="vendorcontact' . $vendor->ID . '" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Email</label>
+											<input value="' . $vendor->vendoremail . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendoremail" data-dbname="vendoremail" id="vendoremail' . $vendor->ID . '" type="text">
+										</div>
+										</div>
+										<div class="maxfoote-form-section-fields-wrapper">
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Enterprise</label>
+											<input value="' . $vendor->vendorenterprise . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendorenterprise" data-dbname="vendorenterprise" id="vendorenterprise' . $vendor->ID . '" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Last Updated</label>
+											<input value="' . $vendor->vendorlastupdated . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendorlastupdated" data-dbname="vendorlastupdated" id="vendorlastupdated' . $vendor->ID . '" type="text">
+										</div>
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Vendor Notes</label>
+											<input value="' . $vendor->eventlocation . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-eventlocation" data-dbname="eventlocation" id="eventlocation' . $vendor->ID . '" type="text">
+										</div>
+									</div>
+								</div>
+
+
+								<div class="maxfoote-vendor-update-info-buttons-container">
+
+									<div class="maxfoote-vendor-inner-top-container-buttons-actual">
+										<!-- build a save edits button and a delete button -->
+										<!-- create the ability for changes made to be actually saved in the database. This will require the whole Ajax functionality workflow, with javascript function, associated ajax fucntion in out ajax file, and the none and function defininitons in our main root maxfootedb.php file -->
+										<button class="maxfoote-update-vendor" data-dbid="' . $vendor->ID . '">UPDATE VENDOR</button>
+										<button class="maxfoote-delete-vendor" data-dbid="' . $vendor->ID . '">DELETE VENDOR</button>
+										<div class="maxfoote-spinner"></div>
+										<div class="maxfoote-displayentries-response-div-actual-container"></div>
+									</div>
+
+									<div class="maxfoote-vendor-inner-top-container-buttons-response">
+										<!-- for a response to the user about whatever button they clicked above -->
+									</div>
+								</div>
+
+							
+
+						</div>						
+
+					</div>';
+			}
+
+			wp_die($string1);
 		}
 
 		/**
@@ -153,7 +347,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 			foreach($vendor_certs_in_db as $cert){
 				$certs_html = $certs_html . "<option>" . $cert->vendorcert . "</option>";
 			}
-
+			
 			$string1 = '<div class="maxfoote-display-search-ui-top-container">
 							<p class="maxfoote-tab-intro-para">Select your search options below</p>
 							<div class="maxfoote-display-search-ui-inner-container">
@@ -161,11 +355,11 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 									<div class="maxfoote-form-section-fields-wrapper">
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">City</label>
-											<select>'.	$cities_html	.'</select>
+											<select id="#maxfootedb-search-cities">'.	$cities_html	.'</select>
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">State</label>
-											<select name="search_state" id="maxfoote-form-search-vendorstate">
+											<select id="searchstate" name="search_state" id="maxfoote-form-search-vendorstate">
 												<option value="" default disabled selected>Select A State...</option>
 												<option value="AL">Alabama</option>
 												<option value="AK">Alaska</option>
@@ -222,26 +416,27 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Zip</label>
-											<select>'.	$zips_html	.'</select>
+											<select id="#maxfootedb-search-zips">'.	$zips_html	.'</select>
 										</div>
 									</div>
 									<div class="maxfoote-form-section-fields-wrapper">
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Trade</label>
-											<select>'.	$trades_html	.'</select>
+											<select id="#maxfootedb-search-trades">'.	$trades_html	.'</select>
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Certifications</label>
-											<select>'.	$certs_html	.'</select>
+											<select id="#maxfootedb-search-certs">'.	$certs_html	.'</select>
 										</div>
 									</div>
 
 								</div>
 								<div class="maxfoote-display-search-ui-search-buttons-container">
-									<button>Search</button>
+									<button id="#maxfootedb-search-button">Search</button>
 								</div>
 							</div>
 						</div>';
+
 
 			$this->create_search_ui_html = $string1;
 		}
