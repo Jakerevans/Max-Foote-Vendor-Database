@@ -35,6 +35,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 		public $create_individual_vendors_html = '';
 		public $create_closing_html = '';
 		public $final_echoed_html = '';
+		public $final_grabbed_params = '';
 
 
 		/**
@@ -43,9 +44,10 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 		public function __construct()
 		{
 
-			global $wpdb;
-			$this->vendor_table    = $wpdb->prefix . 'maxfootedb_vendors';
-			$this->vendordbresults = $wpdb->get_results("SELECT * FROM $this->vendor_table");
+
+			$this->grab_url_params();
+
+			$this->query_db();
 
 			$this->create_opening_html();
 
@@ -54,6 +56,30 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 			$this->create_individual_vendors_html();
 
 			$this->create_closing_html();
+		}
+
+		/**
+		 * Grabs all parameters from URL.
+		 */
+		public function grab_url_params()
+		{
+			
+
+			$this->final_grabbed_params = '';
+
+		}
+
+		/**
+		 * Function to house all logic required to query the database depending on URL params, if any exist.
+		 */
+		public function query_db()
+		{
+			
+			global $wpdb;
+			$this->vendor_table    = $wpdb->prefix . 'maxfootedb_vendors';
+			$this->vendordbresults = $wpdb->get_results("SELECT * FROM $this->vendor_table");
+
+$this->vendordbresults = $wpdb->get_results("SELECT * FROM $this->vendor_table WHERE city = " . $varible);
 		}
 
 
@@ -318,7 +344,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 			sort($vendor_zips_in_db);
 
-			$zips_html = '';
+			$zips_html = '<option value="" default disabled selected>Select A Zip...</option>';
 
 			foreach($vendor_zips_in_db as $zip){
 				$zips_html = $zips_html . "<option>" . $zip->vendorzip . "</option>";
@@ -330,7 +356,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 			sort($vendor_trades_in_db);
 
-			$trades_html = '';
+			$trades_html = '<option value="" default disabled selected>Select A Trade...</option>';
 
 			foreach($vendor_trades_in_db as $trade){
 				$trades_html = $trades_html . "<option>" . $trade->vendortrade . "</option>";
@@ -342,7 +368,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 			sort($vendor_certs_in_db);
 
-			$certs_html = '';
+			$certs_html = '<option value="" default disabled selected>Select A Cert...</option>';
 
 			foreach($vendor_certs_in_db as $cert){
 				$certs_html = $certs_html . "<option>" . $cert->vendorcert . "</option>";
@@ -355,7 +381,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 									<div class="maxfoote-form-section-fields-wrapper">
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">City</label>
-											<select id="#maxfootedb-search-cities">'.	$cities_html	.'</select>
+											<select id="maxfootedb-search-cities">'.	$cities_html	.'</select>
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">State</label>
@@ -416,23 +442,23 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Zip</label>
-											<select id="#maxfootedb-search-zips">'.	$zips_html	.'</select>
+											<select id="maxfootedb-search-zips">'.	$zips_html	.'</select>
 										</div>
 									</div>
 									<div class="maxfoote-form-section-fields-wrapper">
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Trade</label>
-											<select id="#maxfootedb-search-trades">'.	$trades_html	.'</select>
+											<select id="maxfootedb-search-trades">'.	$trades_html	.'</select>
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Certifications</label>
-											<select id="#maxfootedb-search-certs">'.	$certs_html	.'</select>
+											<select id="maxfootedb-search-certs">'.	$certs_html	.'</select>
 										</div>
 									</div>
 
 								</div>
 								<div class="maxfoote-display-search-ui-search-buttons-container">
-									<button id="#maxfootedb-search-button">Search</button>
+									<button id="maxfootedb-search-button">Search</button>
 								</div>
 							</div>
 						</div>';
