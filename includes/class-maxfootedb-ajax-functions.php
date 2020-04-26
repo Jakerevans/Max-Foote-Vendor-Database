@@ -156,43 +156,6 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			} 
 		}
 
-
-		public function maxfootedb_admin_search_db_action_callback(){
-			global $wpdb;
-
-			$vendor_city = '';
-			$vendor_state = '';
-			$vendor_zip = '';
-			$vendor_trades = '';
-			$vendor_certs = '';
-
-			if (isset($_POST['vendorcity'])) {
-				$vendor_city = filter_var(wp_unslash($_POST['vendorcity']), FILTER_SANITIZE_STRING);
-			}
-
-
-			if (isset($_POST['vendorstate'])) {
-				$vendor_state = filter_var(wp_unslash($_POST['vendorstate']), FILTER_SANITIZE_STRING);
-			}
-
-			if (isset($_POST['vendorzip'])) {
-				$vendor_zip = filter_var(wp_unslash($_POST['vendorzip']), FILTER_SANITIZE_STRING);
-			}
-
-
-			if (isset($_POST['vendortrades'])) {
-				$vendor_trades = filter_var(wp_unslash($_POST['vendortrades']), FILTER_SANITIZE_STRING);
-			}
-
-			if (isset($_POST['vendorcerts'])) {
-				$vendor_certs = filter_var(wp_unslash($_POST['vendorcerts']), FILTER_SANITIZE_STRING);
-			}
-
-			
-
-
-		}
-
 		/**
 		 * Callback function for adding a Vendor from the Admin.
 		 */
