@@ -365,25 +365,6 @@ $menu-text-shadow: 1px 1px black;
     background-color: rgb(136, 0, 255) !important;
 }
 
-#maxfoote-toggle-all-vendors {
-    background-color: rgb(54, 212, 237);
-    width: 25%;
-    line-height: 2;
-    border-radius: 3px;
-    color: black;
-    font-size: 14px;
-    margin-right: 25px;
-}
-
-#maxfootedb-search-button {
-    background-color: rgb(54, 212, 237);
-    width: 20%;
-    line-height: 2;
-    border-radius: 3px;
-    color: black;
-    font-size: 14px;    
-}
-
 .maxfoote-search-field {
     float: left;
 }
@@ -403,4 +384,18 @@ $menu-text-shadow: 1px 1px black;
 .maxfoote-form-newsite-search-vendorlastupdated {
     color: white;
     margin-top: 5px;
+}
+
+.maxfoote-display-search-ui-search-buttons-container {
+    clear: both;
+    vertical-align: bottom;
+}
+.maxfoote-search-ui-buttons {
+    margin: 10px 10px 10px 10px;
+    background-color: rgb(54, 212, 237);
+    width: 25%;
+    line-height: 2;
+    border-radius: 3px;
+    color: black;
+    font-size: 14px;
 }

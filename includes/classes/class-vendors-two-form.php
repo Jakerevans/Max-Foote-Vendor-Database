@@ -238,7 +238,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper maxfoote-search-field">
 											<label class="maxfoote-form-section-fields-label">State</label>
-											<select id="maxfootedb-search-states" name="search_state" id="maxfoote-form-search-vendorstate">
+											<select id="maxfootedb-search-states" name="search_state">
 												<option value="" default disabled selected>Select A State...</option>
 												<option value="AL">Alabama</option>
 												<option value="AK">Alaska</option>
@@ -298,8 +298,8 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 											<select id="maxfootedb-search-zips">' .	$zips_html	. '</select>
 										</div>
 									</div>
-									<div class="maxfoote-form-section-fields-wrapper maxfoote-search-field">
-										<div class="maxfoote-form-section-fields-indiv-wrapper">
+									<div class="maxfoote-form-section-fields-wrapper">
+										<div class="maxfoote-form-section-fields-indiv-wrapper maxfoote-search-field">
 											<label class="maxfoote-form-section-fields-label">Trade</label>
 											<select id="maxfootedb-search-trades">' .	$trades_html	. '</select>
 										</div>
@@ -311,8 +311,9 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 								</div>
 								<div class="maxfoote-display-search-ui-search-buttons-container">
-									<button id="maxfootedb-search-button">Search</button>
-									<button id="maxfoote-toggle-all-vendors">Show/Hide All Vendors</button>
+									<button id="maxfootedb-search-button" class="maxfoote-search-ui-buttons">Search</button>
+									<button id="maxfoote-toggle-all-vendors" class="maxfoote-search-ui-buttons">Show/Hide All Vendors</button>
+									<button id="maxfoote-reset-search-fields" class="maxfoote-search-ui-buttons">Reset Search Fields</button>
 								</div>
 							</div>
 						</div>
