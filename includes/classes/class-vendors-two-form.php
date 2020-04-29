@@ -238,7 +238,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper maxfoote-search-field">
 											<label class="maxfoote-form-section-fields-label">State</label>
-											<select id="searchstate" name="search_state" id="maxfoote-form-search-vendorstate">
+											<select id="maxfootedb-search-states" name="search_state" id="maxfoote-form-search-vendorstate">
 												<option value="" default disabled selected>Select A State...</option>
 												<option value="AL">Alabama</option>
 												<option value="AK">Alaska</option>
