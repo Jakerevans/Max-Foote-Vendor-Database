@@ -464,7 +464,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 									</div>
 									<div class="maxfoote-form-section-fields-indiv-wrapper">
 										<label class="maxfoote-form-section-fields-label maxfoote-search-label">Vendor Last Updated</label>
-										<input value="' . $value->vendorlastupdated . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendorlastupdated" data-dbname="vendorlastupdated" id="search_vendorlastupdated' . $value->ID . '" type="text">
+										<div class="maxfoote-form-newsite-search-vendorlastupdated" data-dbname="vendorlastupdated" id="search_vendorlastupdated' . $value->ID . '">' . $value->vendorlastupdated . '</div>
 									</div>
 									<div class="maxfoote-form-section-fields-indiv-wrapper">
 										<label class="maxfoote-form-section-fields-label maxfoote-search-label">Vendor Notes</label>
@@ -648,7 +648,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Vendor Last Updated</label>
-											<input value="' . $value->vendorlastupdated . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendorlastupdated" data-dbname="vendorlastupdated" id="vendorlastupdated' . $value->ID . '" type="text">
+											<div class="maxfoote-form-newsite-vendorlastupdated" data-dbname="vendorlastupdated" id="vendorlastupdated' . $value->ID . '">' . $value->vendorlastupdated . '</div>
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Vendor Notes</label>
