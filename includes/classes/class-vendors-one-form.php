@@ -303,6 +303,7 @@ if (!class_exists('Maxfoote_Settings1_Form', false)) :
 							<label class="maxfoote-form-section-fields-label">Vendor State</label>
 
 							<select name="state" id="maxfoote-form-newsite-vendorstate" data-dbname="vendorstate">
+								<option value="" default disabled selected>Select A State...</option>
 								<option value="AL">Alabama</option>
 								<option value="AK">Alaska</option>
 								<option value="AZ">Arizona</option>
@@ -386,11 +387,11 @@ if (!class_exists('Maxfoote_Settings1_Form', false)) :
 							<input class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text"
 								id="maxfoote-form-newsite-vendorenterprise" data-dbname="vendorenterprise" type="text" />
 						</div>
-						<div class="maxfoote-form-section-fields-indiv-wrapper">
+						<!--<div class="maxfoote-form-section-fields-indiv-wrapper">
 							<label class="maxfoote-form-section-fields-label">Vendor Last Updated</label>
 							<input class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text"
 								id="maxfoote-form-newsite-vendorlastupdated" data-dbname="vendorlastupdated" type="date" />
-						</div>
+						</div>-->
 						<div class="maxfoote-form-section-fields-indiv-wrapper">
 							<label class="maxfoote-form-section-fields-label">Event Location</label>
 							<input class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text"
