@@ -272,6 +272,7 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 				vendorenterprise varchar(255),
 				vendorlastupdated varchar(255),
 				eventlocation MEDIUMTEXT,
+				vendornotes MEDIUMTEXT,
 				PRIMARY KEY  (ID),
 				KEY vendorname (vendorname)
 			) $charset_collate; ";

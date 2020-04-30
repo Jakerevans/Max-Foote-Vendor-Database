@@ -186,6 +186,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			$vendorenterprise = '';
 			$vendorlastupdated = '';
 			$eventlocation = '';
+			$vendornotes = '';
 
 			// First set the variables we'll be passing to class-wpbooklist-book.php to ''.
 			if (isset($_POST['vendorname'])) {
@@ -240,6 +241,9 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			if (isset($_POST['eventlocation'])) {
 				$eventlocation = filter_var(wp_unslash($_POST['eventlocation']), FILTER_SANITIZE_STRING);
 			}
+			if (isset($_POST['vendornotes'])) {
+				$vendornotes = filter_var(wp_unslash($_POST['vendornotes']), FILTER_SANITIZE_STRING);
+			}
 
 			$vendor_array = array(
 				'vendorname'        => $vendorname,
@@ -257,11 +261,12 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				'vendoremail'       => $vendoremail,
 				'vendorenterprise'  => $vendorenterprise,
 				'vendorlastupdated' => $vendorlastupdated,
-				'eventlocation'     => $eventlocation
+				'eventlocation'     => $eventlocation,
+				'vendornotes'		=> $vendornotes
 			);
 
 			$vendor_mask_array = array(
-				'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'
+				'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'
 			);
 
 
@@ -274,6 +279,8 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
 			
 			$results = $wpdb->get_row("SELECT * FROM $vendor_table WHERE vendorname = '$vendorname'");
+
+			console_log($results);
 
 			if (null === $results){
 
@@ -318,6 +325,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			$vendorenterprise = '';
 			$vendorlastupdated = '';
 			$eventlocation = '';
+			$vendornotes = '';
 
 			if (isset($_POST['ID'])) {
 				$ID = filter_var(wp_unslash($_POST['ID']), FILTER_SANITIZE_STRING);
@@ -370,6 +378,9 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			if (isset($_POST['eventlocation'])) {
 				$eventlocation = filter_var(wp_unslash($_POST['eventlocation']), FILTER_SANITIZE_STRING);
 			}
+			if (isset($_POST['vendornotes'])) {
+				$vendornotes = filter_var(wp_unslash($_POST['vendornotes']), FILTER_SANITIZE_STRING);
+			}
 
 			$vendor_array = array(
 				'vendorname'        => $vendorname,
@@ -387,7 +398,8 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				'vendoremail'       => $vendoremail,
 				'vendorenterprise'  => $vendorenterprise,
 				'vendorlastupdated' => $vendorlastupdated,
-				'eventlocation'     => $eventlocation
+				'eventlocation'     => $eventlocation,
+				'vendornotes'		=> $vendornotes
 			);
 
 			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';

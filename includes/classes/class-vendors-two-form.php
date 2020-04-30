@@ -171,7 +171,6 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 			$this->create_opening_html = $string1;
 		}
 
-		
 		/**
 		 * Creates the Search UI.
 		 */
@@ -323,9 +322,9 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 			// console_log($search_results_vendors);
 
-			function search_select_state($state_in_db, $state_option)
+			function check_select_option($value_in_db, $option)
 			{
-				if ($state_in_db === $state_option) {
+				if ($value_in_db === $option) {
 					return ('selected="selected"');
 				};
 			};
@@ -351,7 +350,12 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 									</div>
 									<div class="maxfoote-form-section-fields-indiv-wrapper">
 										<label class="maxfoote-form-section-fields-label maxfoote-search-label">Vendor Type</label>
-										<input value="' . $value->vendortype . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendortype" data-dbname="vendortype" id="search_vendortype' . $value->ID . '" type="text">
+										<select name="type" id="search_vendortype' . $value->ID . '" data-dbname="vendortype">
+											<option value="" default disabled selected>Select A Vendor Type</option>
+											<option value="Subcontractor" ' . check_select_option($value->vendortype,"Subcontractor") . '>Subcontractor</option>
+											<option value="Supplier" ' . check_select_option($value->vendortype,"Supplier") . '>Supplier</option>
+											<option value="Other" ' . check_select_option($value->vendortype,"Other") . '>Other</option>
+										</select>
 									</div>
 									<div class="maxfoote-form-section-fields-indiv-wrapper">
 										<label class="maxfoote-form-section-fields-label maxfoote-search-label">Vendor Certfications</label>
@@ -385,57 +389,58 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 										<label class="maxfoote-form-section-fields-label maxfoote-search-label">Vendor State</label>
 
 										<select data-dbname="vendorstate" id="maxfootedb-search-states' . $value->ID . '">
-											<option value="AL" ' . search_select_state($value->vendorstate, "AL") . '>Alabama</option>
-											<option value="AK" ' . search_select_state($value->vendorstate, "AK") . '>Alaska</option>
-											<option value="AZ" ' . search_select_state($value->vendorstate, "AZ") . '>Arizona</option>
-											<option value="AR" ' . search_select_state($value->vendorstate, "AR") . '>Arkansas</option>
-											<option value="CA" ' . search_select_state($value->vendorstate, "CA") . '>California</option>
-											<option value="CO" ' . search_select_state($value->vendorstate, "CO") . '>Colorado</option>
-											<option value="CT" ' . search_select_state($value->vendorstate, "CT") . '>Connecticut</option>
-											<option value="DE" ' . search_select_state($value->vendorstate, "DE") . '>Delaware</option>
-											<option value="DC" ' . search_select_state($value->vendorstate, "DC") . '>District of Columbia</option>
-											<option value="FL" ' . search_select_state($value->vendorstate, "FL") . '>Florida</option>
-											<option value="GA" ' . search_select_state($value->vendorstate, "GA") . '>Georgia</option>
-											<option value="HI" ' . search_select_state($value->vendorstate, "HI") . '>Hawaii</option>
-											<option value="ID" ' . search_select_state($value->vendorstate, "ID") . '>Idaho</option>
-											<option value="IL" ' . search_select_state($value->vendorstate, "IL") . '>Illinois</option>
-											<option value="IN" ' . search_select_state($value->vendorstate, "IN") . '>Indiana</option>
-											<option value="IA" ' . search_select_state($value->vendorstate, "IA") . '>Iowa</option>
-											<option value="KS" ' . search_select_state($value->vendorstate, "KS") . '>Kansas</option>
-											<option value="KY" ' . search_select_state($value->vendorstate, "KY") . '>Kentucky</option>
-											<option value="LA" ' . search_select_state($value->vendorstate, "LA") . '>Louisiana</option>
-											<option value="ME" ' . search_select_state($value->vendorstate, "ME") . '>Maine</option>
-											<option value="MD" ' . search_select_state($value->vendorstate, "MD") . '>Maryland</option>
-											<option value="MA" ' . search_select_state($value->vendorstate, "MA") . '>Massachusetts</option>
-											<option value="MI" ' . search_select_state($value->vendorstate, "MI") . '>Michigan</option>
-											<option value="MN" ' . search_select_state($value->vendorstate, "MN") . '>Minnesota</option>
-											<option value="MS" ' . search_select_state($value->vendorstate, "MS") . '>Mississippi</option>
-											<option value="MO" ' . search_select_state($value->vendorstate, "MO") . '>Missouri</option>
-											<option value="MT" ' . search_select_state($value->vendorstate, "MT") . '>Montana</option>
-											<option value="NE" ' . search_select_state($value->vendorstate, "NE") . '>Nebraska</option>
-											<option value="NV" ' . search_select_state($value->vendorstate, "NV") . '>Nevada</option>
-											<option value="NH" ' . search_select_state($value->vendorstate, "NH") . '>New Hampshire</option>
-											<option value="NJ" ' . search_select_state($value->vendorstate, "NJ") . '>New Jersey</option>
-											<option value="NM" ' . search_select_state($value->vendorstate, "NM") . '>New Mexico</option>
-											<option value="NY" ' . search_select_state($value->vendorstate, "NY") . '>New York</option>
-											<option value="NC" ' . search_select_state($value->vendorstate, "NC") . '>North Carolina</option>
-											<option value="ND" ' . search_select_state($value->vendorstate, "ND") . '>North Dakota</option>
-											<option value="OH" ' . search_select_state($value->vendorstate, "OH") . '>Ohio</option>
-											<option value="OK" ' . search_select_state($value->vendorstate, "OK") . '>Oklahoma</option>
-											<option value="OR" ' . search_select_state($value->vendorstate, "OR") . '>Oregon</option>
-											<option value="PA" ' . search_select_state($value->vendorstate, "PA") . '>Pennsylvania</option>
-											<option value="RI" ' . search_select_state($value->vendorstate, "RI") . '>Rhode Island</option>
-											<option value="SC" ' . search_select_state($value->vendorstate, "SC") . '>South Carolina</option>
-											<option value="SD" ' . search_select_state($value->vendorstate, "SD") . '>South Dakota</option>
-											<option value="TN" ' . search_select_state($value->vendorstate, "TN") . '>Tennessee</option>
-											<option value="TX" ' . search_select_state($value->vendorstate, "TX") . '>Texas</option>
-											<option value="UT" ' . search_select_state($value->vendorstate, "UT") . '>Utah</option>
-											<option value="VT" ' . search_select_state($value->vendorstate, "VT") . '>Vermont</option>
-											<option value="VA" ' . search_select_state($value->vendorstate, "VA") . '>Virginia</option>
-											<option value="WA" ' . search_select_state($value->vendorstate, "WA") . '>Washington</option>
-											<option value="WV" ' . search_select_state($value->vendorstate, "WV") . '>West Virginia</option>
-											<option value="WI" ' . search_select_state($value->vendorstate, "WI") . '>Wisconsin</option>
-											<option value="WY" ' . search_select_state($value->vendorstate, "WY") . '>Wyoming</option>
+											<option value="" default disabled selected>Select A State...</option>
+											<option value="AL" ' . check_select_option($value->vendorstate, "AL") . '>Alabama</option>
+											<option value="AK" ' . check_select_option($value->vendorstate, "AK") . '>Alaska</option>
+											<option value="AZ" ' . check_select_option($value->vendorstate, "AZ") . '>Arizona</option>
+											<option value="AR" ' . check_select_option($value->vendorstate, "AR") . '>Arkansas</option>
+											<option value="CA" ' . check_select_option($value->vendorstate, "CA") . '>California</option>
+											<option value="CO" ' . check_select_option($value->vendorstate, "CO") . '>Colorado</option>
+											<option value="CT" ' . check_select_option($value->vendorstate, "CT") . '>Connecticut</option>
+											<option value="DE" ' . check_select_option($value->vendorstate, "DE") . '>Delaware</option>
+											<option value="DC" ' . check_select_option($value->vendorstate, "DC") . '>District of Columbia</option>
+											<option value="FL" ' . check_select_option($value->vendorstate, "FL") . '>Florida</option>
+											<option value="GA" ' . check_select_option($value->vendorstate, "GA") . '>Georgia</option>
+											<option value="HI" ' . check_select_option($value->vendorstate, "HI") . '>Hawaii</option>
+											<option value="ID" ' . check_select_option($value->vendorstate, "ID") . '>Idaho</option>
+											<option value="IL" ' . check_select_option($value->vendorstate, "IL") . '>Illinois</option>
+											<option value="IN" ' . check_select_option($value->vendorstate, "IN") . '>Indiana</option>
+											<option value="IA" ' . check_select_option($value->vendorstate, "IA") . '>Iowa</option>
+											<option value="KS" ' . check_select_option($value->vendorstate, "KS") . '>Kansas</option>
+											<option value="KY" ' . check_select_option($value->vendorstate, "KY") . '>Kentucky</option>
+											<option value="LA" ' . check_select_option($value->vendorstate, "LA") . '>Louisiana</option>
+											<option value="ME" ' . check_select_option($value->vendorstate, "ME") . '>Maine</option>
+											<option value="MD" ' . check_select_option($value->vendorstate, "MD") . '>Maryland</option>
+											<option value="MA" ' . check_select_option($value->vendorstate, "MA") . '>Massachusetts</option>
+											<option value="MI" ' . check_select_option($value->vendorstate, "MI") . '>Michigan</option>
+											<option value="MN" ' . check_select_option($value->vendorstate, "MN") . '>Minnesota</option>
+											<option value="MS" ' . check_select_option($value->vendorstate, "MS") . '>Mississippi</option>
+											<option value="MO" ' . check_select_option($value->vendorstate, "MO") . '>Missouri</option>
+											<option value="MT" ' . check_select_option($value->vendorstate, "MT") . '>Montana</option>
+											<option value="NE" ' . check_select_option($value->vendorstate, "NE") . '>Nebraska</option>
+											<option value="NV" ' . check_select_option($value->vendorstate, "NV") . '>Nevada</option>
+											<option value="NH" ' . check_select_option($value->vendorstate, "NH") . '>New Hampshire</option>
+											<option value="NJ" ' . check_select_option($value->vendorstate, "NJ") . '>New Jersey</option>
+											<option value="NM" ' . check_select_option($value->vendorstate, "NM") . '>New Mexico</option>
+											<option value="NY" ' . check_select_option($value->vendorstate, "NY") . '>New York</option>
+											<option value="NC" ' . check_select_option($value->vendorstate, "NC") . '>North Carolina</option>
+											<option value="ND" ' . check_select_option($value->vendorstate, "ND") . '>North Dakota</option>
+											<option value="OH" ' . check_select_option($value->vendorstate, "OH") . '>Ohio</option>
+											<option value="OK" ' . check_select_option($value->vendorstate, "OK") . '>Oklahoma</option>
+											<option value="OR" ' . check_select_option($value->vendorstate, "OR") . '>Oregon</option>
+											<option value="PA" ' . check_select_option($value->vendorstate, "PA") . '>Pennsylvania</option>
+											<option value="RI" ' . check_select_option($value->vendorstate, "RI") . '>Rhode Island</option>
+											<option value="SC" ' . check_select_option($value->vendorstate, "SC") . '>South Carolina</option>
+											<option value="SD" ' . check_select_option($value->vendorstate, "SD") . '>South Dakota</option>
+											<option value="TN" ' . check_select_option($value->vendorstate, "TN") . '>Tennessee</option>
+											<option value="TX" ' . check_select_option($value->vendorstate, "TX") . '>Texas</option>
+											<option value="UT" ' . check_select_option($value->vendorstate, "UT") . '>Utah</option>
+											<option value="VT" ' . check_select_option($value->vendorstate, "VT") . '>Vermont</option>
+											<option value="VA" ' . check_select_option($value->vendorstate, "VA") . '>Virginia</option>
+											<option value="WA" ' . check_select_option($value->vendorstate, "WA") . '>Washington</option>
+											<option value="WV" ' . check_select_option($value->vendorstate, "WV") . '>West Virginia</option>
+											<option value="WI" ' . check_select_option($value->vendorstate, "WI") . '>Wisconsin</option>
+											<option value="WY" ' . check_select_option($value->vendorstate, "WY") . '>Wyoming</option>
 										</select>
 
 									</div>
@@ -468,8 +473,14 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 										<div class="maxfoote-form-newsite-search-vendorlastupdated" data-dbname="vendorlastupdated" id="search_vendorlastupdated' . $value->ID . '">' . $value->vendorlastupdated . '</div>
 									</div>
 									<div class="maxfoote-form-section-fields-indiv-wrapper">
-										<label class="maxfoote-form-section-fields-label maxfoote-search-label">Vendor Notes</label>
+										<label class="maxfoote-form-section-fields-label maxfoote-search-label">Event Location</label>
 										<input value="' . $value->eventlocation . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-eventlocation" data-dbname="eventlocation" id="search_eventlocation' . $value->ID . '" type="text">
+									</div>
+								</div>
+								<div class="maxfoote-form-section-fields-wrapper maxfoote-vendor-notes">
+									<div class="maxfoote-form-section-fields-indiv-wrapper">
+										<label class="maxfoote-form-section-fields-label maxfoote-search-label">Notes</label>
+										<input value="' . $value->vendornotes . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendornotes" data-dbname="vendornotes" id="search_vendornotes' . $value->ID . '" type="text">
 									</div>
 								</div>
 							</div>
@@ -535,7 +546,12 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Vendor Type</label>
-											<input value="' . $value->vendortype . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendortype" data-dbname="vendortype" id="vendortype' . $value->ID . '" type="text">
+											<select name="type" id="vendortype' . $value->ID . '" data-dbname="vendortype">
+												<option value="" default disabled selected>Select A Vendor Type</option>
+												<option value="Subcontractor" ' . check_select_option($value->vendortype,"Subcontractor") . '>Subcontractor</option>
+												<option value="Supplier" ' . check_select_option($value->vendortype,"Supplier") . '>Supplier</option>
+												<option value="Other" ' . check_select_option($value->vendortype,"Other") . '>Other</option>
+											</select>
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Vendor Certfications</label>
@@ -569,6 +585,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 											<label class="maxfoote-form-section-fields-label">Vendor State</label>
 
 											<select data-dbname="vendorstate" id="vendorstate' . $value->ID . '">
+												<option value="" default disabled selected>Select A State...</option>
 												<option value="AL" ' . select_state($value->vendorstate, "AL") . '>Alabama</option>
 												<option value="AK" ' . select_state($value->vendorstate, "AK") . '>Alaska</option>
 												<option value="AZ" ' . select_state($value->vendorstate, "AZ") . '>Arizona</option>
@@ -652,8 +669,14 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 											<div class="maxfoote-form-newsite-vendorlastupdated" data-dbname="vendorlastupdated" id="vendorlastupdated' . $value->ID . '">' . $value->vendorlastupdated . '</div>
 										</div>
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
-											<label class="maxfoote-form-section-fields-label">Vendor Notes</label>
+											<label class="maxfoote-form-section-fields-label">Event Location</label>
 											<input value="' . $value->eventlocation . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-eventlocation" data-dbname="eventlocation" id="eventlocation' . $value->ID . '" type="text">
+										</div>
+									</div>
+									<div class="maxfoote-form-section-fields-wrapper maxfoote-vendor-notes">
+										<div class="maxfoote-form-section-fields-indiv-wrapper">
+											<label class="maxfoote-form-section-fields-label">Notes</label>
+											<input value="' . $value->vendornotes . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendornotes" data-dbname="vendornotes" id="vendornotes' . $value->ID . '" type="text">
 										</div>
 									</div>
 								</div>

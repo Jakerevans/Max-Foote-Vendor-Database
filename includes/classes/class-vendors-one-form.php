@@ -255,11 +255,15 @@ if (!class_exists('Maxfoote_Settings1_Form', false)) :
 							<label class="maxfoote-form-section-fields-label">Vendor Name</label>
 							<input class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text"
 								id="maxfoote-form-newsite-vendorname" data-dbname="vendorname" type="text" />
-						</div>
+						</div>						
 						<div class="maxfoote-form-section-fields-indiv-wrapper">
 							<label class="maxfoote-form-section-fields-label">Vendor Type</label>
-							<input class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text"
-								id="maxfoote-form-newsite-vendortype" data-dbname="vendortype" type="text" />
+							<select name="type" id="maxfoote-form-newsite-vendortype" data-dbname="vendortype">
+								<option value="" default disabled selected>Select A Vendor Type</option>
+								<option value="Subcontractor">Subcontractor</option>
+								<option value="Supplier">Supplier</option>
+								<option value="Other">Other</option>
+							</select>
 						</div>
 						<div class="maxfoote-form-section-fields-indiv-wrapper">
 							<label class="maxfoote-form-section-fields-label">Vendor Certfications</label>
@@ -388,9 +392,15 @@ if (!class_exists('Maxfoote_Settings1_Form', false)) :
 								id="maxfoote-form-newsite-vendorlastupdated" data-dbname="vendorlastupdated" type="date" />
 						</div>
 						<div class="maxfoote-form-section-fields-indiv-wrapper">
-							<label class="maxfoote-form-section-fields-label">Vendor Notes</label>
+							<label class="maxfoote-form-section-fields-label">Event Location</label>
 							<input class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text"
 								id="maxfoote-form-newsite-eventlocation" data-dbname="eventlocation" type="text" />
+						</div>
+					</div>
+					<div class="maxfoote-form-section-fields-wrapper maxfoote-vendor-notes">
+						<div class="maxfoote-form-section-fields-indiv-wrapper">
+							<label class="maxfoote-form-section-fields-label">Notes</label>
+							<input class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendornotes" data-dbname="vendornotes" id="maxfoote-form-newsite-vendornotes" type="text">
 						</div>
 					</div>
 				</div>
