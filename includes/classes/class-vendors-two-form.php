@@ -330,6 +330,14 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 			};
 
 
+			$pagination_start = '
+				<div id="maxfoote-vendor-pagination">
+					<div id="maxfoote-vendor-pagination-buttons">
+			';
+
+			console_log($this->vendor_final_search_results);
+
+
 			$string2 = '';
 			foreach ($search_results_vendors as $key => $value) {
 				// console_log($value);
