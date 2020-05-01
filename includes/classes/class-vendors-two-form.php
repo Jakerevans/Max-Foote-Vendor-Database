@@ -320,23 +320,13 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 			$search_results_vendors = $this->vendor_final_search_results;
 
-			// console_log($search_results_vendors);
-
+			
 			function check_select_option($value_in_db, $option)
 			{
 				if ($value_in_db === $option) {
 					return ('selected="selected"');
 				};
 			};
-
-
-			$pagination_start = '
-				<div id="maxfoote-vendor-pagination">
-					<div id="maxfoote-vendor-pagination-buttons">
-			';
-
-			console_log($this->vendor_final_search_results);
-
 
 			$string2 = '';
 			foreach ($search_results_vendors as $key => $value) {
@@ -488,7 +478,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 								<div class="maxfoote-form-section-fields-wrapper maxfoote-vendor-notes">
 									<div class="maxfoote-form-section-fields-indiv-wrapper">
 										<label class="maxfoote-form-section-fields-label maxfoote-search-label">Notes</label>
-										<input value="' . $value->vendornotes . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendornotes" data-dbname="vendornotes" id="search_vendornotes' . $value->ID . '" type="text">
+										<textarea value="' . $value->vendornotes . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendornotes" data-dbname="vendornotes" id="search_vendornotes' . $value->ID . '" type="text"></textarea>
 									</div>
 								</div>
 							</div>
@@ -514,8 +504,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 				';
 			}
 
-
-			$this->create_search_ui_html = $string1 . $string2;
+			$this->create_search_ui_html = $string1 . $pagination_start . $string2;
 		}
 
 
@@ -684,7 +673,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 									<div class="maxfoote-form-section-fields-wrapper maxfoote-vendor-notes">
 										<div class="maxfoote-form-section-fields-indiv-wrapper">
 											<label class="maxfoote-form-section-fields-label">Notes</label>
-											<input value="' . $value->vendornotes . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendornotes" data-dbname="vendornotes" id="vendornotes' . $value->ID . '" type="text">
+											<textarea value="' . $value->vendornotes . '" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendornotes" data-dbname="vendornotes" id="vendornotes' . $value->ID . '" type="text"></textarea>
 										</div>
 									</div>
 								</div>

@@ -401,7 +401,7 @@ if (!class_exists('Maxfoote_Settings1_Form', false)) :
 					<div class="maxfoote-form-section-fields-wrapper maxfoote-vendor-notes">
 						<div class="maxfoote-form-section-fields-indiv-wrapper">
 							<label class="maxfoote-form-section-fields-label">Notes</label>
-							<input class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendornotes" data-dbname="vendornotes" id="maxfoote-form-newsite-vendornotes" type="text">
+							<textarea class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text maxfoote-form-newsite-vendornotes" data-dbname="vendornotes" id="maxfoote-form-newsite-vendornotes" type="text"></textarea>
 						</div>
 					</div>
 				</div>
@@ -789,6 +789,11 @@ if (!class_exists('Maxfoote_Settings1_Form', false)) :
 				-->
 				<div class="maxfoote-displayentries-response-div-wrapper">
 					<button id="maxfoote-admin-save-vendor" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-button maxfoote-form-section-fields-input-button-addwebsite">Add Vendor</button>
+					<div class="maxfoote-spinner"></div>
+					<div class="maxfoote-displayentries-response-div-actual-container"></div>
+				</div>
+				<div class="maxfoote-displayentries-upload-div-wrapper">
+					<button id="maxfoote-admin-upload-vendor" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-upload ">Upload</button>
 					<div class="maxfoote-spinner"></div>
 					<div class="maxfoote-displayentries-response-div-actual-container"></div>
 				</div>';
