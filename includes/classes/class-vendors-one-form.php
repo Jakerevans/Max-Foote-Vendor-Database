@@ -27,6 +27,8 @@ if (!class_exists('Maxfoote_Settings1_Form', false)) :
 		 */
 		public function __construct()
 		{
+
+			wp_enqueue_media();
 		}
 
 		/**
@@ -793,7 +795,22 @@ if (!class_exists('Maxfoote_Settings1_Form', false)) :
 					<div class="maxfoote-displayentries-response-div-actual-container"></div>
 				</div>
 				<div class="maxfoote-displayentries-upload-div-wrapper">
-					<button id="maxfoote-admin-upload-vendor" class="maxfoote-form-section-fields-input maxfoote-form-section-fields-upload ">Upload</button>
+
+
+
+
+
+					<label class="maxfoote-form-section-fields-label">Upload Your Vendor Export File Here</label>
+					<input class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-text" id="maxfoote-form-bulkupload" type="text" />
+					<button class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-button maxfoote-form-section-fields-input-file-upload-button" id="maxfoote-form-bulkupload-button" data-dbtype="%s" >Choose File</button>
+					<button class="maxfoote-form-section-fields-input maxfoote-form-section-fields-input-button maxfoote-form-section-fields-input-file-upload-button-actual" id="maxfoote-form-bulkupload-button-actual" data-dbtype="%s" >Import Vendors</button>
+
+
+
+
+
+
+
 					<div class="maxfoote-spinner"></div>
 					<div class="maxfoote-displayentries-response-div-actual-container"></div>
 				</div>';
