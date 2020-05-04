@@ -504,7 +504,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 				';
 			}
 
-			$this->create_search_ui_html = $string1 . $pagination_start . $string2;
+			$this->create_search_ui_html = $string1 . $string2;
 		}
 
 
