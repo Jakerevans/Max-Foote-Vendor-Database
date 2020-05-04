@@ -439,6 +439,101 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				wp_die($result);
 			}
 		}
+
+
+
+
+
+
+		/**
+		 * Callback function for bulk-uploading by CSV from the admin dashboard.
+		 */
+		public function maxfootedb_admin_bulk_csv_upload_action_callback()
+		{
+
+			global $wpdb;
+
+			$finaldocurl = '';
+
+			if (isset($_POST['finaldocurl'])) {
+				$finaldocurl = filter_var(wp_unslash($_POST['finaldocurl']), FILTER_SANITIZE_STRING);
+			}
+		
+			// Open the file for reading
+			if (($h = fopen($finaldocurl, "r")) !== FALSE) 
+			{
+			  $row = 1;
+			  // Convert each line into the local $data variable
+			  while (($data = fgetcsv($h, 1000, ",")) !== FALSE) 
+			  {		
+
+
+			  	$num = count($data);
+
+			  	 for ($c=0; $c < $num; $c++) {
+			  	 	//error_log($c);
+
+
+
+		          //  error_log($data[2]);
+
+		            $vendor_array = array(
+						'vendorname'        => $data[2],
+						'vendortype'        => $data[0],
+						'vendorcerts'       => $data[1],
+						'vendorlicense'     => '',
+						'vendortrade'       => $data[8],
+						'vendoraddress'     => $data[3],
+						'vendoraddress2'    => $data[4],
+						'vendorcity'        => $data[5],
+						'vendorstate'       => $data[6],
+						'vendorzip'         => $data[7],
+						'vendorphone'       => $data[10],
+						'vendorcontact'     => $data[11] . ' ' . $data[12],
+						'vendoremail'       => $data[14],
+						'vendorenterprise'  => '',
+						'vendorlastupdated' => date( 'Y-m-d', time() ) ,
+						'eventlocation'     => '',
+						'vendornotes'		=> ''
+					);
+		        }
+
+		        $vendor_mask_array = array(
+					'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'
+				);
+
+
+				/* This one needs to be used when you are pretty sure there are multiple items that will be returned from the Database.
+				$wpdb->get_results()
+				// This one needs to be used when you are positive there is only one possbille result that could be grabbed from the Database.
+				$wpdb->get_row();
+				*/
+
+				
+				$result = $wpdb->insert($wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array);
+
+
+			    // Read the data from a single line
+			  }
+
+			  // Close the file
+			  fclose($h);
+			}
+
+
+
+			wp_die('gfddfgs');
+		}
+
+
+
+
+
+
+
+
+
+
 	}
 endif;
 
