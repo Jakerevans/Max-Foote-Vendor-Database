@@ -33,9 +33,28 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
 
 			$ID = '';
+			$vendorcity = '';
+			$vendorstate = '';
+			$vendorzip = '';
+			$vendortrade = ''; 
+			$vendorcerts = '';
 
 			if (isset($_POST['ID'])) {
 				$ID = filter_var(wp_unslash($_POST['ID']), FILTER_SANITIZE_STRING);
+			}if (isset($_POST['vendorcity'])) {
+				$vendorcity = filter_var(wp_unslash($_POST['vendorcity']), FILTER_SANITIZE_STRING);				
+			}
+			if (isset($_POST['vendorstate'])) {
+				$vendorstate = filter_var(wp_unslash($_POST['vendorstate']), FILTER_SANITIZE_STRING);
+			}
+			if (isset($_POST['vendorzip'])) {
+				$vendorzip = filter_var(wp_unslash($_POST['vendorzip']), FILTER_SANITIZE_STRING);				
+			}
+			if (isset($_POST['vendortrade'])) {
+				$vendortrade = filter_var(wp_unslash($_POST['vendortrade']), FILTER_SANITIZE_STRING);				
+			}
+			if (isset($_POST['vendorcerts'])) {
+				$vendorcerts = filter_var(wp_unslash($_POST['vendorcerts']), FILTER_SANITIZE_STRING);			
 			}
 
 
@@ -54,7 +73,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			wp_die($result);
 		}
 
-		public function maxfootedb_admin_update_search_tables($vendorname,$vendorcity, $vendorzip, $vendortrade, $vendorcerts){
+		public function maxfootedb_admin_update_search_tables($vendorname, $vendorcity, $vendorzip, $vendortrade, $vendorcerts){
 			global $wpdb;
 
 			$vendor_cities_table_entry = ucwords($vendorcity);
