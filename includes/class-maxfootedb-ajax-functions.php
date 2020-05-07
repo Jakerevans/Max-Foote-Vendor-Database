@@ -29,19 +29,30 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 
 		public function maxfootedb_admin_delete_entry_fromdb_action_callback()
 		{
+
+			function console_log($output)
+			{
+				$js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+					');';
+				echo $js_code;
+			}
+		
 			global $wpdb;
 			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
+			$vendor_cities_table = $wpdb->prefix . 'maxfootedb_vendor_cities';			
+			$vendor_zips_table = $wpdb->prefix . 'maxfootedb_vendor_zips';
+			$vendor_trades_table = $wpdb->prefix . 'maxfootedb_vendor_trades';
+			$vendor_certs_table = $wpdb->prefix . 'maxfootedb_vendor_certs';
+
+			$vendors_in_db = $wpdb->get_results("SELECT * FROM $vendor_table");			
 
 			$ID = '';
 			$vendorcity = '';
-			$vendorstate = '';
-			$vendorzip = '';
-			$vendortrade = ''; 
-			$vendorcerts = '';
 
 			if (isset($_POST['ID'])) {
 				$ID = filter_var(wp_unslash($_POST['ID']), FILTER_SANITIZE_STRING);
-			}if (isset($_POST['vendorcity'])) {
+			}
+			if (isset($_POST['vendorcity'])) {
 				$vendorcity = filter_var(wp_unslash($_POST['vendorcity']), FILTER_SANITIZE_STRING);				
 			}
 			if (isset($_POST['vendorstate'])) {
@@ -58,6 +69,51 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			}
 
 
+			$number_of_cities = 0;
+			$number_of_zips = 0;
+			$number_of_trades = 0;
+			$number_of_certs = 0;
+
+
+			foreach ($vendors_in_db as $vendor) {
+				if ($vendor->vendorcity === $vendorcity) {
+					$number_of_cities++;
+				}
+				if ($vendor->vendorzip === $vendorzip) {
+					$number_of_zips++;
+				}
+				if ($vendor->vendortrade === $vendortrade) {
+					$number_of_trades++;
+				}
+				if ($vendor->vendorcerts === $vendorcerts) {
+					$number_of_certs++;
+				}
+			}
+
+			if ($number_of_cities == 1) {
+				$vendor_cities_table_array = array('vendorcity' => $vendorcity);
+				$vendor_cities_table_mask_array = array('%s');
+				$wpdb->delete($vendor_cities_table, $vendor_cities_table_array, $vendor_cities_table_mask_array);
+			}
+
+			if ($number_of_zips == 1) {
+				$vendor_zips_table_array = array('vendorzip' => $vendorzip);
+				$vendor_zips_table_mask_array = array('%s');
+				$wpdb->delete($vendor_zips_table, $vendor_zips_table_array, $vendor_zips_table_mask_array);
+			}
+
+			if ($number_of_trades == 1) {
+				$vendor_trades_table_array = array('vendortrade' => $vendortrade);
+				$vendor_trades_table_mask_array = array('%s');
+				$wpdb->delete($vendor_trades_table, $vendor_trades_table_array, $vendor_trades_table_mask_array);
+			}
+
+			if ($number_of_certs == 1) {
+				$vendor_certs_table_array = array('vendorcerts' => $vendorcerts);
+				$vendor_certs_table_mask_array = array('%s');
+				$wpdb->delete($vendor_certs_table, $vendor_certs_table_array, $vendor_certs_table_mask_array);
+			}
+			
 			$vendor_array = array(
 				'ID'        => $ID
 			);
@@ -215,15 +271,13 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				$vendortype = filter_var(wp_unslash($_POST['vendortype']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorcerts'])) {
-				$vendorcerts = filter_var(wp_unslash($_POST['vendorcerts']), FILTER_SANITIZE_STRING);
-				$vendor_certs_table_entry = filter_var(wp_unslash($_POST['vendorcerts']), FILTER_SANITIZE_STRING);
+				$vendorcerts = filter_var(wp_unslash($_POST['vendorcerts']), FILTER_SANITIZE_STRING);				
 			}
 			if (isset($_POST['vendorlicense'])) {
 				$vendorlicense = filter_var(wp_unslash($_POST['vendorlicense']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendortrade'])) {
-				$vendortrade = filter_var(wp_unslash($_POST['vendortrade']), FILTER_SANITIZE_STRING);
-				$vendor_trades_table_entry = filter_var(wp_unslash($_POST['vendortrade']), FILTER_SANITIZE_STRING);
+				$vendortrade = filter_var(wp_unslash($_POST['vendortrade']), FILTER_SANITIZE_STRING);				
 			}
 			if (isset($_POST['vendoraddress'])) {
 				$vendoraddress = filter_var(wp_unslash($_POST['vendoraddress']), FILTER_SANITIZE_STRING);
@@ -232,15 +286,13 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				$vendoraddress2 = filter_var(wp_unslash($_POST['vendoraddress2']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorcity'])) {
-				$vendorcity = filter_var(wp_unslash($_POST['vendorcity']), FILTER_SANITIZE_STRING);
-				$vendor_cities_table_entry = filter_var(wp_unslash($_POST['vendorcity']), FILTER_SANITIZE_STRING);
+				$vendorcity = filter_var(wp_unslash($_POST['vendorcity']), FILTER_SANITIZE_STRING);				
 			}
 			if (isset($_POST['vendorstate'])) {
 				$vendorstate = filter_var(wp_unslash($_POST['vendorstate']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorzip'])) {
-				$vendorzip = filter_var(wp_unslash($_POST['vendorzip']), FILTER_SANITIZE_STRING);
-				$vendor_zips_table_entry = filter_var(wp_unslash($_POST['vendorzip']), FILTER_SANITIZE_STRING);
+				$vendorzip = filter_var(wp_unslash($_POST['vendorzip']), FILTER_SANITIZE_STRING);				
 			}
 			if (isset($_POST['vendorphone'])) {
 				$vendorphone = filter_var(wp_unslash($_POST['vendorphone']), FILTER_SANITIZE_STRING);
