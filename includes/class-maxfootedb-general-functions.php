@@ -328,9 +328,9 @@ if ( ! class_exists( 'MaxFootedb_General_Functions', false ) ) :
 			$sql_create_table6 = "CREATE TABLE {$wpdb->maxfootedb_vendor_certs}
 			(
 				ID bigint(190) auto_increment,
-				vendorcert varchar(255),
+				vendorcerts varchar(255),
 				PRIMARY KEY  (ID),
-				KEY vendorcert (vendorcert)
+				KEY vendorcerts (vendorcerts)
 			) $charset_collate; ";
 
 			// If table doesn't exist, create table and add initial data to it.
