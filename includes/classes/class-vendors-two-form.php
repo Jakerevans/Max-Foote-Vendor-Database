@@ -33,9 +33,12 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 		public $create_search_ui_html = '';
 		public $create_search_ui_results_html = '';
 		public $create_individual_vendors_html = '';
+		public $create_pagination_html = '';
 		public $create_closing_html = '';
 		public $final_echoed_html = '';
 		public $final_grabbed_params = '';
+		public $total_vendors_count = 0;
+		public $pagination_display_limit = 2;
 
 
 		/**
@@ -55,6 +58,8 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 			$this->create_individual_vendors_html();
 
+			$this->create_pagination_html();
+
 			$this->create_closing_html();
 		}
 
@@ -73,7 +78,14 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 			global $wpdb;
 			$this->vendor_table    = $wpdb->prefix . 'maxfootedb_vendors';
-			$this->vendordbresults = $wpdb->get_results("SELECT * FROM $this->vendor_table");
+			$this->vendordbresults = $wpdb->get_results("SELECT * FROM $this->vendor_table LIMIT $this->pagination_display_limit");
+
+			$count_query = "select count(*) from $this->vendor_table";
+    		$this->total_vendors_count = $wpdb->get_var( $count_query );
+
+
+
+
 
 			// URI
 			$uri = $_SERVER['REQUEST_URI'];
@@ -333,7 +345,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 				// console_log($value);
 
 				$string2 = $string2 . '
-					<div class="maxfoote-vendor-udpate-container maxfoote-search-vendors">
+					<div style="display:none;" class="maxfoote-vendor-udpate-container maxfoote-search-vendors">
 					<button class="accordion maxfoote-vendor-update-container-accordion-heading maxfoote-vendor-search-udpate-container-update-heading">
 						' . $value->vendorname . '
 					</button>
@@ -710,7 +722,49 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 
 
 
+		/**
+		 * Outputs all HTML elements on the page.
+		 */
+		public function create_pagination_html()
+		{
+			global $wpdb;
 
+			//$this->total_vendors_count
+
+			$pagination_option_html = '';
+			echo $loop_control_whole_numbers = floor( $this->total_vendors_count / $this->pagination_display_limit );
+			for ($i=0; $i < $loop_control_whole_numbers; $i++) { 
+				$pagination_option_html = $pagination_option_html  . '<option>Page ' . ( $i + 1 ) . '</option>';
+			}
+
+
+
+
+
+			$string1 = '
+				<div class="maxfoote-pagination-top-container">
+					<div class="maxfoote-pagination-inner-container">
+
+						<div>
+							<div>Previous</div>
+							<div>
+								<select>
+									' . $pagination_option_html . '
+								</select>
+							</div>
+							<div>Next</div>
+
+						</div>
+
+					</div>
+
+
+				</div>
+			';
+
+
+			$this->create_pagination_html = $string1;
+		}
 
 
 
@@ -738,7 +792,7 @@ if (!class_exists('Maxfoote_settings2_Form', false)) :
 		public function stitch_ui_html()
 		{
 
-			$this->final_echoed_html = $this->create_opening_html . $this->create_search_ui_html . $this->create_individual_vendors_html . $this->create_closing_html;
+			$this->final_echoed_html = $this->create_opening_html . $this->create_search_ui_html . $this->create_individual_vendors_html . $this->create_pagination_html . $this->create_closing_html;
 		}
 	}
 endif;
