@@ -36,15 +36,15 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 					');';
 				echo $js_code;
 			}
-		
+
 			global $wpdb;
 			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
-			$vendor_cities_table = $wpdb->prefix . 'maxfootedb_vendor_cities';			
+			$vendor_cities_table = $wpdb->prefix . 'maxfootedb_vendor_cities';
 			$vendor_zips_table = $wpdb->prefix . 'maxfootedb_vendor_zips';
 			$vendor_trades_table = $wpdb->prefix . 'maxfootedb_vendor_trades';
 			$vendor_certs_table = $wpdb->prefix . 'maxfootedb_vendor_certs';
 
-			$vendors_in_db = $wpdb->get_results("SELECT * FROM $vendor_table");			
+			$vendors_in_db = $wpdb->get_results("SELECT * FROM $vendor_table");
 
 			$ID = '';
 			$vendorcity = '';
@@ -53,19 +53,19 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				$ID = filter_var(wp_unslash($_POST['ID']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorcity'])) {
-				$vendorcity = filter_var(wp_unslash($_POST['vendorcity']), FILTER_SANITIZE_STRING);				
+				$vendorcity = filter_var(wp_unslash($_POST['vendorcity']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorstate'])) {
 				$vendorstate = filter_var(wp_unslash($_POST['vendorstate']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorzip'])) {
-				$vendorzip = filter_var(wp_unslash($_POST['vendorzip']), FILTER_SANITIZE_STRING);				
+				$vendorzip = filter_var(wp_unslash($_POST['vendorzip']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendortrade'])) {
-				$vendortrade = filter_var(wp_unslash($_POST['vendortrade']), FILTER_SANITIZE_STRING);				
+				$vendortrade = filter_var(wp_unslash($_POST['vendortrade']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorcerts'])) {
-				$vendorcerts = filter_var(wp_unslash($_POST['vendorcerts']), FILTER_SANITIZE_STRING);			
+				$vendorcerts = filter_var(wp_unslash($_POST['vendorcerts']), FILTER_SANITIZE_STRING);
 			}
 
 
@@ -113,7 +113,7 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				$vendor_certs_table_mask_array = array('%s');
 				$wpdb->delete($vendor_certs_table, $vendor_certs_table_array, $vendor_certs_table_mask_array);
 			}
-			
+
 			$vendor_array = array(
 				'ID'        => $ID
 			);
@@ -129,8 +129,16 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			wp_die($result);
 		}
 
-		public function maxfootedb_admin_update_search_tables($vendorname, $vendorcity, $vendorzip, $vendortrade, $vendorcerts){
+		public function maxfootedb_admin_update_search_tables($vendorname, $vendorcity, $vendorzip, $vendortrade, $vendorcerts)
+		{
 			global $wpdb;
+
+			// function console_log($output)
+			// {
+			// 	$js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) .
+			// 		');';
+			// 	echo $js_code;
+			// }
 
 			$vendor_cities_table_entry = ucwords($vendorcity);
 			$vendor_zips_table_entry = $vendorzip;
@@ -160,75 +168,139 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			$vendor_trades_table_array = array('vendortrade' => $vendor_trades_table_entry);
 			$vendor_trades_table_mask_array = array('%s');
 
-			$vendor_certs_table_array = array('vendorcert' => $vendor_certs_table_entry);
+			$vendor_certs_table_array = array('vendorcerts' => $vendor_certs_table_entry);
 			$vendor_certs_table_mask_array = array('%s');
 
 			$results = $wpdb->get_row("SELECT * FROM $vendor_table WHERE vendorname = '$vendorname'");
 
-			if (null === $results) { 
-				wp_die('Something is very wrong'); 
+			$original_city = $results->vendorcity;
+			$original_zip = $results->vendorzip;
+			$original_trades = $results->vendortrades;
+			$original_certs = $results->vendorcerts;
+
+			$delete_vendor_cities_table_array = array('vendorcity' => $original_city);
+			$delete_vendor_cities_table_mask_array = array('%s');
+
+			$delete_vendor_zips_table_array = array('vendorzip' => $original_zip);
+			$delete_vendor_zips_table_mask_array = array('%s');
+
+			$delete_vendor_trades_table_array = array('vendortrade' => $original_trades);
+			$delete_vendor_trades_table_mask_array = array('%s');
+
+			$delete_vendor_certs_table_array = array('vendorcerts' => $original_certs);
+			$delete_vendor_certs_table_mask_array = array('%s');
+
+			$add_city = true;
+			$add_zip = true;
+			$add_trades = true;
+			$add_certs = true;
+
+			$original_city_count = 0;
+			$original_zip_count = 0;
+			$original_trades_count = 0;
+			$original_certs_count = 0;
+
+			// console_log("starting search logic");
+
+			foreach ($vendor_cities_in_db as $vendor_city) {
+				if ($vendor_city->vendorcity === $vendor_cities_table_entry) {
+					$add_city = false;
+					// console_log("same city");
+					break;
+				}
+				if ($vendor_city->vendorcity === $original_city) {
+					// console_log("same city as the original");
+					$original_city_count++;
+					if ($original_city_count > 1) {
+						break;
+					}
+				}
+				// console_log("original city count: " . $original_city_count);
+			}
+
+			// console_log("passed city logic");
+
+			if ($add_city) {
+				$add_vendor_cities_table_entry = $wpdb->insert($vendor_cities_table, $vendor_cities_table_array, $vendor_cities_table_mask_array);
+				// console_log("city added in search table");
+			}
+
+			if ($original_city_count == 1) {
+				$delete_vendor_cities_table_entry = $wpdb->delete($vendor_cities_table, $delete_vendor_cities_table_array, $delete_vendor_cities_table_mask_array);
+				// console_log("original city deleted from search table");
 			} else {
-				$add_city = true;
-				$add_zip = true;
-				$add_trade = true;
-				$add_cert = true;
+				// console_log("original city stays");
+				return;
+			}
 
 
-				foreach ($vendor_cities_in_db as $vendor_city) {
-					if ($vendor_city->vendorcity === $vendor_cities_table_entry) {
-						$add_city = false;
-						break;
-					}
+			foreach ($vendor_zips_in_db as $vendor_zip) {
+				if ($vendor_zip->vendorzip === $vendor_zips_table_entry) {
+					$add_zip = false;
+					// console_log("The zip already exists!");
+					break;
 				}
-
-				if ($add_city) {
-					$add_vendor_cities_table_entry = $wpdb->insert($vendor_cities_table, $vendor_cities_table_array, $vendor_cities_table_mask_array);
+				if ($vendor_zip->vendorzip === $original_zip) {
+					$original_zip_count++;
 				}
+			}
+
+			if ($add_zip) {
+				$add_vendor_zips_table_entry = $wpdb->insert($vendor_zips_table, $vendor_zips_table_array, $vendor_zips_table_mask_array);
+			}
+
+			if ($original_zip_count = 1) {
+				$delete_vendor_zips_table_entry = $wpdb->delete($vendor_zips_table, $delete_vendor_zips_table_array, $delete_vendor_zips_table_mask_array);
+			}
 
 
-				foreach ($vendor_zips_in_db as $vendor_zip) {
-					if ($vendor_zip->vendorzip === $vendor_zips_table_entry) {
-						$add_zip = false;
-						console_log("The zip already exists!");
-						break;
-					}
+			foreach ($vendor_trades_in_db as $vendor_trades) {
+				// console_log($vendor_trades);
+				if ($vendor_trades->vendortrade === $vendor_trades_table_entry) {
+					$add_trades = false;
+					// console_log("The trade already exists!");
+					break;
 				}
-
-				if ($add_zip) {
-					$add_vendor_zips_table_entry = $wpdb->insert($vendor_zips_table, $vendor_zips_table_array, $vendor_zips_table_mask_array);
+				if ($vendor_trades->vendortrade === $original_trades) {
+					$original_trades_count++;
 				}
+			}
+
+			if ($add_trades) {
+				$add_vendor_trades_table_entry = $wpdb->insert($vendor_trades_table, $vendor_trades_table_array, $vendor_trades_table_mask_array);
+			}
+
+			if ($original_trades_count = 1) {
+				$delete_vendor_trades_table_entry = $wpdb->delete($vendor_trades_table, $delete_vendor_trades_table_array, $delete_vendor_trades_table_mask_array);
+			}
 
 
-				foreach ($vendor_trades_in_db as $vendor_trade) {
-					console_log($vendor_trade);
-					if ($vendor_trade->vendortrade === $vendor_trades_table_entry) {
-						$add_trade = false;
-						console_log("The trade already exists!");
-						break;
-					}
+			foreach ($vendor_certs_in_db as $vendor_certs) {
+				// console_log($vendor_certs);
+				if ($vendor_certs->vendorcerts === $vendor_certs_table_entry) {
+					$add_certs = false;
+					// console_log("The cert already exists!");
+					break;
 				}
-
-				if ($add_trade) {
-					$add_vendor_trades_table_entry = $wpdb->insert($vendor_trades_table, $vendor_trades_table_array, $vendor_trades_table_mask_array);
+				if ($vendor_certs->vendorcerts === $original_certs) {
+					$original_certs_count++;
 				}
+			}
 
+			if ($add_certs) {
+				$add_vendor_certs_table_entry = $wpdb->insert($vendor_certs_table, $vendor_certs_table_array, $vendor_certs_table_mask_array);
+			}
 
-				foreach ($vendor_certs_in_db as $vendor_cert) {
-					console_log($vendor_cert);
-					if ($vendor_cert->vendorcert === $vendor_certs_table_entry) {
-						$add_cert = false;
-						console_log("The cert already exists!");
-						break;
-					}
-				}
+			if ($original_certs_count = 1) {
+				$delete_vendor_certs_table_entry = $wpdb->delete($vendor_certs_table, $delete_vendor_certs_table_array, $delete_vendor_certs_table_mask_array);
+			}
 
-				if ($add_cert) {
-					$add_vendor_certs_table_entry = $wpdb->insert($vendor_certs_table, $vendor_certs_table_array, $vendor_certs_table_mask_array);
-				}
-
+			if (null === $results) {
+				wp_die('Something is very wrong');
+			} else {
 				// The techincal correct way to stop this entire function from executing, and correctly return data back to our requesting Javascript function, to then use that data to display a message back to the user of some kind.
 				wp_die($results);
-			} 
+			}
 		}
 
 		/**
@@ -271,13 +343,13 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				$vendortype = filter_var(wp_unslash($_POST['vendortype']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorcerts'])) {
-				$vendorcerts = filter_var(wp_unslash($_POST['vendorcerts']), FILTER_SANITIZE_STRING);				
+				$vendorcerts = filter_var(wp_unslash($_POST['vendorcerts']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorlicense'])) {
 				$vendorlicense = filter_var(wp_unslash($_POST['vendorlicense']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendortrade'])) {
-				$vendortrade = filter_var(wp_unslash($_POST['vendortrade']), FILTER_SANITIZE_STRING);				
+				$vendortrade = filter_var(wp_unslash($_POST['vendortrade']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendoraddress'])) {
 				$vendoraddress = filter_var(wp_unslash($_POST['vendoraddress']), FILTER_SANITIZE_STRING);
@@ -286,13 +358,13 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				$vendoraddress2 = filter_var(wp_unslash($_POST['vendoraddress2']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorcity'])) {
-				$vendorcity = filter_var(wp_unslash($_POST['vendorcity']), FILTER_SANITIZE_STRING);				
+				$vendorcity = filter_var(wp_unslash($_POST['vendorcity']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorstate'])) {
 				$vendorstate = filter_var(wp_unslash($_POST['vendorstate']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorzip'])) {
-				$vendorzip = filter_var(wp_unslash($_POST['vendorzip']), FILTER_SANITIZE_STRING);				
+				$vendorzip = filter_var(wp_unslash($_POST['vendorzip']), FILTER_SANITIZE_STRING);
 			}
 			if (isset($_POST['vendorphone'])) {
 				$vendorphone = filter_var(wp_unslash($_POST['vendorphone']), FILTER_SANITIZE_STRING);
@@ -348,17 +420,22 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			*/
 
 			$vendor_table = $wpdb->prefix . 'maxfootedb_vendors';
-			
+
 			$results = $wpdb->get_row("SELECT * FROM $vendor_table WHERE vendorname = '$vendorname'");
 
 			console_log($results);
 
-			if (null === $results){
+			if (null === $results) {
 
 				$result = $wpdb->insert($wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array);
 
-				$this->maxfootedb_admin_update_search_tables($vendorname,
-				$vendorcity, $vendorzip, $vendortrade, $vendorcerts);
+				$this->maxfootedb_admin_update_search_tables(
+					$vendorname,
+					$vendorcity,
+					$vendorzip,
+					$vendortrade,
+					$vendorcerts
+				);
 			} else {
 				wp_die("Entry already exists");
 			}
@@ -485,8 +562,13 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 				$where_format = array('%d');
 				$result = $wpdb->update($vendor_table, $vendor_array, $where, $format, $where_format);
 
-				$this->maxfootedb_admin_update_search_tables($vendorname,
-				$vendorcity, $vendorzip, $vendortrade, $vendorcerts);
+				$this->maxfootedb_admin_update_search_tables(
+					$vendorname,
+					$vendorcity,
+					$vendorzip,
+					$vendortrade,
+					$vendorcerts
+				);
 
 				wp_die($result);
 			}
@@ -510,82 +592,88 @@ if (!class_exists('MaxFootedb_Ajax_Functions', false)) :
 			if (isset($_POST['finaldocurl'])) {
 				$finaldocurl = filter_var(wp_unslash($_POST['finaldocurl']), FILTER_SANITIZE_STRING);
 			}
-		
+
 			// Open the file for reading
-			if (($h = fopen($finaldocurl, "r")) !== FALSE) 
-			{
-			  $row = 1;
-			  // Convert each line into the local $data variable
-			  while (($data = fgetcsv($h, 1000, ",")) !== FALSE) 
-			  {		
+			if (($h = fopen($finaldocurl, "r")) !== FALSE) {
+				$row = 1;
+				// Convert each line into the local $data variable
+				while (($data = fgetcsv($h, 1000, ",")) !== FALSE) {
 
 
-			  	$num = count($data);
+					$num = count($data);
 
-			  	 for ($c=0; $c < $num; $c++) {
-			  	 	//error_log($c);
+					for ($c = 0; $c < $num; $c++) {
+						//error_log($c);
 
+						$vendorname = $data[2];
+						$vendortype = $data[0];
+						$vendorcerts = $data[1];
+						$vendorlicense = '';
+						$vendortrade = $data[8];
+						$vendoraddress = $data[3];
+						$vendoraddress2 = $data[4];
+						$vendorcity = $data[5];
+						$vendorstate = $data[6];
+						$vendorzip = $data[7];
+						$vendorphone = $data[10];
+						$vendorcontact = $data[11] . ' ' . $data[12];
+						$vendoremail = $data[14];
+						$vendorenterprise = '';
+						$vendorlastupdated = date('Y-m-d', time());
+						$eventlocation = '';
+						$vendornotes = '';
 
+						//  error_log($data[2]);
 
-		          //  error_log($data[2]);
+						$vendor_array = array(
+							'vendorname'        => $vendorname,
+							'vendortype'        => $vendortype,
+							'vendorcerts'       => $vendorcerts,
+							'vendorlicense'     => $vendorlicense,
+							'vendortrade'       => $vendortrade,
+							'vendoraddress'     => $vendoraddress,
+							'vendoraddress2'    => $vendoraddress2,
+							'vendorcity'        => $vendorcity,
+							'vendorstate'       => $vendorstate,
+							'vendorzip'         => $vendorzip,
+							'vendorphone'       => $vendorphone,
+							'vendorcontact'     => $vendorcontact,
+							'vendoremail'       => $vendoremail,
+							'vendorenterprise'  => $vendorenterprise,
+							'vendorlastupdated' => $vendorlastupdated,
+							'eventlocation'     => $eventlocation,
+							'vendornotes'		=> $vendornotes
+						);
+					}
 
-		            $vendor_array = array(
-						'vendorname'        => $data[2],
-						'vendortype'        => $data[0],
-						'vendorcerts'       => $data[1],
-						'vendorlicense'     => '',
-						'vendortrade'       => $data[8],
-						'vendoraddress'     => $data[3],
-						'vendoraddress2'    => $data[4],
-						'vendorcity'        => $data[5],
-						'vendorstate'       => $data[6],
-						'vendorzip'         => $data[7],
-						'vendorphone'       => $data[10],
-						'vendorcontact'     => $data[11] . ' ' . $data[12],
-						'vendoremail'       => $data[14],
-						'vendorenterprise'  => '',
-						'vendorlastupdated' => date( 'Y-m-d', time() ) ,
-						'eventlocation'     => '',
-						'vendornotes'		=> ''
+					$vendor_mask_array = array(
+						'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'
 					);
-		        }
-
-		        $vendor_mask_array = array(
-					'%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'
-				);
 
 
-				/* This one needs to be used when you are pretty sure there are multiple items that will be returned from the Database.
+					/* This one needs to be used when you are pretty sure there are multiple items that will be returned from the Database.
 				$wpdb->get_results()
 				// This one needs to be used when you are positive there is only one possbille result that could be grabbed from the Database.
 				$wpdb->get_row();
 				*/
 
-				
-				$result = $wpdb->insert($wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array);
+
+					$result = $wpdb->insert($wpdb->prefix . 'maxfootedb_vendors', $vendor_array, $vendor_mask_array);
+
+					$this->maxfootedb_admin_update_search_tables($vendorname, $vendorcity, $vendorzip, $vendortrade, $vendorcerts);
 
 
-			    // Read the data from a single line
-			  }
+					// Read the data from a single line
+				}
 
-			  // Close the file
-			  fclose($h);
+				// Close the file
+				fclose($h);
 			}
 
 
 
-			wp_die('gfddfgs');
+			wp_die('Vendors have been uploaded via csv');
 		}
-
-
-
-
-
-
-
-
-
-
 	}
 endif;
 
